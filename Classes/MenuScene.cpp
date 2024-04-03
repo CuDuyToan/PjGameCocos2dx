@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "LevelSelectScene.h"
 #include "AudioEngine.h"
+#include "Player.h"
 
 USING_NS_CC;
 
@@ -17,10 +18,10 @@ bool MenuScene::init() {
         return false;
     }
 
-    CCLOG("mainmenu kkkkkkkkkkkkkkkkkk");
-
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+
 
     createButton();
     playBackGroundMusic();
@@ -31,10 +32,15 @@ bool MenuScene::init() {
     createImageGura();
 
     //GameScene::createTileMap();
-    
+
+
+
+    CCLOG("main menu 666666666666");
 
     return true;
 }
+
+
 
 bool  MenuScene::isBackgroundMusicPlaying()
 {
@@ -43,14 +49,18 @@ bool  MenuScene::isBackgroundMusicPlaying()
 
 void MenuScene::playBackGroundMusic()
 {
-    if ( isBackgroundMusicPlaying() == false )
+    if (isBackgroundMusicPlaying() == false)
     {
-        CCLOG("playing back ground music");
+
         // Phát âm thanh nền
         musicID = cocos2d::AudioEngine::play2d("Music/Gura-BGM2.mp3", true);
     }
+    else
+    {
+        CCLOG("no background sound");
+    }
 
-    
+
 }
 
 //createBG error
@@ -135,20 +145,10 @@ void MenuScene::createButton()
         origin.y + visibleSize.height / 2));
     menu->alignItemsVertically();
 
-    int x = menu->getPositionX();
-    int y = menu->getPositionY();
-
-    CCLOG("x = %d y= %d", x, y);
-
     addChild(menu);
 }
 
 void MenuScene::menuPlayCallback(Ref* pSender) {
-    //tao gamescene
-    CCLOG("play");
-    /*auto gameScene = GameScene::createScene();
-    Director::getInstance()->replaceScene(gameScene);*/
-
     auto selectLevel = LevelSelectScene::createScene();
     Director::getInstance()->replaceScene(selectLevel);
 }
@@ -160,7 +160,7 @@ void MenuScene::menuOptionsCallback(cocos2d::Ref* pSender)
 }
 
 void MenuScene::increaseBackgroundMusicVolume(float volumeDelta) {
-    CCLOG("volume + %f" , volumeDelta);
+    CCLOG("volume + %f", volumeDelta);
     float newVolume = AudioEngine::getVolume(musicID) + volumeDelta;
     AudioEngine::setVolume(musicID, newVolume);
 }
@@ -220,8 +220,8 @@ void MenuScene::createAhhSharkSprite()
 
     Animate* animate = Animate::create(animation);
     Sprite* sprite = Sprite::create();
-    sprite->setPosition(Vec2(origin.x + visibleSize.width - visibleSize.width/4,
-        origin.y + visibleSize.height - visibleSize.height/10));
+    sprite->setPosition(Vec2(origin.x + visibleSize.width - visibleSize.width / 4,
+        origin.y + visibleSize.height - visibleSize.height / 10));
     this->addChild(sprite);
     sprite->runAction(RepeatForever::create(animate));
 }
@@ -235,7 +235,7 @@ void MenuScene::createImageGura()
     auto image = Sprite::create("imageGura/GuraMeme (160).png");
 
     image->setPosition(origin.x + visibleSize.width - visibleSize.width / 10,
-        origin.y + visibleSize.height - (visibleSize.height - image->getContentSize().height/2));
+        origin.y + visibleSize.height - (visibleSize.height - image->getContentSize().height / 2));
     //image->setScale(2);
     auto rotateAction = RepeatForever::create(RotateBy::create(2.0f, -360)); // 360 độ trong 1 giây
     image->runAction(rotateAction);

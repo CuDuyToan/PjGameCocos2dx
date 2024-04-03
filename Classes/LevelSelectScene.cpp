@@ -14,8 +14,6 @@ bool LevelSelectScene::init() {
         return false;
     }
 
-    CCLOG("LevelSelect");
-
     mainBackGround();
     menuButton();
     createCasualButton();
@@ -26,17 +24,21 @@ bool LevelSelectScene::init() {
 
 void LevelSelectScene::levelSelectedCallback(cocos2d::Ref* pSender) {
     auto button = dynamic_cast<cocos2d::MenuItem*>(pSender);
-    
+
     if (button) {
         int selectedLevel = button->getTag(); // Lấy tag của nút đã chọn
         // Chuyển đến màn chơi của cấp độ đã chọn
         // Ví dụ: 
         // cocos2d::Director::getInstance()->replaceScene(GameScene::createScene(selectedLevel));
 
-        auto playLevel = GameScene::createScene();
+        auto playLevel = GameScene::createPhysicsWorld();
         Director::getInstance()->replaceScene(playLevel);
 
-        CCLOG("%d", selectedLevel);
+
+    }
+    else
+    {
+        CCLOG("can not select level");
     }
 }
 
@@ -68,12 +70,12 @@ void LevelSelectScene::createLevelText()
     // Tạo một menu
     auto menu = Menu::create();
     menu->setPosition(Vec2::ZERO);
-    this->addChild(menu,1);
+    this->addChild(menu, 1);
 
 
     // Vị trí ban đầu của hàng nút
     auto startButton = Sprite::create("CasualButton/CGB03-blue_M_btn.png");
-    startButton->setContentSize(startButton->getContentSize() * 0.35);
+    startButton->setContentSize(startButton->getContentSize() * 0.35f);
 
     auto labelStart = cocos2d::Label::createWithTTF("Level 00", "fonts/arial.ttf", 24);
 
@@ -90,7 +92,7 @@ void LevelSelectScene::createLevelText()
     for (int row = 0; row < numRows; ++row) {
         for (int col = 0; col < numCols; ++col) {
             // Tạo văn bản cho nút
-            std::string labelText = "Level " + std::to_string((col+1)+row * 5);
+            std::string labelText = "Level " + std::to_string((col + 1) + row * 5);
             auto label = cocos2d::Label::createWithTTF(labelText, "fonts/arial.ttf", 24);
             label->setAnchorPoint(Vec2(1, 1));
 
@@ -102,22 +104,17 @@ void LevelSelectScene::createLevelText()
 
             // Đặt vị trí cho nút
             menuItem->setPosition(Vec2(startX + col * (startButton->getContentSize().width + startButton->getContentSize().width / 2),
-                startY - (row * (startButton->getContentSize().height + startButton->getContentSize().height /2))));
+                startY - (row * (startButton->getContentSize().height + startButton->getContentSize().height / 2))));
 
             // Thêm nút vào menu
             menu->addChild(menuItem);
         }
     }
 
-    CCLOG("end create level button");
-
     //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-    
+
 }
-
-
-
 
 void LevelSelectScene::createCasualButton()
 {
@@ -131,20 +128,20 @@ void LevelSelectScene::createCasualButton()
 
     // Tọa độ ban đầu cho sprite
     auto startSprite = Sprite::create("CasualButton/CGB03-blue_M_btn.png");
-    startSprite->setContentSize(startSprite->getContentSize() * 0.35);
+    startSprite->setContentSize(startSprite->getContentSize() * 0.35f);
 
-    Vec2 startPos((origin.x + visibleSize.width / 2) - startSprite->getContentSize().width* 3  ,
-        (origin.y + (visibleSize.height / 3)*2) /*- startSprite->getContentSize().height * 3*/);
+    Vec2 startPos((origin.x + visibleSize.width / 2) - startSprite->getContentSize().width * 3,
+        (origin.y + (visibleSize.height / 3) * 2) /*- startSprite->getContentSize().height * 3*/);
 
     // Vòng lặp để tạo các sprite và xếp chúng vào grid
     for (int row = 0; row < numRows; ++row) {
         for (int col = 0; col < numCols; ++col) {
             // Tạo sprite cho mỗi level
             auto sprite = Sprite::create("CasualButton/CGB03-blue_M_btn.png");
-            sprite->setContentSize(sprite->getContentSize() * 0.35);
+            sprite->setContentSize(sprite->getContentSize() * 0.35f);
 
             // Tính toán vị trí cho sprite
-            Vec2 spritePos = startPos + Vec2((sprite->getContentSize().width + (sprite->getContentSize().width)/2) * col,
+            Vec2 spritePos = startPos + Vec2((sprite->getContentSize().width + (sprite->getContentSize().width) / 2) * col,
                 -((sprite->getContentSize().height + (sprite->getContentSize().height) / 2) * row));
 
 
@@ -182,7 +179,7 @@ void LevelSelectScene::menuButton()
     /*homeButton->setContentSize(homeButton->getContentSize() * 0.1);*/
     homeButton->setScale(0.25);
     homeButton->setAnchorPoint(Vec2(1, 1));
-    homeButton->setPosition(Vec2(visibleSize.width - homeButton->getContentSize().width/10,
+    homeButton->setPosition(Vec2(visibleSize.width - homeButton->getContentSize().width / 10,
         visibleSize.height - homeButton->getContentSize().width / 10)); // Đặt vị trí cho nút Home
 
     // Tạo menu và thêm nút Home vào menu

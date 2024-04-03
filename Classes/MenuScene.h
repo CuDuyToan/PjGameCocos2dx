@@ -2,11 +2,15 @@
 #define __MENU_SCENE_H__
 
 #include "cocos2d.h"
+#include "Player.h"
 
 class MenuScene : public cocos2d::Scene {
 public:
     static cocos2d::Scene* createScene();
+
     virtual bool init();
+
+
     void menuPlayCallback(cocos2d::Ref* pSender);
     void menuOptionsCallback(cocos2d::Ref* pSender);
     void menuExitCallback(cocos2d::Ref* pSender);
