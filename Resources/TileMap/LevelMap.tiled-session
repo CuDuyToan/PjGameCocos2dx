@@ -1,0 +1,48 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Map1.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "CartoonArt.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "Map1.tmx": {
+            "expandedGroupLayers": [
+                4,
+                10
+            ],
+            "scale": 0.33,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 595.4545454545455,
+                "y": 616.6666666666667
+            }
+        }
+    },
+    "last.imagePath": "D:/tilemap tool/extract/free/44pes_games_plataformer_grass_tileset_v2.1/tileset",
+    "map.height": 12,
+    "map.lastUsedFormat": "tmx",
+    "map.layerDataFormat": null,
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 16,
+    "openFiles": [
+        "Map1.tmx",
+        "CartoonArt.tsx"
+    ],
+    "project": "LevelMap.tiled-project",
+    "recentFiles": [
+        "CartoonArt.tsx",
+        "Map1.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
+}
