@@ -1,5 +1,6 @@
 ﻿#include "GameScene.h"
 #include "Player.h"
+#include "LevelSelectScene.h"
 
 USING_NS_CC;
 
@@ -14,7 +15,7 @@ bool GameScene::init() {
     }
     CCLOG("Game scene 12121");
 
-    this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_NONE);
     this->getPhysicsWorld()->setGravity(Vec2(0, -2000));
 
     createBackGroundGame();
@@ -91,7 +92,9 @@ void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
         }
 
         break;
-
+    case EventKeyboard::KeyCode::KEY_ESCAPE:
+        backToSelectLevelScene();
+        break;
     default:
         break;
     }
@@ -394,4 +397,19 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
     }
 
     return true;
+}
+
+
+void GameScene::pauseGame()
+{
+    this->unscheduleAllCallbacks();
+    this->stopAllActions();
+
+
+}
+
+void GameScene::backToSelectLevelScene() 
+{
+    auto selectLevel = LevelSelectScene::createScene();
+    Director::getInstance()->replaceScene(selectLevel);
 }

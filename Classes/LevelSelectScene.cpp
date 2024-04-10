@@ -66,6 +66,7 @@ void LevelSelectScene::createLevelText()
     // Số lượng hàng và cột
     int numRows = 3;
     int numCols = 5;
+    int maxLevel = 1;
 
     // Tạo một menu
     auto menu = Menu::create();
@@ -91,23 +92,27 @@ void LevelSelectScene::createLevelText()
     // Vòng lặp để tạo các sprite và xếp chúng vào grid
     for (int row = 0; row < numRows; ++row) {
         for (int col = 0; col < numCols; ++col) {
-            // Tạo văn bản cho nút
-            std::string labelText = "Level " + std::to_string((col + 1) + row * 5);
-            auto label = cocos2d::Label::createWithTTF(labelText, "fonts/arial.ttf", 24);
-            label->setAnchorPoint(Vec2(1, 1));
+            if (maxLevel <= a)
+            {
+                // Tạo văn bản cho nút
+                std::string labelText = "Level " + std::to_string((col + 1) + row * 5);
+                auto label = cocos2d::Label::createWithTTF(labelText, "fonts/arial.ttf", 24);
+                label->setAnchorPoint(Vec2(1, 1));
 
-            // Tạo nút với văn bản
-            auto menuItem = cocos2d::MenuItemLabel::create(label,
-                CC_CALLBACK_1(LevelSelectScene::levelSelectedCallback, this));
-            menuItem->setContentSize(startButton->getContentSize());
-            menuItem->setTag((col + 1) + row * 5);
+                // Tạo nút với văn bản
+                auto menuItem = cocos2d::MenuItemLabel::create(label,
+                    CC_CALLBACK_1(LevelSelectScene::levelSelectedCallback, this));
+                menuItem->setContentSize(startButton->getContentSize());
+                menuItem->setTag((col + 1) + row * 5);
 
-            // Đặt vị trí cho nút
-            menuItem->setPosition(Vec2(startX + col * (startButton->getContentSize().width + startButton->getContentSize().width / 2),
-                startY - (row * (startButton->getContentSize().height + startButton->getContentSize().height / 2))));
+                // Đặt vị trí cho nút
+                menuItem->setPosition(Vec2(startX + col * (startButton->getContentSize().width + startButton->getContentSize().width / 2),
+                    startY - (row * (startButton->getContentSize().height + startButton->getContentSize().height / 2))));
 
-            // Thêm nút vào menu
-            menu->addChild(menuItem);
+                // Thêm nút vào menu
+                menu->addChild(menuItem);
+                maxLevel++;
+            }
         }
     }
 

@@ -31,6 +31,10 @@ public:
     bool onContactSeparate(PhysicsContact& contact);
 
     void updateAction(float);
+
+    void backToSelectLevelScene();
+
+    void pauseGame();
     //void increaseGravity(int* grav);
 
     cocos2d::TMXTiledMap* _tilemap;

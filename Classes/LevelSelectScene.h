@@ -19,6 +19,9 @@ public:
     void mainBackGround();
 
     CREATE_FUNC(LevelSelectScene);
+
+private:
+    int a = 2;
 };
 
 
