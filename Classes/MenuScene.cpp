@@ -21,8 +21,6 @@ bool MenuScene::init() {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-
-
     createButton();
     playBackGroundMusic();
 
@@ -121,7 +119,7 @@ void MenuScene::createButton()
         "LargeButton/Exit Button.png",
         "LargeButton/Exit  col_Button.png",
         CC_CALLBACK_1(MenuScene::menuExitCallback, this));
-    exitItem->setScale(0.3);
+    exitItem->setScale(0.3f);
     exitItem->setTag(0);
 
     // Tạo nút "Play" và thêm vào menu
@@ -129,14 +127,14 @@ void MenuScene::createButton()
         "LargeButton/Play Button.png",
         "LargeButton/Play col_Button.png",
         CC_CALLBACK_1(MenuScene::menuPlayCallback, this));
-    playItem->setScale(0.3);
+    playItem->setScale(0.3f);
     playItem->setTag(2);
     // tao nut "option"
     auto optionsItem = MenuItemImage::create(
         "LargeButton/Options Button.png",
         "LargeButton/Options  col_Button.png",
         CC_CALLBACK_1(MenuScene::menuOptionsCallback, this));
-    optionsItem->setScale(0.3);
+    optionsItem->setScale(0.3f);
     optionsItem->setTag(3);
 
     //tao menu va them cac nut

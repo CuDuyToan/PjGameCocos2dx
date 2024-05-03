@@ -2,6 +2,8 @@
 #define _PLAYER_H_
 
 #include "cocos2d.h"
+//#include "GameScene.h"
+
 using namespace cocos2d;
 
 class Player :public Node
@@ -10,10 +12,18 @@ public:
 	static Player* createPlayer();
 	virtual bool init();
 
+	bool isCollidingWall = false;
+
+	float x = 0;
+	float y = 0;
+	float force = 0;
+
 	Sprite* spritePlayer;
 	//Animate* animatePlayer;
 
 	PhysicsBody* physicPlayer;
+
+	//GameScene* gameScene;
 
 	Animation* createAnimation(std::string tenFrame, int soFrame, float delay);
 
@@ -22,8 +32,6 @@ public:
 	void addSpriteFrames2();
 	void createSprite();
 	void addPhysicBodyForSprite();
-
-	//action
 
 	int checkMovePlayer();
 	bool checkJump();
@@ -35,17 +43,22 @@ public:
 	void setMoveIdle();
 	void Jump();
 	void Grounding();
-	//
+	
+	void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+
+	void updateAction(float dt);
 
 	CREATE_FUNC(Player);
 private:
+
 	bool moveLeft = false;
 	bool moveRight = false;
 	int moveCheck = 0;
 	bool jumpCheck = true;
 	int contactCheck = 0;
 	int inertia = 0;
-	int inertiaMax = 9; // lấy 3/4 chiều rộng sprite *9 ra tốc độ tối đa
+	int inertiaMax = 9; 
 };
 
 #endif// _PLAYER_H_
