@@ -30,6 +30,7 @@
 //	return true;
 //}
 //
+////khong can thiet
 //void CreateButton::createGroupButtonMainMenu()
 //{
 //    auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -69,6 +70,7 @@
 //
 //    addChild(menu);
 //}
+//
 //
 //void CreateButton::createButtonReturnMainMenu()
 //{
@@ -167,18 +169,21 @@
 //
 /////////////////
 //
+//// khong can thiet
 //void CreateButton::exitGameCallBack(cocos2d::Ref* pSender)
 //{
 //    CCLOG("Exit");
 //    Director::getInstance()->end();
 //}
 //
+////khong can thiet
 //void CreateButton::selectLevelGameCallBack(cocos2d::Ref* pSender)
 //{
 //    auto selectLevel = LevelSelectScene::createScene();
 //    Director::getInstance()->replaceScene(selectLevel);
 //}
 //
+////khong can thiet
 //void CreateButton::optionMenuCallBack(cocos2d::Ref* pSender)
 //{
 //    CCLOG("option");
@@ -200,6 +205,11 @@
 //}
 //
 //void CreateButton::resumeGameCallBack(cocos2d::Ref* pSender)
+//{
+//
+//}
+//
+//void CreateButton::replayLevelCallBack(cocos2d::Ref* pSender)
 //{
 //
 //}

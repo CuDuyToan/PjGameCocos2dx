@@ -15,7 +15,7 @@ bool GameScene::init() {
     }
     CCLOG("Game scene 12121");
 
-    this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_NONE);
+    this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     this->getPhysicsWorld()->setGravity(Vec2(0, -2000));
 
     createBackGroundGame();
@@ -59,7 +59,6 @@ void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
         CCLOG("D");
         x = 200;
         player->setMoveR();
-
         break;
     case EventKeyboard::KeyCode::KEY_A:
         CCLOG("A");
@@ -81,7 +80,9 @@ void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
             y = -180;
             player->setMoveD();
         }
-
+        break;
+    case EventKeyboard::KeyCode::KEY_P:
+        pauseGame();
         break;
     case EventKeyboard::KeyCode::KEY_SPACE:
         CCLOG("Space bar");
@@ -402,8 +403,11 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
 
 void GameScene::pauseGame()
 {
-    this->unscheduleAllCallbacks();
+    Director::getInstance()->pause();
+
+    /*this->unscheduleAllCallbacks();
     this->stopAllActions();
+    player->stopAllActions();*/
 
 
 }

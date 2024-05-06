@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="64" height="10" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="8">
+ <tileset firstgid="1" source="CartoonArt.tsx"/>
+ <objectgroup id="3" name="barrier">
+  <object id="5" name="barrier" x="512" y="0" width="64" height="640"/>
+  <object id="7" name="barrier" x="3520" y="0" width="64" height="640"/>
+ </objectgroup>
+ <group id="19" name="hideObject">
+  <layer id="20" name="item" width="64" height="10">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwVAGRgPtgFEw5AAAeCgAMw==
+  </data>
+  </layer>
+  <layer id="21" name="hideChest" width="64" height="10">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwVAGUQPtgFEw5AAA0EgAWw==
+  </data>
+  </layer>
+ </group>
+ <group id="4" name="accsessory">
+  <layer id="12" name="bush_3" width="64" height="10">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMJIBNxDzADEvjfRgUwsTI8duct2BS70UEEsDsQwJ9pKiB5tamBg5dpPrDnLUj4LhCwCSrAML
+  </data>
+  </layer>
+  <layer id="9" name="tree_2" width="64" height="10">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFowACuIGYB4p5B9gtAwGkgFgaimUYEOExUsJCE4i1gNgSiLUZEOEhQ0M7SQljSuODWP3hUBoUHrCwINUsYu0iJYxJjQ90NxCrPw2JHY5DDSGziLULXxhTohabG2Dpm5D+NBxsUtxCiltxhTGlakkNr1Ew8gAAoVUK4Q==
+  </data>
+  </layer>
+  <layer id="11" name="bush_2" width="64" height="10">
+   <data encoding="base64" compression="zlib">
+   eJztjDEKACAMA7urH1D//067FLoUjq7mIBCSEDMhhBCiz3BN1wJ5taU92eUuPP3tsF3HdUFebWlPdrkLT3/FPzxfDwOA
+  </data>
+  </layer>
+  <layer id="8" name="tree_1" width="64" height="10">
+   <data encoding="base64" compression="zlib">
+   eJztk9EJgDAMRPNvXUBdoDqBk7iB+4+gHy2GYK4JSgU1EAQbkpfrNRBRSNnS96JnOTzMwqOhOvfi3R9x3cncOblQZK4zpnHPOX2ni1zojGtj0Sc6uVBkLk3HxdEr0qGZ5ELMXBvrnZa4rH7LXJlJ+mE1zJD9NTbtP9fNeqel/T1vhPeSfkBzNO9omiEtLeeeWuRF1Ev6Ac2RtSW2mvt76mSN583/8d7YALS+E6A=
+  </data>
+  </layer>
+  <layer id="10" name="bush_1" width="64" height="10">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAoYGLiBmAeIeYkUJyRHa3eRoxefWVJALA3EMkSKE5KjFqDEDnS99HDvKBgaAACz5QK/
+  </data>
+  </layer>
+ </group>
+ <group id="5" name="ground">
+  <layer id="1" name="ground" width="64" height="10">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwUgDTCMcC45wDADzngTB
+  </data>
+  </layer>
+ </group>
+ <group id="6" name="backGround"/>
+ <group id="14" name="physicObject">
+  <layer id="16" name="doorOpen" width="64" height="10">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAqGHtABYt2BdsQAAmsgthloR4yCIQsANXoA0Q==
+  </data>
+  </layer>
+  <layer id="15" name="doorClose" width="64" height="10">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAqGHuADYv6BdsQAAlkglhtoR4yCIQsA7EwAWQ==
+  </data>
+  </layer>
+ </group>
+</map>

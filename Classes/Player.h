@@ -24,6 +24,7 @@ public:
 	void addPhysicBodyForSprite();
 
 	//action
+	void playerPause();
 
 	int checkMovePlayer();
 	bool checkJump();

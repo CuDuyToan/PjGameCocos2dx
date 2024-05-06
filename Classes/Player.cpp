@@ -116,6 +116,7 @@ void Player::addPhysicBodyForSprite()
 		Vec2(0, -(spritePlayer->getContentSize().height / 10)));
 	physicPlayer->setDynamic(true);
 	physicPlayer->setGravityEnable(true);
+	physicPlayer->setRotationEnable(false);
 
 
 	physicPlayer->setContactTestBitmask(true);
@@ -182,5 +183,9 @@ void Player::setMoveIdle()
 	animatePlayer->setTag(201);
 	spritePlayer->runAction(RepeatForever::create(animatePlayer));
 	moveCheck = 0;
+}
+
+void Player::playerPause()
+{
 }
 

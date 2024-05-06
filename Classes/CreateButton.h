@@ -21,6 +21,10 @@ public:
 	void createButtonCompleteLevel();
 	void createButtonFailLevel();
 
+	void createButtonArrow();
+	void createButtonBag();
+	void createSettingButton();
+
 	void selectLevelGameCallBack(cocos2d::Ref* pSender);
 	void playLevelCallBack(cocos2d::Ref* pSender);
 	void pauseMenuCallBack(cocos2d::Ref* pSender);

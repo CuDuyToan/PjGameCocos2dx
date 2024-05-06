@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="18" nextobjectid="14">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="37" nextobjectid="40">
  <tileset firstgid="1" source="CartoonArt.tsx"/>
  <layer id="1" name="BackGround" width="16" height="12" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBgFo2DkAgADAAAB
   </data>
  </layer>
- <objectgroup id="12" name="Ground Line" locked="1">
+ <objectgroup id="12" name="Ground Line">
   <object id="2" name="ground" x="5.24949" y="643.937" width="1016.65" height="122.488">
    <properties>
     <property name="body" value="true"/>

@@ -34,6 +34,8 @@ public:
 
     void backToSelectLevelScene();
 
+    void createButtonGame();
+
     void pauseGame();
     //void increaseGravity(int* grav);
 

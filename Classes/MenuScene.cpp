@@ -35,7 +35,7 @@ bool MenuScene::init() {
 
 
 
-    CCLOG("main menu 1111111111111");
+    CCLOG("main menu 32323232 ");
 
     return true;
 }
@@ -141,7 +141,7 @@ void MenuScene::createButton()
 
     //tao menu va them cac nut
     auto menu = Menu::create(playItem, optionsItem, exitItem, nullptr);
-    menu->setPosition(Vec2(origin.x + visibleSize.width - playItem->getContentSize().width / 2,
+    menu->setPosition(Vec2(origin.x + visibleSize.width / 2,
         origin.y + visibleSize.height / 2));
     menu->alignItemsVertically();
 
