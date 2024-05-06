@@ -15,16 +15,35 @@
             "scaleInDock": 0.33,
             "scaleInEditor": 1
         },
+        "D:/tool extract/Game/mygame/Resources/TileMap/CartoonArt.tsx": {
+            "scaleInDock": 1
+        },
+        "D:/tool extract/Game/mygame/Resources/TileMap/GuraAdventureMap1.tmx": {
+            "scale": 0.243994140625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2051.2787672603563,
+                "y": 323.7782669601761
+            }
+        },
+        "D:/tool extract/Game/mygame/Resources/TileMap/Map1.tmx": {
+            "scale": 0.8770182291666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.5321060054932,
+                "y": 384.2565511097914
+            }
+        },
         "Dungeon6.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "GuraAdventureMap1.tmx": {
             "expandedGroupLayers": [
-                19,
                 6,
                 5,
-                14
+                14,
+                19
             ],
             "expandedObjectLayers": [
                 3
@@ -32,8 +51,8 @@
             "scale": 0.33,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1001.5151515151514,
-                "y": 524.2424242424241
+                "x": 856.060606060606,
+                "y": 518.1818181818182
             }
         },
         "Map1.tmx": {
@@ -116,6 +135,8 @@
     ],
     "project": "LevelMap.tiled-project",
     "recentFiles": [
+        "D:/tool extract/Game/mygame/Resources/TileMap/Map1.tmx",
+        "D:/tool extract/Game/mygame/Resources/TileMap/GuraAdventureMap1.tmx",
         "Map1.tmx",
         "CartoonArt.tsx",
         "dungeon3.tsx",
