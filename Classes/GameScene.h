@@ -13,10 +13,10 @@ public:
     virtual bool init();
 
     Player* player;
-    PhysicsBody* physicPlayer;
+    //PhysicsBody* physicPlayer;
 
-    virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-    virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+    /*virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+    virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);*/
 
     bool createTileMap();
 
@@ -30,7 +30,7 @@ public:
     bool onContactBegin(PhysicsContact& contact);
     bool onContactSeparate(PhysicsContact& contact);
 
-    void updateAction(float);
+    //void updateAction(float);
 
     void backToSelectLevelScene();
 
@@ -45,10 +45,10 @@ public:
     CREATE_FUNC(GameScene);
 
 private:
-    int x = 0;
+    /*int x = 0;
     int y = 0;
     int force = 0;
-    bool isCollidingWall = false;
+    bool isCollidingWall = false;*/
     PhysicsWorld* world;
     void setPhysicWorld(PhysicsWorld* _world)
     {

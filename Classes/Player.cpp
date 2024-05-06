@@ -20,26 +20,27 @@ bool Player::init()
 
 	auto moveAction = MoveBy::create(2.0f, Vec2(200, 0));
 
-	//spritePlayer->runAction(moveAction);
-	//createAnimation("GuraWalkVeryBasic(", 3, 0.07f);
-
-	//createSprite();
-
-
-
-
 	CCLOG("player");
+
+    auto keyboardListener = EventListenerKeyboard::create();
+
+    // Gán các hàm xử lý sự kiện cho đối tượng EventListenerKeyboard
+    keyboardListener->onKeyPressed = CC_CALLBACK_2(Player::onKeyPressed, this);
+    keyboardListener->onKeyReleased = CC_CALLBACK_2(Player::onKeyReleased, this);
+
+    // Đăng ký đối tượng EventListenerKeyboard với trình quản lý sự kiện của Layer
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
+
+    this->schedule(CC_SCHEDULE_SELECTOR(Player::updateAction));
 
 	return true;
 }
 
-// chua dung
 void Player::createSprite()
 {
 	spritePlayer = Sprite::create("imageGura/GuraMeme (160).png");
 	spritePlayer->setPosition(Vec2(400, 400));
 
-	// Thêm sprite từ OtherCppFile.cpp vào layer
 	this->addChild(spritePlayer);
 
 	CCLOG("sprite");
@@ -66,7 +67,6 @@ Animation* Player::createAnimation(std::string tenFrame, int soFrame, float dela
 			frames.pushBack(frame);
 		}
 	}
-
 	Animation* animation = Animation::createWithSpriteFrames(frames, delay);
 
 	return animation;
@@ -89,25 +89,6 @@ void Player::addSpriteFrames()
 
 }
 
-//void Player::addSpriteFrames2()
-//{
-//	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("GuraPlayer/GuraWalkVeryBasic.plist",
-//		"GuraPlayer/GuraWalkVeryBasic.png");
-//
-//	spritePlayer = Sprite::createWithSpriteFrameName("GuraWalkVeryBasic (1).png");
-//	spritePlayer->setScale(1);
-//	this->addChild(spritePlayer);
-//
-//	addPhysicBodyForSprite();
-//
-//	animatePlayer = Animate::create(Player::createAnimation("GuraWalkVeryBasic (", 10, 0.07f));
-//	animatePlayer->setTag(1);
-//	spritePlayer->runAction(RepeatForever::create(animatePlayer));
-//
-//	
-//
-//}
-
 void Player::addPhysicBodyForSprite()
 {
 	physicPlayer = PhysicsBody::createBox(Size(
@@ -124,7 +105,6 @@ void Player::addPhysicBodyForSprite()
 
 	this->addComponent(physicPlayer);
 }
-
 
 int Player::checkMovePlayer()
 {
@@ -185,7 +165,128 @@ void Player::setMoveIdle()
 	moveCheck = 0;
 }
 
+<<<<<<< HEAD
 void Player::playerPause()
 {
 }
 
+=======
+void Player::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
+   
+    CCLOG("keyPress");
+    switch (keyCode)
+    {
+    case EventKeyboard::KeyCode::KEY_D:
+        CCLOG("D");
+        x = 200;
+        setMoveR();
+
+        break;
+    case EventKeyboard::KeyCode::KEY_A:
+        CCLOG("A");
+        x = -200;
+        setMoveL();
+        break;
+    case EventKeyboard::KeyCode::KEY_W:
+        CCLOG("W");
+        if (true)
+        {
+            y = 180;
+            setMoveD();
+        }
+        break;
+    case EventKeyboard::KeyCode::KEY_S:
+        CCLOG("S");
+        if (true)
+        {
+            y = -180;
+            setMoveD();
+        }
+
+        break;
+    case EventKeyboard::KeyCode::KEY_SPACE:
+        CCLOG("Space bar");
+        if (checkJump() == false)
+        {
+            force = 450;
+            Jump();
+        }
+
+        break;
+    //case EventKeyboard::KeyCode::KEY_ESCAPE:
+    //    //backToSelectLevelScene();
+    //    break;
+    default:
+        break;
+    }
+}
+
+void Player::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
+    // Xử lý sự kiện khi một phím được thả ra
+    CCLOG("keyReleased");
+    switch (keyCode)
+    {
+    case EventKeyboard::KeyCode::KEY_D:
+        CCLOG("D");
+        if (x == 200)
+        {
+            x = 0;
+            setMoveIdle();
+        }
+        break;
+    case EventKeyboard::KeyCode::KEY_A:
+        CCLOG("A");
+        if (x == -200)
+        {
+            x = 0;
+            setMoveIdle();
+        }
+        break;
+    case EventKeyboard::KeyCode::KEY_W:
+        CCLOG("W");
+        y = 0;
+        //player->setMoveIdle();
+        break;
+    case EventKeyboard::KeyCode::KEY_S:
+        CCLOG("S");
+        y = 0;
+        //player->setMoveIdle();
+        break;
+    case EventKeyboard::KeyCode::KEY_SPACE:
+        CCLOG("Space bar");
+
+        break;
+
+    default:
+        break;
+    }
+}
+
+void Player::updateAction(float dt) {
+
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    // Lấy vật lý thể hiện của sprite
+    auto physicsBody = getPhysicsBody();
+
+    if (checkMovePlayer() == 1)
+    {
+
+    }
+
+    if (!isCollidingWall) {
+        physicsBody->setVelocity(Vec2(x, physicsBody->getVelocity().y));
+    }
+    if (checkJump() == true)
+    {
+        physicsBody->setVelocity(Vec2(physicsBody->getVelocity().x, physicsBody->getVelocity().y + force));
+        force = force - (force * 3 / 4);
+        if (force <= 10)
+        {
+            force = 0;
+        }
+        //CCLOG("%d", force);
+
+    }
+}
+>>>>>>> 7d15a36b18b3b5eb8f31af2167f9718d4cb4f4ac
