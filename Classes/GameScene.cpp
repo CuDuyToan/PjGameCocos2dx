@@ -36,9 +36,22 @@ bool GameScene::init() {
 
     createTileMap();
 
+    auto treasure = Sprite::create("res/khobau.jpg");
+    treasure->setScale(0.1);
+    treasure->setPosition(Vec2(700, 150));
+    auto bodyTL = PhysicsBody::createBox(treasure->getContentSize());
+    bodyTL->setGravityEnable(false);
+    bodyTL->setDynamic(false);
+    bodyTL->setContactTestBitmask(true);
+    bodyTL->setCollisionBitmask(0);
+    treasure->setPhysicsBody(bodyTL);
+    this->addChild(treasure);
+
+
     player = Player::create();
     player->setPosition(Vec2(500, 500));
     addChild(player);
+
 
     auto listener = EventListenerPhysicsContact::create();
     listener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
@@ -49,204 +62,13 @@ bool GameScene::init() {
 }
 
 
-
-<<<<<<< HEAD
-void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
-    // Xử lý sự kiện khi một phím được nhấn
-
-
-    CCLOG("keyPress");
-    switch (keyCode)
-    {
-    case EventKeyboard::KeyCode::KEY_D:
-        CCLOG("D");
-        x = 200;
-        player->setMoveR();
-        break;
-    case EventKeyboard::KeyCode::KEY_A:
-        CCLOG("A");
-        x = -200;
-        player->setMoveL();
-        break;
-    case EventKeyboard::KeyCode::KEY_W:
-        CCLOG("W");
-        if (true)
-        {
-            y = 180;
-            player->setMoveD();
-        }
-        break;
-    case EventKeyboard::KeyCode::KEY_S:
-        CCLOG("S");
-        if (true)
-        {
-            y = -180;
-            player->setMoveD();
-        }
-        break;
-    case EventKeyboard::KeyCode::KEY_P:
-        pauseGame();
-        break;
-    case EventKeyboard::KeyCode::KEY_SPACE:
-        CCLOG("Space bar");
-        if (player->checkJump() == false)
-        {
-            force = 450;
-            player->Jump();
-        }
-
-        break;
-    case EventKeyboard::KeyCode::KEY_ESCAPE:
-        backToSelectLevelScene();
-        break;
-    default:
-        break;
-    }
-}
-
-void GameScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
-    // Xử lý sự kiện khi một phím được thả ra
-    CCLOG("keyReleased");
-    switch (keyCode)
-    {
-    case EventKeyboard::KeyCode::KEY_D:
-        CCLOG("D");
-        if (x == 200)
-        {
-            x = 0;
-            player->setMoveIdle();
-        }
-        break;
-    case EventKeyboard::KeyCode::KEY_A:
-        CCLOG("A");
-        if (x == -200)
-        {
-            x = 0;
-            player->setMoveIdle();
-        }
-        break;
-    case EventKeyboard::KeyCode::KEY_W:
-        CCLOG("W");
-        y = 0;
-        //player->setMoveIdle();
-        break;
-    case EventKeyboard::KeyCode::KEY_S:
-        CCLOG("S");
-        y = 0;
-        //player->setMoveIdle();
-        break;
-    case EventKeyboard::KeyCode::KEY_SPACE:
-        CCLOG("Space bar");
-        //jump
-
-        break;
-
-    default:
-        break;
-    }
-}
-=======
-//void GameScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
-//    // Xử lý sự kiện khi một phím được nhấn
-//
-//
-//    CCLOG("keyPress");
-//    switch (keyCode)
-//    {
-//    case EventKeyboard::KeyCode::KEY_D:
-//        CCLOG("D");
-//        x = 200;
-//        player->setMoveR();
-//
-//        break;
-//    case EventKeyboard::KeyCode::KEY_A:
-//        CCLOG("A");
-//        x = -200;
-//        player->setMoveL();
-//        break;
-//    case EventKeyboard::KeyCode::KEY_W:
-//        CCLOG("W");
-//        if (true)
-//        {
-//            y = 180;
-//            player->setMoveD();
-//        }
-//        break;
-//    case EventKeyboard::KeyCode::KEY_S:
-//        CCLOG("S");
-//        if (true)
-//        {
-//            y = -180;
-//            player->setMoveD();
-//        }
-//
-//        break;
-//    case EventKeyboard::KeyCode::KEY_SPACE:
-//        CCLOG("Space bar");
-//        if (player->checkJump() == false)
-//        {
-//            force = 450;
-//            player->Jump();
-//        }
-//
-//        break;
-//    case EventKeyboard::KeyCode::KEY_ESCAPE:
-//        backToSelectLevelScene();
-//        break;
-//    default:
-//        break;
-//    }
-//}
-//
-//void GameScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
-//    // Xử lý sự kiện khi một phím được thả ra
-//    CCLOG("keyReleased");
-//    switch (keyCode)
-//    {
-//    case EventKeyboard::KeyCode::KEY_D:
-//        CCLOG("D");
-//        if (x == 200)
-//        {
-//            x = 0;
-//            player->setMoveIdle();
-//        }
-//        break;
-//    case EventKeyboard::KeyCode::KEY_A:
-//        CCLOG("A");
-//        if (x == -200)
-//        {
-//            x = 0;
-//            player->setMoveIdle();
-//        }
-//        break;
-//    case EventKeyboard::KeyCode::KEY_W:
-//        CCLOG("W");
-//        y = 0;
-//        //player->setMoveIdle();
-//        break;
-//    case EventKeyboard::KeyCode::KEY_S:
-//        CCLOG("S");
-//        y = 0;
-//        //player->setMoveIdle();
-//        break;
-//    case EventKeyboard::KeyCode::KEY_SPACE:
-//        CCLOG("Space bar");
-//
-//        break;
-//
-//    default:
-//        break;
-//    }
-//}
->>>>>>> 7d15a36b18b3b5eb8f31af2167f9718d4cb4f4ac
-
 bool GameScene::createTileMap()
 {
     //load tile map
     _tilemap = new TMXTiledMap();
     int count = 0;
 
-    if (_tilemap->initWithTMXFile("TileMap/Map1.tmx")) {
+    if (_tilemap->initWithTMXFile("TileMap/GuraAdventureMap1.tmx")) {
         CCLOG("TRUE");
         this->addChild(_tilemap);
 
@@ -266,7 +88,7 @@ bool GameScene::createTileMap()
 void GameScene::getGround()
 {
     // Lấy layer chứa các đối tượng từ Tiled Map
-    auto objectLayer = _tilemap->getObjectGroup("Ground Line");
+    auto objectLayer = _tilemap->getObjectGroup("ground");
 
     if (objectLayer) {
         // Lấy danh sách các đối tượng từ object layer
@@ -449,16 +271,19 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
         {
             if (nodeA->getCollisionBitmask() == 201 || nodeB->getCollisionBitmask() == 201)
             {
-                //physicPlayer->applyForce(Vec2(0, 2000));
-                player->Grounding();
-                CCLOG("Grounding");
+                //player->isColliding = true;
+                
             }
             if (nodeA->getCollisionBitmask() == 202 || nodeB->getCollisionBitmask() == 202)
             {
-                auto physicsBody = player->getPhysicsBody();
-                physicsBody->setVelocity(Vec2((-player->x / player->x), physicsBody->getVelocity().y));
-                player->isCollidingWall = true;
+                /*auto physicsBody = player->getPhysicsBody();
+                physicsBody->setVelocity(Vec2((-player->x / player->x), physicsBody->getVelocity().y));*/
+                player->isColliding = true;
                 CCLOG("begin");
+
+                //player->stopAllActions();
+
+                //player->isColliding = true;
             }
         }
 
@@ -484,9 +309,9 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
             if (nodeA->getCollisionBitmask() == 202 || nodeB->getCollisionBitmask() == 202)
             {
                 /*auto physicsBody = player->getPhysicsBody();
-                physicsBody->setVelocity(Vec2(-x/x, physicsBody->getVelocity().y));*/
-                player->isCollidingWall = false;
-                CCLOG("end");
+                physicsBody->setVelocity(Vec2((-player->getPositionX() / player->getPositionX()), physicsBody->getVelocity().y));*/
+                //player->isColliding = false;
+
             }
         }
     }
@@ -499,14 +324,6 @@ void GameScene::pauseGame()
 {
     Director::getInstance()->pause();
 
-    /*this->unscheduleAllCallbacks();
-    this->stopAllActions();
-<<<<<<< HEAD
-    player->stopAllActions();*/
-
-
-=======
->>>>>>> 7d15a36b18b3b5eb8f31af2167f9718d4cb4f4ac
 }
 
 void GameScene::backToSelectLevelScene() 
