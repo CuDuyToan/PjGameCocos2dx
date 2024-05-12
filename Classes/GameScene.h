@@ -37,6 +37,8 @@ public:
     void createButtonGame();
 
     void pauseGame();
+
+    void moveCamera(float);
     //void increaseGravity(int* grav);
 
     cocos2d::TMXTiledMap* _tilemap;

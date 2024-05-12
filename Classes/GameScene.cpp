@@ -52,11 +52,15 @@ bool GameScene::init() {
     player->setPosition(Vec2(500, 500));
     addChild(player);
 
+   
+
 
     auto listener = EventListenerPhysicsContact::create();
     listener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
     listener->onContactSeparate = CC_CALLBACK_1(GameScene::onContactSeparate, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::moveCamera));
 
     return true;
 }
@@ -330,4 +334,25 @@ void GameScene::backToSelectLevelScene()
 {
     auto selectLevel = LevelSelectScene::createScene();
     Director::getInstance()->replaceScene(selectLevel);
+}
+
+void GameScene::moveCamera(float dt)
+{
+    // Lấy tọa độ của nhân vật
+    auto playerPosition = player->getPosition();
+
+    //// Tính toán vị trí mới cho camera
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto origin = Director::getInstance()->getVisibleOrigin();
+
+    //auto cameraPosition = Vec2(std::max(playerPosition.x, origin.x + visibleSize.width / 2), std::max(playerPosition.y, origin.y + visibleSize.height / 2));
+
+    //// Đặt lại vị trí cho camera
+    //Director::getInstance()->getRunningScene()->setPosition(cameraPosition);
+
+    Vec2 cameraPosition = Vec2(-playerPosition.x + visibleSize.width - visibleSize.width/2,
+        -playerPosition.y + visibleSize.height - visibleSize.height*3/4);
+    Director::getInstance()->getRunningScene()->setPosition(cameraPosition);
+
+    
 }

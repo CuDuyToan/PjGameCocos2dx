@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/theMaze1.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -14,6 +14,17 @@
         "CartoonArt.tsx": {
             "scaleInDock": 0.33,
             "scaleInEditor": 1
+        },
+        "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/Dungeon_Tileset_at.tsx": {
+            "scaleInDock": 1
+        },
+        "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/theMaze1.tmx": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 476.5,
+                "y": 149
+            }
         },
         "D:/tool extract/Game/mygame/Resources/TileMap/CartoonArt.tsx": {
             "scaleInDock": 1
@@ -51,8 +62,8 @@
             "scale": 0.33,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 856.060606060606,
-                "y": 518.1818181818182
+                "x": 2056.060606060606,
+                "y": 321.21212121212113
             }
         },
         "Map1.tmx": {
@@ -102,8 +113,8 @@
             "expandedGroupLayers": [
                 13,
                 15,
-                22,
-                18
+                18,
+                22
             ],
             "scale": 1.5,
             "selectedLayer": 1,
@@ -131,12 +142,11 @@
         "Dungeon6.tsx",
         "levelmapDemo.tmx",
         "MapReview.tmx",
-        "GuraAdventureMap1.tmx"
+        "GuraAdventureMap1.tmx",
+        "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/theMaze1.tmx"
     ],
     "project": "LevelMap.tiled-project",
     "recentFiles": [
-        "D:/tool extract/Game/mygame/Resources/TileMap/Map1.tmx",
-        "D:/tool extract/Game/mygame/Resources/TileMap/GuraAdventureMap1.tmx",
         "Map1.tmx",
         "CartoonArt.tsx",
         "dungeon3.tsx",
@@ -144,9 +154,11 @@
         "levelmapDemo.tmx",
         "MapReview.tmx",
         "GuraAdventureMap1.tmx",
+        "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/theMaze1.tmx",
+        "D:/tool extract/Game/mygame/Resources/TileMap/Map1.tmx",
+        "D:/tool extract/Game/mygame/Resources/TileMap/GuraAdventureMap1.tmx",
         "Map1Demo.tmx",
-        "cartoon.tsx",
-        "swamp.tsx"
+        "cartoon.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

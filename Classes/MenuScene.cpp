@@ -33,7 +33,7 @@ bool MenuScene::init() {
 
 
 
-    CCLOG("main menu 32323232 ");
+    CCLOG("main menu 33333333 ");
 
     return true;
 }
