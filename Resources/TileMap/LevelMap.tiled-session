@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/theMaze1.tmx",
+    "activeFile": "GuraAdventureMap1.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -15,6 +15,17 @@
             "scaleInDock": 0.33,
             "scaleInEditor": 1
         },
+        "D:/tool extract/Game/Gaer/Gaer/Resources/fullmap.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 257,
+                "y": 15638
+            }
+        },
+        "D:/tool extract/Game/Gaer/Gaer/Resources/fullmap.tmx#fullmap": {
+            "scaleInDock": 1
+        },
         "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/Dungeon_Tileset_at.tsx": {
             "scaleInDock": 1
         },
@@ -22,8 +33,8 @@
             "scale": 1,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 476.5,
-                "y": 149
+                "x": 639.5,
+                "y": 384
             }
         },
         "D:/tool extract/Game/mygame/Resources/TileMap/CartoonArt.tsx": {
@@ -52,24 +63,23 @@
         "GuraAdventureMap1.tmx": {
             "expandedGroupLayers": [
                 6,
-                5,
-                14,
-                19
+                14
             ],
             "expandedObjectLayers": [
-                3
+                3,
+                27
             ],
-            "scale": 0.33,
-            "selectedLayer": 0,
+            "scale": 0.75,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 2056.060606060606,
-                "y": 321.21212121212113
+                "x": 3084.6666666666665,
+                "y": 413.3333333333333
             }
         },
         "Map1.tmx": {
             "expandedGroupLayers": [
-                4,
-                10
+                10,
+                4
             ],
             "expandedObjectLayers": [
                 12
@@ -113,14 +123,14 @@
             "expandedGroupLayers": [
                 13,
                 15,
-                18,
-                22
+                22,
+                18
             ],
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 256.33333333333326,
-                "y": 512
+                "x": 255.66666666666669,
+                "y": 511.3333333333333
             }
         },
         "swamp.tsx": {
@@ -153,12 +163,12 @@
         "Dungeon6.tsx",
         "levelmapDemo.tmx",
         "MapReview.tmx",
-        "GuraAdventureMap1.tmx",
         "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/theMaze1.tmx",
+        "GuraAdventureMap1.tmx",
+        "D:/tool extract/Game/Gaer/Gaer/Resources/fullmap.tmx",
         "D:/tool extract/Game/mygame/Resources/TileMap/Map1.tmx",
         "D:/tool extract/Game/mygame/Resources/TileMap/GuraAdventureMap1.tmx",
-        "Map1Demo.tmx",
-        "cartoon.tsx"
+        "Map1Demo.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
