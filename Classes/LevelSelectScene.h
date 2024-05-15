@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 
+using namespace cocos2d;
+
 class LevelSelectScene : public cocos2d::Scene {
 public:
     static cocos2d::Scene* createScene();
@@ -17,6 +19,12 @@ public:
     void createCasualButton();
     void createLevelText();
     void mainBackGround();
+
+    void createButtonPageLevel1();
+
+    void createButtonChangeLevel(const std::string& nameLevel);
+    void createButtonPageLevel2();
+    void createButtonPageLevel3();
 
     CREATE_FUNC(LevelSelectScene);
 
