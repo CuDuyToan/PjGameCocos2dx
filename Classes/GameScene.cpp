@@ -13,7 +13,6 @@ bool GameScene::init() {
     if (!Scene::initWithPhysics()) {
         return false;
     }
-    CCLOG("Game scene 12121");
 
     this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     this->getPhysicsWorld()->setGravity(Vec2(0, -2000));
@@ -36,23 +35,16 @@ bool GameScene::init() {
 
     createTileMap();
 
-    auto treasure = Sprite::create("res/khobau.jpg");
-    treasure->setScale(0.1);
-    treasure->setPosition(Vec2(700, 150));
-    auto bodyTL = PhysicsBody::createBox(treasure->getContentSize());
-    bodyTL->setGravityEnable(false);
-    bodyTL->setDynamic(false);
-    bodyTL->setContactTestBitmask(true);
-    bodyTL->setCollisionBitmask(0);
-    treasure->setPhysicsBody(bodyTL);
-    this->addChild(treasure);
-
-
-    player = Player::create();
-    player->setPosition(Vec2(500, 500));
-    addChild(player);
-
-   
+    //auto treasure = Sprite::create("res/khobau.jpg");
+    //treasure->setScale(0.1);
+    //treasure->setPosition(Vec2(700, 150));
+    //auto bodyTL = PhysicsBody::createBox(treasure->getContentSize());
+    //bodyTL->setGravityEnable(false);
+    //bodyTL->setDynamic(false);
+    //bodyTL->setContactTestBitmask(true);
+    //bodyTL->setCollisionBitmask(0);
+    //treasure->setPhysicsBody(bodyTL);
+    //this->addChild(treasure);
 
 
     auto listener = EventListenerPhysicsContact::create();
@@ -79,6 +71,13 @@ bool GameScene::createTileMap()
         getGround();
         getWall();
         getCeiling();
+        getBarrier();
+        getLocaSpawn();
+        getHideChest();
+        getDoor();
+
+        spawnPlayer(spawnX, spawnY);
+
 
         return true;
 
@@ -204,6 +203,159 @@ void GameScene::getCeiling()
     {
         CCLOG("khong the lay obj tu tiled");
     }
+}
+
+void GameScene::getBarrier()
+{
+    // Lấy layer chứa các đối tượng từ Tiled Map
+    auto objectLayer = _tilemap->getObjectGroup("barrier");
+
+    if (objectLayer) {
+        // Lấy danh sách các đối tượng từ object layer
+        ValueVector objects = objectLayer->getObjects();
+
+        // Duyệt qua từng đối tượng và gán physics body
+        for (const auto& object : objects) {
+            ValueMap objectProperties = object.asValueMap();
+
+            float x = objectProperties["x"].asFloat();
+            float y = objectProperties["y"].asFloat();
+            float width = objectProperties["width"].asFloat();
+            float height = objectProperties["height"].asFloat();
+
+            // Lấy ra tọa độ trái và phải từ physics body
+
+        // Tạo sprite và physics body
+            auto sprite = Sprite::create();
+            auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
+            physicsBody->setDynamic(false);
+            physicsBody->setGravityEnable(false);
+            physicsBody->setContactTestBitmask(true);
+            physicsBody->setCollisionBitmask(204);
+            sprite->setPhysicsBody(physicsBody);
+            // Đặt vị trí cho sprite và thêm vào scene
+            sprite->setPosition(Vec2(x + width / 2, y + height / 2));
+            _tilemap->addChild(sprite);
+        }
+    }
+    else
+    {
+        CCLOG("khong the lay obj tu tiled");
+    }
+}
+
+void GameScene::getHideChest()
+{
+    // Lấy layer chứa các đối tượng từ Tiled Map
+    auto objectLayer = _tilemap->getObjectGroup("hideChest");
+
+    if (objectLayer) {
+        // Lấy danh sách các đối tượng từ object layer
+        ValueVector objects = objectLayer->getObjects();
+
+        // Duyệt qua từng đối tượng và gán physics body
+        for (const auto& object : objects) {
+            ValueMap objectProperties = object.asValueMap();
+
+            float x = objectProperties["x"].asFloat();
+            float y = objectProperties["y"].asFloat();
+            float width = objectProperties["width"].asFloat();
+            float height = objectProperties["height"].asFloat();
+
+            // Lấy ra tọa độ trái và phải từ physics body
+
+        // Tạo sprite và physics body
+            auto sprite = Sprite::create();
+            auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
+            physicsBody->setDynamic(false);
+            physicsBody->setGravityEnable(false);
+            physicsBody->setContactTestBitmask(true);
+            physicsBody->setCollisionBitmask(0);
+            physicsBody->setTag(200);
+
+            sprite->setPhysicsBody(physicsBody);
+            // Đặt vị trí cho sprite và thêm vào scene
+            sprite->setPosition(Vec2(x + width / 2, y + height / 2));
+            _tilemap->addChild(sprite);
+        }
+    }
+    else
+    {
+        CCLOG("khong the lay obj tu tiled");
+    }
+}
+
+void GameScene::getDoor()
+{
+    // Lấy layer chứa các đối tượng từ Tiled Map
+    auto objectLayer = _tilemap->getObjectGroup("door");
+
+    if (objectLayer) {
+        // Lấy danh sách các đối tượng từ object layer
+        ValueVector objects = objectLayer->getObjects();
+
+        // Duyệt qua từng đối tượng và gán physics body
+        for (const auto& object : objects) {
+            ValueMap objectProperties = object.asValueMap();
+
+            float x = objectProperties["x"].asFloat();
+            float y = objectProperties["y"].asFloat();
+            float width = objectProperties["width"].asFloat();
+            float height = objectProperties["height"].asFloat();
+
+            // Lấy ra tọa độ trái và phải từ physics body
+
+        // Tạo sprite và physics body
+            auto sprite = Sprite::create();
+            auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
+            physicsBody->setDynamic(false);
+            physicsBody->setGravityEnable(false);
+            physicsBody->setContactTestBitmask(true);
+            physicsBody->setCollisionBitmask(0);
+            physicsBody->setTag(100);
+
+            sprite->setPhysicsBody(physicsBody);
+            // Đặt vị trí cho sprite và thêm vào scene
+            sprite->setPosition(Vec2(x + width / 2, y + height / 2));
+            _tilemap->addChild(sprite);
+        }
+    }
+    else
+    {
+        CCLOG("khong the lay obj tu tiled");
+    }
+}
+
+void GameScene::getLocaSpawn()
+{
+    // Lấy layer chứa các đối tượng từ Tiled Map
+    auto objectLayer = _tilemap->getObjectGroup("spawnPoint");
+
+    if (objectLayer) {
+        // Lấy danh sách các đối tượng từ object layer
+        ValueVector objects = objectLayer->getObjects();
+
+        // Duyệt qua từng đối tượng và gán physics body
+        for (const auto& object : objects) {
+            ValueMap objectProperties = object.asValueMap();
+
+            spawnX = objectProperties["x"].asFloat();
+            spawnY = objectProperties["y"].asFloat();
+
+            // Lấy ra tọa độ trái và phải từ obj
+        }
+    }
+    else
+    {
+        CCLOG("khong the lay obj tu tiled");
+    }
+}
+
+void GameScene::spawnPlayer(float spawnX, float spawnY)
+{
+    player = Player::create();
+    player->setPosition(Vec2(spawnX, spawnY));
+    this->addChild(player);
 }
 
 //k can

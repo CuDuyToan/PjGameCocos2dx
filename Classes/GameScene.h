@@ -26,6 +26,13 @@ public:
     void getGround();
     void getWall();
     void getCeiling();
+    void getBarrier();
+    void getHideChest();
+    void getDoor();
+
+    void getLocaSpawn();
+
+    void spawnPlayer(float, float);
 
     bool onContactBegin(PhysicsContact& contact);
     bool onContactSeparate(PhysicsContact& contact);
@@ -47,6 +54,10 @@ public:
     CREATE_FUNC(GameScene);
 
 private:
+
+    float spawnX = 0;
+    float spawnY = 0;
+
     /*int x = 0;
     int y = 0;
     int force = 0;
