@@ -20,7 +20,7 @@ bool Player::init()
 
 	auto moveAction = MoveBy::create(2.0f, Vec2(200, 0));
 
-	CCLOG("player");
+	//CCLOG("player");
 
 	/*auto keyboardListener = EventListenerKeyboard::create();
 	keyboardListener->onKeyPressed = CC_CALLBACK_2(Player::onKeyPressed, this);
@@ -61,7 +61,7 @@ void Player::createSprite()
 
 	this->addChild(spritePlayer);
 
-	CCLOG("sprite");
+	//CCLOG("sprite");
 }
 
 Animation* Player::createAnimation(std::string tenFrame, int soFrame, float delay)
@@ -72,7 +72,7 @@ Animation* Player::createAnimation(std::string tenFrame, int soFrame, float dela
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("GuraPlayer/AhhShark.plist",
 		"GuraPlayer/AhhShark.png");
 
-	CCLOG("create Animation");
+	//CCLOG("create Animation");
 
 	Vector<SpriteFrame*> frames;
 	for (int i = 1; i <= soFrame; ++i) {
@@ -289,7 +289,6 @@ bool Player::onTouchBegan(Touch* touch, Event* event)
 
 	auto touchPointInNode = this->getParent()->convertToNodeSpace(touchPoint);
 
-
 	float deltaX = touchPointInNode.x - this->getPositionX();
 
 	if (deltaX < 0)
@@ -338,6 +337,11 @@ bool Player::onPhysicsContactBegin(PhysicsContact& contact)
 	{
 		if (nodeA->getNode() != nullptr && nodeB->getNode() != nullptr)
 		{
+			if (nodeA->getTag() == 100 || nodeB->getTag() == 100)
+			{
+				CCLOG("accecpt");
+			}
+
 			if (nodeA->getCollisionBitmask() == 0)
 			{
 				chat->setVisible(true);
