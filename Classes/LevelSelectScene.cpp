@@ -193,7 +193,7 @@ void LevelSelectScene::createButtonPageLevel1()
     this->addChild(reducedLevel);*/
 
     auto playLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
-    playLevel->setScale(0.3);
+    playLevel->setScale(0.5);
     playLevel->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 250 + origin.y));
     playLevel->addClickEventListener([=](Ref* sender) {
         auto nextScene = GameScene::create();
@@ -202,7 +202,7 @@ void LevelSelectScene::createButtonPageLevel1()
     this->addChild(playLevel);
 
     auto nextLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
-    nextLevel->setScale(0.3);
+    nextLevel->setScale(0.5);
     nextLevel->setPosition(Vec2(visibleSize.width / 2 + 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
     nextLevel->addClickEventListener([=](Ref* sender) {
         createButtonPageLevel2();
@@ -218,7 +218,7 @@ void LevelSelectScene::createButtonPageLevel2()
     createButtonChangeLevel("Level 2");
 
     auto reducedLevel = ui::Button::create("res/UI-73.png", "res/UI-81.png");
-    reducedLevel->setScale(0.3);
+    reducedLevel->setScale(0.5);
     reducedLevel->setPosition(Vec2(visibleSize.width / 2 - 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
     reducedLevel->addClickEventListener([=](Ref* sender) {
         createButtonPageLevel1();
@@ -226,7 +226,7 @@ void LevelSelectScene::createButtonPageLevel2()
     this->addChild(reducedLevel);
 
     auto nextLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
-    nextLevel->setScale(0.3);
+    nextLevel->setScale(0.5);
     nextLevel->setPosition(Vec2(visibleSize.width / 2 + 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
     nextLevel->addClickEventListener([=](Ref* sender) {
         createButtonPageLevel3();
@@ -242,7 +242,7 @@ void LevelSelectScene::createButtonPageLevel3()
     createButtonChangeLevel("Level 3");
 
     auto reducedLevel = ui::Button::create("res/UI-73.png", "res/UI-81.png");
-    reducedLevel->setScale(0.3);
+    reducedLevel->setScale(0.5);
     reducedLevel->setPosition(Vec2(visibleSize.width / 2 - 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
     reducedLevel->addClickEventListener([=](Ref* sender) {
         createButtonPageLevel2();
@@ -269,9 +269,10 @@ void LevelSelectScene::createButtonChangeLevel(const std::string& nameLevel)
     addChild(tableLevel);
 
     auto label = Label::createWithTTF(nameLevel, "fonts/Marker Felt.ttf", 50);
-    label->setPosition(Vec2(tableLevel->getContentSize().width / 2 + origin.x, tableLevel->getContentSize().height / 2 + 300 + origin.y));
+    label->setPosition(Vec2(origin.x + visibleSize.width / 2,
+        origin.y + visibleSize.height / 10 * 7));
     label->setTextColor(Color4B::BLACK);
-    tableLevel->addChild(label);
+    this->addChild(label);
 }
 
 void LevelSelectScene::menuButton()
@@ -284,7 +285,7 @@ void LevelSelectScene::menuButton()
     auto homeSelected = Sprite::create("SquareButton/Home col_Square Button.png");
     auto homeButton = MenuItemSprite::create(homeNormal, homeSelected, CC_CALLBACK_1(LevelSelectScene::homeButton, this));
     /*homeButton->setContentSize(homeButton->getContentSize() * 0.1);*/
-    homeButton->setScale(0.25);
+    homeButton->setScale(0.35);
     homeButton->setAnchorPoint(Vec2(1, 1));
     homeButton->setPosition(Vec2(visibleSize.width - homeButton->getContentSize().width / 10,
         visibleSize.height - homeButton->getContentSize().width / 10)); // Đặt vị trí cho nút Home

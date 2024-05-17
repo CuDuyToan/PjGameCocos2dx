@@ -285,7 +285,13 @@ void Player::setMoveIdle()
 
 bool Player::onTouchBegan(Touch* touch, Event* event)
 {
+
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	auto origin = Director::getInstance()->getVisibleOrigin();
+
 	auto touchPoint = touch->getLocationInView();
+
+
 
 	auto touchPointInNode = this->getParent()->convertToNodeSpace(touchPoint);
 
@@ -301,7 +307,7 @@ bool Player::onTouchBegan(Touch* touch, Event* event)
 	}
 
 	float distanceX = fabs(deltaX);
-	float duration = distanceX / 200.0f;
+	float duration = distanceX / 150.0f;
 
 	this->stopAllActions();
 	//this->runAction(MoveTo::create(duration, Vec2(touchPointInNode.x, this->getPositionY())));
@@ -309,6 +315,7 @@ bool Player::onTouchBegan(Touch* touch, Event* event)
 	{*/
 	this->runAction(Sequence::create(
 		MoveTo::create(duration, Vec2(touchPointInNode.x, this->getPositionY())),
+		//physicsBody->setVelocity(Vec2(x, physicsBody->getVelocity().y)),
 		CallFunc::create([this]() {
 
 			this->setMoveIdle();

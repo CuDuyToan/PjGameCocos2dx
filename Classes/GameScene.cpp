@@ -503,7 +503,7 @@ void GameScene::moveCamera(float dt)
     //Director::getInstance()->getRunningScene()->setPosition(cameraPosition);
 
     Vec2 cameraPosition = Vec2(-playerPosition.x + visibleSize.width - visibleSize.width/2,
-        -playerPosition.y + visibleSize.height - visibleSize.height*3/4);
+        -playerPosition.y + visibleSize.height - visibleSize.height/2);
     Director::getInstance()->getRunningScene()->setPosition(cameraPosition);
 
     
