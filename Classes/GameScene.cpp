@@ -68,6 +68,11 @@ bool GameScene::createTileMap()
         CCLOG("TRUE");
         this->addChild(_tilemap);
 
+        Size MapSize = _tilemap->getMapSize();
+        Size TileSize = _tilemap->getTileSize();
+
+        CalculateMapLimits(MapSize, TileSize);
+
         getGround();
         getWall();
         getCeiling();
@@ -86,6 +91,17 @@ bool GameScene::createTileMap()
         CCLOG("FALSE");
         return false;
     }
+}
+
+void GameScene::CalculateMapLimits(Size MapSize, Size TileSize)
+{
+    MapLimitX = MapSize.width * TileSize.width;
+    MapLimitY = MapSize.height * TileSize.height;
+
+    // In ra giới hạn của map
+    CCLOG("Map Width: %f", MapLimitX);
+    CCLOG("Map Height: %f", MapLimitY);
+
 }
 
 void GameScene::getGround()
@@ -354,6 +370,7 @@ void GameScene::getLocaSpawn()
 void GameScene::spawnPlayer(float spawnX, float spawnY)
 {
     player = Player::create();
+    player->setAnchorPoint(Vec2(0 , 0));
     player->setPosition(Vec2(spawnX, spawnY));
     this->addChild(player);
 }
@@ -488,23 +505,71 @@ void GameScene::backToSelectLevelScene()
     Director::getInstance()->replaceScene(selectLevel);
 }
 
+void GameScene::createCamera(float dt)
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto origin = Director::getInstance()->getVisibleOrigin();
+
+    cameraX = visibleSize.width / 2;
+}
+
 void GameScene::moveCamera(float dt)
 {
     // Lấy tọa độ của nhân vật
-    auto playerPosition = player->getPosition();
+    //auto playerPosition = player->getPosition();
+    auto playerPosition = Vec2(cameraX, cameraY);
 
     //// Tính toán vị trí mới cho camera
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 
-    //auto cameraPosition = Vec2(std::max(playerPosition.x, origin.x + visibleSize.width / 2), std::max(playerPosition.y, origin.y + visibleSize.height / 2));
 
-    //// Đặt lại vị trí cho camera
-    //Director::getInstance()->getRunningScene()->setPosition(cameraPosition);
+    if (((player->getPositionX() + (visibleSize.width / 2)) <= MapLimitX)
+        && ((player->getPositionX() - (visibleSize.width / 2)) >= 0))
+    {
+        cameraX = player->getPositionX();
+        //CCLOG("x = %f", cameraX);
+    }
+    else
+    {
+        if (!((player->getPositionX() + (visibleSize.width / 2)) <= MapLimitX))
+        {
+            cameraX = MapLimitX - (visibleSize.width / 2);
+        }
 
-    Vec2 cameraPosition = Vec2(-playerPosition.x + visibleSize.width - visibleSize.width/2,
-        -playerPosition.y + visibleSize.height - visibleSize.height/2);
+        if (!((player->getPositionX() - (visibleSize.width / 2)) >= 0))
+        {
+            cameraX = 0 + (visibleSize.width / 2);
+        }
+    }
+
+    if (((player->getPositionY() + (visibleSize.height / 2)) <= MapLimitY)
+        && ((player->getPositionY() - (visibleSize.height / 2)) >= 0))
+    {
+        cameraY = player->getPositionY();
+        //CCLOG("y = %f", cameraY);
+    }
+    else
+    {
+        if (!((player->getPositionY() + (visibleSize.height / 2)) <= MapLimitY))
+        {
+            cameraY = MapLimitY - (visibleSize.height / 2);
+        }
+
+        if (!((player->getPositionY() - (visibleSize.height / 2)) >= 0))
+        {
+            cameraY = 0 + (visibleSize.height / 2);
+        }
+    }
+
+//// Đặt lại vị trí cho camera
+    Vec2 cameraPosition = Vec2(-playerPosition.x + visibleSize.width / 2 ,
+        -playerPosition.y + visibleSize.height / 2);
     Director::getInstance()->getRunningScene()->setPosition(cameraPosition);
 
-    
+}
+
+void GameScene::BackToMainMenu()
+{
+
 }

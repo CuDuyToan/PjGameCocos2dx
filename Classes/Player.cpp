@@ -307,7 +307,7 @@ bool Player::onTouchBegan(Touch* touch, Event* event)
 	}
 
 	float distanceX = fabs(deltaX);
-	float duration = distanceX / 150.0f;
+	float duration = distanceX / 500.0f;
 
 	this->stopAllActions();
 	//this->runAction(MoveTo::create(duration, Vec2(touchPointInNode.x, this->getPositionY())));
@@ -330,7 +330,18 @@ bool Player::onTouchBegan(Touch* touch, Event* event)
 		this->setMoveIdle();
 		isColliding = false;
 	}*/
+	//
 
+	Rect rect = this->getBoundingBox();
+
+	if (rect.containsPoint(touch->getLocation()))
+	{
+		CCLOG("character");
+		return true;
+	}
+	return false;
+
+	//
 	return true;
 }
 

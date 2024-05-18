@@ -19,6 +19,7 @@ public:
     virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);*/
 
     bool createTileMap();
+    void CalculateMapLimits(Size map, Size tile);
 
     void addSpriteToTileMap();
     void createBackGroundGame();
@@ -32,7 +33,7 @@ public:
 
     void getLocaSpawn();
 
-    void spawnPlayer(float, float);
+    void spawnPlayer(float x, float y);
 
     bool onContactBegin(PhysicsContact& contact);
     bool onContactSeparate(PhysicsContact& contact);
@@ -42,10 +43,13 @@ public:
     void backToSelectLevelScene();
 
     void createButtonGame();
+    void BackToMainMenu();
 
     void pauseGame();
 
+    void createCamera(float);
     void moveCamera(float);
+
     //void increaseGravity(int* grav);
 
     cocos2d::TMXTiledMap* _tilemap;
@@ -57,6 +61,12 @@ private:
 
     float spawnX = 0;
     float spawnY = 0;
+
+    float MapLimitX = 0;
+    float MapLimitY = 0;
+
+    float cameraX = 0;
+    float cameraY = 0;
 
     /*int x = 0;
     int y = 0;
