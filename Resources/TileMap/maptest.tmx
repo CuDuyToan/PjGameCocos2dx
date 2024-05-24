@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="20" nextobjectid="11">
+ <tileset firstgid="1" source="CartoonArt.tsx"/>
+ <group id="17" name="spawnPoint">
+  <objectgroup id="18" name="spawnPoint">
+   <object id="6" name="spawnPoint" x="64" y="576" width="64" height="64"/>
+  </objectgroup>
+ </group>
+ <group id="10" name="quest">
+  <objectgroup id="19" name="questList">
+   <object id="8" name="quest1" x="938" y="621" width="44" height="71">
+    <properties>
+     <property name="needSprite" value="sprite"/>
+     <property name="request" value="key1"/>
+     <property name="reward" value="next level"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="9" name="door" visible="0">
+  <layer id="11" name="door" width="16" height="12">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo4D+gA+I+SnQLwvEclRwBwAiTABZ
+  </data>
+  </layer>
+  <objectgroup id="15" name="door">
+   <object id="3" name="door" x="911.333" y="584" width="98" height="120"/>
+  </objectgroup>
+ </group>
+ <group id="3" name="accesssory">
+  <layer id="5" name="tree1" width="16" height="12">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgF9ADcQMwDxLxkqpECYmkglsGjH58aTSC2BGJtPPoJqQnHo5cYNWlE6Menhhb2AwB3zQST
+  </data>
+  </layer>
+  <layer id="7" name="tree2" width="16" height="12">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFIMANxDxAzEumOikglgZiGQJqsakDAU0gtgRibQJqsamDgXAizMSmDgbSiDATlzpS1A4m+wFcIQgj
+  </data>
+  </layer>
+  <layer id="8" name="tree3" width="16" height="12">
+   <data encoding="base64" compression="zlib">
+   eJxjYBj6gBuIeYCYl0z9UkAsDcQyZOrXBGJLINYmQy/M3eFk2g1zdxqSGCnhAXM3sv2khAdMH7L9pIQHTB+6/0kNjzQCfFwAAAGqBmo=
+  </data>
+  </layer>
+ </group>
+ <group id="4" name="ground">
+  <layer id="1" name="ground" width="16" height="12">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2DoAiYKMQAHQAAh
+  </data>
+  </layer>
+  <objectgroup id="16" name="ground">
+   <object id="4" name="ground" x="0" y="704" width="1024" height="64"/>
+  </objectgroup>
+ </group>
+ <group id="12" name="hideItem">
+  <objectgroup id="14" name="hideItem">
+   <object id="2" name="key1" x="733.333" y="667.333" width="64" height="64"/>
+   <object id="10" name="keytest" x="640" y="654" width="42" height="50"/>
+  </objectgroup>
+ </group>
+</map>

@@ -33,7 +33,7 @@ bool MenuScene::init() {
 
 
 
-    CCLOG("main menu 22222222222 ");
+    CCLOG("main menu 11");
 
     return true;
 }
@@ -67,7 +67,6 @@ void MenuScene::createBackGround(const std::string& backgroundPath)
     const char* cstr = backgroundPath.c_str();
 
     // In ra chuỗi bằng hàm CCLOG
-    CCLOG("Message: %s", cstr);
 
     // Tạo Sprite từ đường dẫn
     auto background = Sprite::create(cstr);
@@ -153,7 +152,6 @@ void MenuScene::menuPlayCallback(Ref* pSender) {
 
 void MenuScene::menuOptionsCallback(cocos2d::Ref* pSender)
 {
-    CCLOG("Option");
     increaseBackgroundMusicVolume(0.5);
 }
 
@@ -165,7 +163,6 @@ void MenuScene::increaseBackgroundMusicVolume(float volumeDelta) {
 
 void MenuScene::menuExitCallback(cocos2d::Ref* pSender)
 {
-    CCLOG("Exit");
     Director::getInstance()->end();
 }
 

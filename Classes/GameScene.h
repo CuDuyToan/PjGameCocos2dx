@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Player.h"
+#include "MenuLayer.h"
 
 using namespace cocos2d;
 
@@ -13,23 +14,23 @@ public:
     virtual bool init();
 
     Player* player;
-    //PhysicsBody* physicPlayer;
-
-    /*virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-    virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);*/
 
     bool createTileMap();
-    void CalculateMapLimits(Size map, Size tile);
-
-    void addSpriteToTileMap();
-    void createBackGroundGame();
 
     void getGround();
     void getWall();
     void getCeiling();
     void getBarrier();
-    void getHideChest();
+    void getAllQuest();
     void getDoor();
+    void getHideItem();
+
+    void getQuestList();
+
+    void getChildOfTileMapWithName(std::string name);
+    void getItemInNodeContact(Ref* sender, const std::string& message);
+
+    void appearHandButton();
 
     void getLocaSpawn();
 
@@ -38,19 +39,12 @@ public:
     bool onContactBegin(PhysicsContact& contact);
     bool onContactSeparate(PhysicsContact& contact);
 
-    //void updateAction(float);
-
-    void backToSelectLevelScene();
-
-    void createButtonGame();
-    void BackToMainMenu();
-
     void pauseGame();
+    void createUiMenu();
 
-    void createCamera(float);
-    void moveCamera(float);
+    void createButtonHand();
 
-    //void increaseGravity(int* grav);
+    void goToHome(cocos2d::Ref* pSender);
 
     cocos2d::TMXTiledMap* _tilemap;
 
@@ -62,16 +56,15 @@ private:
     float spawnX = 0;
     float spawnY = 0;
 
-    float MapLimitX = 0;
-    float MapLimitY = 0;
+    Layer* menuButton = nullptr;
 
-    float cameraX = 0;
-    float cameraY = 0;
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+    bool onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
 
-    /*int x = 0;
-    int y = 0;
-    int force = 0;
-    bool isCollidingWall = false;*/
+    Sprite* Home = nullptr;
+    Sprite* Dot = nullptr;
+    MenuItemImage* HandButton = nullptr;
+
     PhysicsWorld* world;
     void setPhysicWorld(PhysicsWorld* _world)
     {

@@ -60,6 +60,7 @@ list(APPEND GAME_SOURCE
      Classes/GameScene.cpp
      Classes/HelloWorldScene.cpp
      Classes/LevelSelectScene.cpp
+     Classes/MenuLayer.cpp
      Classes/MenuScene.cpp
      Classes/Player.cpp
      Classes/CreateButton.cpp
@@ -69,6 +70,7 @@ list(APPEND GAME_HEADER
      Classes/GameScene.h
      Classes/HelloWorldScene.h
      Classes/LevelSelectScene.h
+     Classes/MenuLayer.h
      Classes/MenuScene.h
      Classes/Player.h
      Classes/CreateButton.h

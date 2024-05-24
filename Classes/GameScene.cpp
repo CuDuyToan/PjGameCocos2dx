@@ -1,6 +1,8 @@
 ﻿#include "GameScene.h"
 #include "Player.h"
 #include "LevelSelectScene.h"
+#include "MenuScene.h"
+#include "MenuLayer.h"
 
 USING_NS_CC;
 
@@ -17,42 +19,24 @@ bool GameScene::init() {
     this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     this->getPhysicsWorld()->setGravity(Vec2(0, -2000));
 
-    createBackGroundGame();
-
-    // Triển khai Scene chơi game ở đây
-
-    // Đăng ký sự kiện bàn phím với trình quản lý sự kiện
-    //auto keyboardListener = EventListenerKeyboard::create();
-
-    //// Gán các hàm xử lý sự kiện cho đối tượng EventListenerKeyboard
-    //keyboardListener->onKeyPressed = CC_CALLBACK_2(GameScene::onKeyPressed, this);
-    //keyboardListener->onKeyReleased = CC_CALLBACK_2(GameScene::onKeyReleased, this);
-
-    //// Đăng ký đối tượng EventListenerKeyboard với trình quản lý sự kiện của Layer
-    //_eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
-
-    //this->schedule(CC_SCHEDULE_SELECTOR(GameScene::updateAction));
-
     createTileMap();
 
-    //auto treasure = Sprite::create("res/khobau.jpg");
-    //treasure->setScale(0.1);
-    //treasure->setPosition(Vec2(700, 150));
-    //auto bodyTL = PhysicsBody::createBox(treasure->getContentSize());
-    //bodyTL->setGravityEnable(false);
-    //bodyTL->setDynamic(false);
-    //bodyTL->setContactTestBitmask(true);
-    //bodyTL->setCollisionBitmask(0);
-    //treasure->setPhysicsBody(bodyTL);
-    //this->addChild(treasure);
+    createUiMenu();
+    createButtonHand();
 
+     //Thêm event listener cho sự kiện chạm
+    auto touchListener = EventListenerTouchOneByOne::create();
+    touchListener->setSwallowTouches(true);
+    touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+    touchListener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
 
     auto listener = EventListenerPhysicsContact::create();
     listener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
     listener->onContactSeparate = CC_CALLBACK_1(GameScene::onContactSeparate, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::moveCamera));
+    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::update), 0.0f);
 
     return true;
 }
@@ -64,21 +48,17 @@ bool GameScene::createTileMap()
     _tilemap = new TMXTiledMap();
     int count = 0;
 
-    if (_tilemap->initWithTMXFile("TileMap/GuraAdventureMap1.tmx")) {
-        CCLOG("TRUE");
+    if (_tilemap->initWithTMXFile("TileMap/maptest.tmx")) 
+    {
         this->addChild(_tilemap);
-
-        Size MapSize = _tilemap->getMapSize();
-        Size TileSize = _tilemap->getTileSize();
-
-        CalculateMapLimits(MapSize, TileSize);
 
         getGround();
         getWall();
         getCeiling();
-        getBarrier();
+        //getBarrier();
+        getHideItem();
         getLocaSpawn();
-        getHideChest();
+        getAllQuest();
         getDoor();
 
         spawnPlayer(spawnX, spawnY);
@@ -88,26 +68,15 @@ bool GameScene::createTileMap()
 
     }
     else {
-        CCLOG("FALSE");
         return false;
     }
 }
 
-void GameScene::CalculateMapLimits(Size MapSize, Size TileSize)
-{
-    MapLimitX = MapSize.width * TileSize.width;
-    MapLimitY = MapSize.height * TileSize.height;
-
-    // In ra giới hạn của map
-    CCLOG("Map Width: %f", MapLimitX);
-    CCLOG("Map Height: %f", MapLimitY);
-
-}
-
 void GameScene::getGround()
 {
+    std::string obj = "ground";
     // Lấy layer chứa các đối tượng từ Tiled Map
-    auto objectLayer = _tilemap->getObjectGroup("ground");
+    auto objectLayer = _tilemap->getObjectGroup(obj);
 
     if (objectLayer) {
         // Lấy danh sách các đối tượng từ object layer
@@ -139,14 +108,15 @@ void GameScene::getGround()
     }
     else
     {
-        CCLOG("khong the lay obj tu tiled");
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
     }
 }
 
 void GameScene::getWall()
 {
+    std::string obj = "wall";
     // Lấy layer chứa các đối tượng từ Tiled Map
-    auto objectLayer = _tilemap->getObjectGroup("Wall Line");
+    auto objectLayer = _tilemap->getObjectGroup(obj);
 
     if (objectLayer) {
         // Lấy danh sách các đối tượng từ object layer
@@ -178,14 +148,15 @@ void GameScene::getWall()
     }
     else
     {
-        CCLOG("khong the lay obj tu tiled");
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
     }
 }
 
 void GameScene::getCeiling()
 {
+    std::string obj = "ceilling";
     // Lấy layer chứa các đối tượng từ Tiled Map
-    auto objectLayer = _tilemap->getObjectGroup("Ceiling Line");
+    auto objectLayer = _tilemap->getObjectGroup(obj);
 
     if (objectLayer) {
         // Lấy danh sách các đối tượng từ object layer
@@ -217,14 +188,15 @@ void GameScene::getCeiling()
     }
     else
     {
-        CCLOG("khong the lay obj tu tiled");
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
     }
 }
 
 void GameScene::getBarrier()
 {
+    std::string obj = "barrier";
     // Lấy layer chứa các đối tượng từ Tiled Map
-    auto objectLayer = _tilemap->getObjectGroup("barrier");
+    auto objectLayer = _tilemap->getObjectGroup(obj);
 
     if (objectLayer) {
         // Lấy danh sách các đối tượng từ object layer
@@ -256,14 +228,15 @@ void GameScene::getBarrier()
     }
     else
     {
-        CCLOG("khong the lay obj tu tiled");
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
     }
 }
 
-void GameScene::getHideChest()
+void GameScene::getAllQuest()
 {
+    std::string obj = "questList";
     // Lấy layer chứa các đối tượng từ Tiled Map
-    auto objectLayer = _tilemap->getObjectGroup("hideChest");
+    auto objectLayer = _tilemap->getObjectGroup(obj);
 
     if (objectLayer) {
         // Lấy danh sách các đối tượng từ object layer
@@ -277,6 +250,7 @@ void GameScene::getHideChest()
             float y = objectProperties["y"].asFloat();
             float width = objectProperties["width"].asFloat();
             float height = objectProperties["height"].asFloat();
+            std::string name = objectProperties["name"].asString();
 
             // Lấy ra tọa độ trái và phải từ physics body
 
@@ -287,24 +261,47 @@ void GameScene::getHideChest()
             physicsBody->setGravityEnable(false);
             physicsBody->setContactTestBitmask(true);
             physicsBody->setCollisionBitmask(0);
-            physicsBody->setTag(200);
+            physicsBody->setName(name.c_str());
+
+            //tao nut "thao tac voi quest"
+            auto homeNormal = Sprite::create("inGame/handIcon.png");
+            auto homeSelected = Sprite::create("inGame/handIcon.png");
+            homeSelected->setScale(1.1);
+            auto Home = MenuItemSprite::create(
+                homeNormal,
+                homeSelected,
+                std::bind(&GameScene::getItemInNodeContact, this, std::placeholders::_1, name));
+            Home->setScale(0.05);
+            Home->setVisible(false);
+            //Home->setTag(578);
+            Home->setName(name.c_str());
+
+            //tao menu va them cac nut
+            auto menu = Menu::create(Home, nullptr);
+            menu->setPosition(Vec2(x + width / 2, y + height * 2));
+            menu->setTag(578);
+            menu->setName(name.c_str());
+
+            _tilemap->addChild(menu, 100);
 
             sprite->setPhysicsBody(physicsBody);
+            //sprite->setName(name.c_str());
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
-            _tilemap->addChild(sprite);
+            _tilemap->addChild(sprite, -1);
         }
     }
     else
     {
-        CCLOG("khong the lay obj tu tiled");
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
     }
 }
 
 void GameScene::getDoor()
 {
+    std::string obj = "door";
     // Lấy layer chứa các đối tượng từ Tiled Map
-    auto objectLayer = _tilemap->getObjectGroup("door");
+    auto objectLayer = _tilemap->getObjectGroup(obj);
 
     if (objectLayer) {
         // Lấy danh sách các đối tượng từ object layer
@@ -328,7 +325,7 @@ void GameScene::getDoor()
             physicsBody->setGravityEnable(false);
             physicsBody->setContactTestBitmask(true);
             physicsBody->setCollisionBitmask(0);
-            physicsBody->setTag(100);
+            physicsBody->setTag(000);
 
             sprite->setPhysicsBody(physicsBody);
             // Đặt vị trí cho sprite và thêm vào scene
@@ -338,14 +335,232 @@ void GameScene::getDoor()
     }
     else
     {
-        CCLOG("khong the lay obj tu tiled");
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
     }
+}
+
+void GameScene::getHideItem()
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    std::string obj = "hideItem";
+    // Lấy layer chứa các đối tượng từ Tiled Map
+    auto objectLayer = _tilemap->getObjectGroup(obj);
+
+    if (objectLayer) {
+        // Lấy danh sách các đối tượng từ object layer
+        ValueVector objects = objectLayer->getObjects();
+
+        // Duyệt qua từng đối tượng và gán physics body
+        for (const auto& object : objects) {
+            ValueMap objectProperties = object.asValueMap();
+
+            float x = objectProperties["x"].asFloat();
+            float y = objectProperties["y"].asFloat();
+            float width = objectProperties["width"].asFloat();
+            float height = objectProperties["height"].asFloat();
+            std::string name = objectProperties["name"].asString();
+
+            // Lấy ra tọa độ trái và phải từ physics body
+
+        // Tạo sprite và physics body
+            auto sprite = Sprite::create();
+            auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
+            physicsBody->setDynamic(false);
+            physicsBody->setGravityEnable(false);
+            physicsBody->setContactTestBitmask(true);
+            physicsBody->setCollisionBitmask(0);
+            physicsBody->setName(name.c_str());
+
+            //tao nut "thao tac voi quest"
+            auto Home = MenuItemImage::create(
+                "SquareButton/Home Square Button.png",
+                "SquareButton/Home col_Square Button.png",
+                std::bind(&GameScene::getItemInNodeContact, this, std::placeholders::_1, name));
+            Home->setScale(0.1);
+            Home->setVisible(false);
+            Home->setTag(578);
+            Home->setName(name.c_str());
+
+            //tao menu va them cac nut
+            auto menu = Menu::create(Home, nullptr);
+            menu->setPosition(Vec2(x+width/2,y+height*2));
+            menu->setTag(578);
+            menu->setName(name.c_str());
+
+            _tilemap->addChild(menu,100);
+
+            sprite->setPhysicsBody(physicsBody);
+            //sprite->setName(name.c_str());
+            // Đặt vị trí cho sprite và thêm vào scene
+            sprite->setPosition(Vec2(x + width / 2, y + height / 2));
+            _tilemap->addChild(sprite,-1);
+        }
+    }
+    else
+    {
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
+    }
+}
+
+void GameScene::getQuestList()
+{
+    std::string obj = "questList";
+    // Lấy layer chứa các đối tượng từ Tiled Map
+    auto objectLayer = _tilemap->getObjectGroup(obj);
+
+    if (objectLayer) {
+        // Lấy danh sách các đối tượng từ object layer
+        ValueVector objects = objectLayer->getObjects();
+
+        // Duyệt qua từng đối tượng và gán physics body
+        for (const auto& object : objects) {
+            ValueMap objectProperties = object.asValueMap();
+
+            float x = objectProperties["x"].asFloat();
+            float y = objectProperties["y"].asFloat();
+            float width = objectProperties["width"].asFloat();
+            float height = objectProperties["height"].asFloat();
+            int IDquest = objectProperties["IDQuest"].asInt();
+
+            // Lấy ra tọa độ trái và phải từ physics body
+
+        // Tạo sprite và physics body
+            auto sprite = Sprite::create();
+            auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
+            physicsBody->setDynamic(false);
+            physicsBody->setGravityEnable(false);
+            physicsBody->setContactTestBitmask(true);
+            physicsBody->setCollisionBitmask(0);
+            physicsBody->setTag(IDquest);
+
+            sprite->setPhysicsBody(physicsBody);
+            // Đặt vị trí cho sprite và thêm vào scene
+            sprite->setPosition(Vec2(x + width / 2, y + height / 2));
+            _tilemap->addChild(sprite);
+        }
+    }
+    else
+    {
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
+    }
+}
+
+void GameScene::getChildOfTileMapWithName(std::string name)
+{
+    for (const auto& child : _tilemap->getChildren())
+    {
+        if (child->getName() == name.c_str())
+        {
+            for (const auto& childOfChild : child->getChildren())
+            {
+                if (childOfChild->getName() == name.c_str())
+                {
+                    if (!childOfChild->isVisible())
+                    {
+                        CCLOG("da vao5");
+                        childOfChild->setVisible(true);
+                    }
+                    else
+                    {
+                        childOfChild->setVisible(false);
+                    }
+                }
+            }
+            
+            
+        }
+        //std::string name = child->getName();
+        //Vec2 position = child->getPosition();
+        //CCLOG("Child Name: %s, Position: (%f, %f)", name.c_str(), position.x, position.y);
+    }
+}
+
+void GameScene::getItemInNodeContact(Ref* sender, const std::string& message)
+{
+    CCLOG("%s", message.c_str());
+}
+
+void GameScene::appearHandButton()
+{
+
+}
+
+bool GameScene::onTouchBegan(Touch* touch, Event* event) 
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto origin = Director::getInstance()->getVisibleOrigin();
+
+    auto touchPoint = touch->getLocationInView();
+
+    Vec2 location = touch->getLocation();
+    return true;
+
+}
+
+bool GameScene::onTouchEnded(Touch* touch, Event* event)
+{
+    CCLOG("move");
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto origin = Director::getInstance()->getVisibleOrigin();
+
+    auto touchPoint = touch->getLocationInView();
+
+    auto touchPointInNode = this->convertToNodeSpace(touchPoint);
+
+    CCLOG("%f %f", touchPoint.x, touchPoint.y);
+
+    // Kiểm tra nếu touch nằm trong bounding box của player
+    //if (Home->getBoundingBox().containsPoint(touchPointInNode))
+    //{
+    //    CCLOG("player");
+    //    // Tạo một MainMenu Scene mới hoặc lấy ra Scene đã tồn tại
+    //    auto mainMenuScene = MenuScene::createScene();
+
+    //    // Thay thế Scene hiện tại bằng MainMenu Scene
+    //    Director::getInstance()->replaceScene(mainMenuScene);
+    //    return false; // Ngăn chặn sự kiện touch tiếp tục được xử lý
+    //}
+
+    float deltaX = touchPointInNode.x - player->getPositionX();
+
+    if (true)
+    {
+        if (deltaX < 0)
+        {
+            player->setMoveL();
+        }
+        else
+        {
+            player->setMoveR();
+        }
+
+        float distanceX = fabs(deltaX);
+        float duration = distanceX / 500.0f;
+
+        player->stopAllActions();
+        //this->runAction(MoveTo::create(duration, Vec2(touchPointInNode.x, this->getPositionY())));
+        /*if (!isColliding)
+        {*/
+        player->runAction(Sequence::create(
+            MoveTo::create(duration, Vec2(touchPointInNode.x, player->getPositionY())),
+            //physicsBody->setVelocity(Vec2(x, physicsBody->getVelocity().y)),
+            CallFunc::create([this]() {
+                player->setMoveIdle();
+                }),
+            nullptr
+        ));
+    }
+
+    return true;
 }
 
 void GameScene::getLocaSpawn()
 {
+    std::string obj = "spawnPoint";
     // Lấy layer chứa các đối tượng từ Tiled Map
-    auto objectLayer = _tilemap->getObjectGroup("spawnPoint");
+    auto objectLayer = _tilemap->getObjectGroup(obj);
 
     if (objectLayer) {
         // Lấy danh sách các đối tượng từ object layer
@@ -363,7 +578,7 @@ void GameScene::getLocaSpawn()
     }
     else
     {
-        CCLOG("khong the lay obj tu tiled");
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
     }
 }
 
@@ -373,34 +588,6 @@ void GameScene::spawnPlayer(float spawnX, float spawnY)
     player->setAnchorPoint(Vec2(0 , 0));
     player->setPosition(Vec2(spawnX, spawnY));
     this->addChild(player);
-}
-
-//k can
-void GameScene::addSpriteToTileMap()
-{
-    //// Tạo một Scene mới
-    //auto otherScene = Player::create();
-
-    //// Thực hiện chuyển đổi Scene mà không xóa GameScene hiện tại
-    //Director::getInstance()->pushScene(otherScene);
-
-
-
-}
-
-void GameScene::createBackGroundGame()
-{
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    //auto background = Sprite::create("BackGround/backGround.png");
-    auto background = Sprite::create("BackGround/shrimp.png");
-
-    background->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
-    // Thiết lập kích thước của background bằng kích thước hiển thị của cửa sổ
-    background->setScaleX(visibleSize.width / background->getContentSize().width);
-    background->setScaleY(visibleSize.height / background->getContentSize().height);
-    this->addChild(background, -1); // Đặt background ở layer thấp hơn để nó nằm dưới các phần tử khác của Scene
 }
 
 //void GameScene::updateAction(float dt) {
@@ -426,44 +613,51 @@ void GameScene::createBackGroundGame()
 //        {
 //            force = 0;
 //        }
-//        //CCLOG("%d", force);
 //
 //    }
 //}
 
 bool GameScene::onContactBegin(PhysicsContact& contact) {
+
+    //auto nodeA = contact.getShapeA()->getBody()->getNode();
+    //auto nodeB = contact.getShapeB()->getBody()->getNode();
+
     auto nodeA = contact.getShapeA()->getBody();
     auto nodeB = contact.getShapeB()->getBody();
 
-    //scoreLabel->setString("Score: " + std::to_string(score));
-    //CCLOG("onContactBegin");
-
-    if (nodeA->getNode() != nullptr && nodeB->getNode() != nullptr)
+    if (nodeA->getCollisionBitmask() == 100 && nodeB->getCollisionBitmask() == 0 ||
+        nodeA->getCollisionBitmask() == 0 && nodeB->getCollisionBitmask() == 100)
     {
-        if (nodeA->getCollisionBitmask() == 100 || nodeB->getCollisionBitmask() == 100)
+        if (nodeA->getNode() != nullptr && nodeB->getNode() != nullptr)
         {
-            if (nodeA->getCollisionBitmask() == 201 || nodeB->getCollisionBitmask() == 201)
+            if (nodeA->getCollisionBitmask() == 0)
             {
-                //player->isColliding = true;
+                getChildOfTileMapWithName(nodeA->getName().c_str());
+            }
+            else
+            {
+                getChildOfTileMapWithName(nodeB->getName().c_str());
+            }
+            
+            if (nodeA->getTag() == 000 || nodeB->getTag() == 000)
+            {
+                
+
                 
             }
-            if (nodeA->getCollisionBitmask() == 202 || nodeB->getCollisionBitmask() == 202)
+
+            if (nodeA->getCollisionBitmask() == 0)
             {
-                /*auto physicsBody = player->getPhysicsBody();
-                physicsBody->setVelocity(Vec2((-player->x / player->x), physicsBody->getVelocity().y));*/
-                player->isColliding = true;
-                CCLOG("begin");
+                CCLOG("door");
+            }
 
-                //player->stopAllActions();
-
-                //player->isColliding = true;
+            if (nodeB->getCollisionBitmask() == 0)
+            {
+                CCLOG("door");
             }
         }
-
-
     }
-
-
+    
     return true;
 }
 
@@ -472,19 +666,35 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
     auto nodeA = contact.getShapeA()->getBody();
     auto nodeB = contact.getShapeB()->getBody();
 
-    //scoreLabel->setString("Score: " + std::to_string(score));
-    //CCLOG("onContactBegin");
-
-    if (nodeA->getNode() != nullptr && nodeB->getNode() != nullptr)
+    if (nodeA->getCollisionBitmask() == 100 && nodeB->getCollisionBitmask() == 0 ||
+        nodeA->getCollisionBitmask() == 0 && nodeB->getCollisionBitmask() == 100)
     {
-        if (nodeA->getCollisionBitmask() == 100 || nodeB->getCollisionBitmask() == 100)
+        if (nodeA->getNode() != nullptr && nodeB->getNode() != nullptr)
         {
-            if (nodeA->getCollisionBitmask() == 202 || nodeB->getCollisionBitmask() == 202)
+            if (nodeA->getCollisionBitmask() == 0)
             {
-                /*auto physicsBody = player->getPhysicsBody();
-                physicsBody->setVelocity(Vec2((-player->getPositionX() / player->getPositionX()), physicsBody->getVelocity().y));*/
-                //player->isColliding = false;
+                getChildOfTileMapWithName(nodeA->getName().c_str());
+            }
+            else
+            {
+                getChildOfTileMapWithName(nodeB->getName().c_str());
+            }
 
+            if (nodeA->getTag() == 000 || nodeB->getTag() == 000)
+            {
+
+
+
+            }
+
+            if (nodeA->getCollisionBitmask() == 0)
+            {
+                CCLOG("door");
+            }
+
+            if (nodeB->getCollisionBitmask() == 0)
+            {
+                CCLOG("door");
             }
         }
     }
@@ -499,77 +709,42 @@ void GameScene::pauseGame()
 
 }
 
-void GameScene::backToSelectLevelScene() 
-{
-    auto selectLevel = LevelSelectScene::createScene();
-    Director::getInstance()->replaceScene(selectLevel);
-}
-
-void GameScene::createCamera(float dt)
+void GameScene::createUiMenu()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    auto origin = Director::getInstance()->getVisibleOrigin();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    cameraX = visibleSize.width / 2;
+    //tao nut "exit"
+    auto Home = MenuItemImage::create(
+        "SquareButton/Home Square Button.png",
+        "SquareButton/Home col_Square Button.png",
+        CC_CALLBACK_1(GameScene::goToHome, this));
+    Home->setScale(0.3);
+    Home->setPosition(Vec2(visibleSize.width/2 - Home->getContentSize().width / 10 * 2,
+        visibleSize.height/2 - Home->getContentSize().width / 10 * 2));
+    //tao menu va them cac nut
+    auto menu = Menu::create(Home,nullptr);
+
+    addChild(menu);
 }
 
-void GameScene::moveCamera(float dt)
+void GameScene::createButtonHand()
 {
-    // Lấy tọa độ của nhân vật
-    //auto playerPosition = player->getPosition();
-    auto playerPosition = Vec2(cameraX, cameraY);
-
-    //// Tính toán vị trí mới cho camera
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    auto origin = Director::getInstance()->getVisibleOrigin();
-
-
-    if (((player->getPositionX() + (visibleSize.width / 2)) <= MapLimitX)
-        && ((player->getPositionX() - (visibleSize.width / 2)) >= 0))
-    {
-        cameraX = player->getPositionX();
-        //CCLOG("x = %f", cameraX);
-    }
-    else
-    {
-        if (!((player->getPositionX() + (visibleSize.width / 2)) <= MapLimitX))
-        {
-            cameraX = MapLimitX - (visibleSize.width / 2);
-        }
-
-        if (!((player->getPositionX() - (visibleSize.width / 2)) >= 0))
-        {
-            cameraX = 0 + (visibleSize.width / 2);
-        }
-    }
-
-    if (((player->getPositionY() + (visibleSize.height / 2)) <= MapLimitY)
-        && ((player->getPositionY() - (visibleSize.height / 2)) >= 0))
-    {
-        cameraY = player->getPositionY();
-        //CCLOG("y = %f", cameraY);
-    }
-    else
-    {
-        if (!((player->getPositionY() + (visibleSize.height / 2)) <= MapLimitY))
-        {
-            cameraY = MapLimitY - (visibleSize.height / 2);
-        }
-
-        if (!((player->getPositionY() - (visibleSize.height / 2)) >= 0))
-        {
-            cameraY = 0 + (visibleSize.height / 2);
-        }
-    }
-
-//// Đặt lại vị trí cho camera
-    Vec2 cameraPosition = Vec2(-playerPosition.x + visibleSize.width / 2 ,
-        -playerPosition.y + visibleSize.height / 2);
-    Director::getInstance()->getRunningScene()->setPosition(cameraPosition);
-
+    HandButton = MenuItemImage::create(
+        "LargeButton/Exit Button.png",
+        "LargeButton/Exit  col_Button.png",
+        CC_CALLBACK_1(GameScene::goToHome, this));
+    HandButton->setContentSize(HandButton->getContentSize()*0.02);
+    HandButton->setPosition(Vec2(player->getPosition().x + 2, player->getPosition().y));
+    HandButton->setTag(0);
+    //this->addChild(HandButton);
 }
 
-void GameScene::BackToMainMenu()
+void GameScene::goToHome(cocos2d::Ref* pSender)
 {
+    // Tạo một MainMenu Scene mới hoặc lấy ra Scene đã tồn tại
+    auto mainMenuScene = MenuScene::createScene();
 
+    // Thay thế Scene hiện tại bằng MainMenu Scene
+    Director::getInstance()->replaceScene(mainMenuScene);
 }
