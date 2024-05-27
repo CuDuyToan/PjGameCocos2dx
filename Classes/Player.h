@@ -27,9 +27,17 @@ public:
 	void setMoveL();
 	void setMoveR();
 	void setMoveIdle();
+	void setWork();
+
+	bool checkCanMove();
+	std::string items[5] = {};
 
 	CREATE_FUNC(Player);
 private:
+
+	bool canMove = true;
+	void changeCanMove(float dt);
+	
 
 	int contactCheck = 0;
 	int inertia = 0;

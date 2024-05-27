@@ -27,8 +27,12 @@ public:
 
     void getQuestList();
 
-    void getChildOfTileMapWithName(std::string name);
+    void getItemInTileMapWithName(std::string name);
     void getItemInNodeContact(Ref* sender, const std::string& message);
+    void requestItemForNodeContact(Ref* sender, const std::string& request, const std::string& reward);
+    void completeTheQuest();
+    void sortItemInventory();
+    void playerShowItem(float dt);
 
     void appearHandButton();
 
@@ -45,6 +49,7 @@ public:
     void createButtonHand();
 
     void goToHome(cocos2d::Ref* pSender);
+    void goToSelectLevelMenu();
 
     cocos2d::TMXTiledMap* _tilemap;
 

@@ -123,3 +123,30 @@ void Player::setMoveIdle()
 	spritePlayer->runAction(RepeatForever::create(animatePlayer));
 	//playerCanMove = true;
 }
+
+void Player::setWork()
+{
+	canMove = false();
+	if (!canMove)
+	{
+		spritePlayer->stopAllActions();
+		Animate* animatePlayer = Animate::create(Player::createAnimation("GuraWork (", 10, 0.2f));
+		animatePlayer->setTag(201);
+		spritePlayer->runAction(RepeatForever::create(animatePlayer));
+		this->scheduleOnce(CC_SCHEDULE_SELECTOR(Player::changeCanMove), 1.0f);
+	}
+}
+
+void Player::changeCanMove(float dt)
+{
+	canMove = !canMove;
+	if (canMove)
+	{
+		setMoveIdle();
+	}
+}
+
+bool Player::checkCanMove()
+{
+	return canMove;
+}

@@ -37,6 +37,7 @@ bool GameScene::init() {
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     this->schedule(CC_SCHEDULE_SELECTOR(GameScene::update), 0.0f);
+    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::playerShowItem), 0.0f);
 
     return true;
 }
@@ -251,6 +252,8 @@ void GameScene::getAllQuest()
             float width = objectProperties["width"].asFloat();
             float height = objectProperties["height"].asFloat();
             std::string name = objectProperties["name"].asString();
+            std::string request = objectProperties["request"].asString();
+            std::string reward = objectProperties["reward"].asString();//
 
             // Lấy ra tọa độ trái và phải từ physics body
 
@@ -264,23 +267,24 @@ void GameScene::getAllQuest()
             physicsBody->setName(name.c_str());
 
             //tao nut "thao tac voi quest"
-            auto homeNormal = Sprite::create("inGame/handIcon.png");
-            auto homeSelected = Sprite::create("inGame/handIcon.png");
-            homeSelected->setScale(1.1);
-            auto Home = MenuItemSprite::create(
-                homeNormal,
-                homeSelected,
-                std::bind(&GameScene::getItemInNodeContact, this, std::placeholders::_1, name));
-            Home->setScale(0.05);
-            Home->setVisible(false);
-            //Home->setTag(578);
-            Home->setName(name.c_str());
+            auto ButtonNormal = Sprite::create("inGame/button/handIcon.png");
+            auto ButtonSelected = Sprite::create("inGame/button/handIcon.png");
+            ButtonNormal->setScale(0.5);
+            ButtonSelected->setScale(0.6);
+            auto buttonGetItem = MenuItemSprite::create(
+                ButtonNormal,
+                ButtonSelected,
+                std::bind(&GameScene::requestItemForNodeContact, this, std::placeholders::_1, request, reward));
+            buttonGetItem->setScale(0.1);
+            buttonGetItem->setVisible(false);
+            buttonGetItem->setTag(578);
+            buttonGetItem->setName("button");
+            buttonGetItem->setAnchorPoint(Vec2(0.5, 0));
 
             //tao menu va them cac nut
-            auto menu = Menu::create(Home, nullptr);
+            auto menu = Menu::create(buttonGetItem, nullptr);
             menu->setPosition(Vec2(x + width / 2, y + height * 2));
-            menu->setTag(578);
-            menu->setName(name.c_str());
+            menu->setName("menu " + name);
 
             _tilemap->addChild(menu, 100);
 
@@ -361,41 +365,51 @@ void GameScene::getHideItem()
             float width = objectProperties["width"].asFloat();
             float height = objectProperties["height"].asFloat();
             std::string name = objectProperties["name"].asString();
+            int layer = objectProperties["layer"].asInt();
+            std::string spritePath = "inGame/itemSprite/" + name + ".png";
 
             // Lấy ra tọa độ trái và phải từ physics body
 
         // Tạo sprite và physics body
-            auto sprite = Sprite::create();
-            auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
-            physicsBody->setDynamic(false);
-            physicsBody->setGravityEnable(false);
-            physicsBody->setContactTestBitmask(true);
-            physicsBody->setCollisionBitmask(0);
-            physicsBody->setName(name.c_str());
+            auto sprite = Sprite::create(spritePath.c_str());
+            if (sprite)
+            {
+                auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
+                physicsBody->setDynamic(false);
+                physicsBody->setGravityEnable(false);
+                physicsBody->setContactTestBitmask(true);
+                physicsBody->setCollisionBitmask(0);
+                physicsBody->setName(name.c_str());
 
-            //tao nut "thao tac voi quest"
-            auto Home = MenuItemImage::create(
-                "SquareButton/Home Square Button.png",
-                "SquareButton/Home col_Square Button.png",
-                std::bind(&GameScene::getItemInNodeContact, this, std::placeholders::_1, name));
-            Home->setScale(0.1);
-            Home->setVisible(false);
-            Home->setTag(578);
-            Home->setName(name.c_str());
+                //tao nut "thao tac voi quest"
+                auto ButtonNormal = Sprite::create("inGame/button/handIcon.png");
+                auto ButtonSelected = Sprite::create("inGame/button/handIcon.png");
+                ButtonSelected->setScale(1.1);
+                auto buttonGetItem = MenuItemSprite::create(
+                    ButtonNormal,
+                    ButtonSelected,
+                    std::bind(&GameScene::getItemInNodeContact, this, std::placeholders::_1, name));
+                buttonGetItem->setScale(0.1);
+                buttonGetItem->setVisible(false);
+                buttonGetItem->setTag(578);
+                buttonGetItem->setName("button");
 
-            //tao menu va them cac nut
-            auto menu = Menu::create(Home, nullptr);
-            menu->setPosition(Vec2(x+width/2,y+height*2));
-            menu->setTag(578);
-            menu->setName(name.c_str());
+                //tao menu va them cac nut
+                auto menu = Menu::create(buttonGetItem, nullptr);
+                menu->setPosition(Vec2(x + width / 2, y + height * 2));
+                menu->setName("menu " + name);
 
-            _tilemap->addChild(menu,100);
+                _tilemap->addChild(menu, 100);
 
-            sprite->setPhysicsBody(physicsBody);
-            //sprite->setName(name.c_str());
-            // Đặt vị trí cho sprite và thêm vào scene
-            sprite->setPosition(Vec2(x + width / 2, y + height / 2));
-            _tilemap->addChild(sprite,-1);
+                sprite->setContentSize(Size(width, height));
+                sprite->setPhysicsBody(physicsBody);
+                //sprite->setName(name.c_str());
+                // Đặt vị trí cho sprite và thêm vào scenes
+                sprite->setPosition(Vec2(x + width / 2, y + height / 2));
+                sprite->setName("sprite " + name);
+                _tilemap->addChild(sprite, layer);
+            }
+            
         }
     }
     else
@@ -447,39 +461,113 @@ void GameScene::getQuestList()
     }
 }
 
-void GameScene::getChildOfTileMapWithName(std::string name)
+void GameScene::getItemInTileMapWithName(std::string name)
 {
-    for (const auto& child : _tilemap->getChildren())
-    {
-        if (child->getName() == name.c_str())
+    auto nameItem = _tilemap->getChildByName("menu "+name);
+    if (nameItem) {
+        CCLOG("[%s]", nameItem->getName().c_str());
+        auto button = nameItem->getChildByName("button");
+        if (button)
         {
-            for (const auto& childOfChild : child->getChildren())
-            {
-                if (childOfChild->getName() == name.c_str())
-                {
-                    if (!childOfChild->isVisible())
-                    {
-                        CCLOG("da vao5");
-                        childOfChild->setVisible(true);
-                    }
-                    else
-                    {
-                        childOfChild->setVisible(false);
-                    }
-                }
+            if (!button->isVisible()) {
+                button->setVisible(true);
             }
-            
-            
+            else
+            {
+                button->setVisible(false);
+            }
         }
-        //std::string name = child->getName();
-        //Vec2 position = child->getPosition();
-        //CCLOG("Child Name: %s, Position: (%f, %f)", name.c_str(), position.x, position.y);
     }
 }
 
-void GameScene::getItemInNodeContact(Ref* sender, const std::string& message)
+void GameScene::getItemInNodeContact(Ref* sender, const std::string& name)
 {
-    CCLOG("%s", message.c_str());
+    CCLOG("name item %s", name.c_str());
+    for (int i = 0; i < 5; ++i)
+    {
+        if (player->items[i] == "")
+        {
+            player->items[i] = name.c_str();
+            //_tilemap->getChildByName("menu "+ name)->removeFromParent();
+            auto menu = _tilemap->getChildByName("menu "+name);
+            auto sprite = _tilemap->getChildByName("sprite " + name);
+            if (menu)
+            {
+                menu->removeFromParent();
+            }
+            if (sprite)
+            {
+                sprite->removeFromParent();
+            }
+            break;
+        }
+        else
+        {
+            if (i == 4)
+            {
+                CCLOG("inventory full");
+            }
+        }
+    }
+}
+
+void GameScene::requestItemForNodeContact(Ref* sender, const std::string& request, const std::string& reward)
+{
+    bool found = false;
+    CCLOG("requestItem");
+    for (int i = 0; i < 5; i++)
+    {
+        if (player->items[i] == reward && reward == "next level")
+        {
+            goToSelectLevelMenu();
+            return;
+        }
+    }
+    for (int i = 0; i < 5; i++)
+    {
+        player->setWork();
+        if (player->items[i] == request.c_str()) {
+            player->items[i] = "";
+            found = true;
+            CCLOG("delete %s", request.c_str());
+            CCLOG("delete check [%s]", player->items[i].c_str());
+
+            for (int j = i; j < 5; j++)
+            {
+                if (player->items[j] == "")
+                {
+                    player->items[4] = reward;
+                    CCLOG("take [%s]", reward.c_str());
+                    break;
+                }
+            }
+            break;
+        }
+    }
+
+    if (!found)
+    {
+
+    }
+}
+
+void GameScene::sortItemInventory()
+{
+    for (int i = 0; i < 5; ++i)
+    {
+        if (player->items[i] == "")
+        {
+            for (int j = i; j < 5; ++j)
+            {
+                if (player->items[j] != "")
+                {
+                    player->items[i] = player->items[j]; 
+                    player->items[j] = "";
+                    break;
+                }
+            }
+        }
+    }
 }
 
 void GameScene::appearHandButton()
@@ -525,7 +613,7 @@ bool GameScene::onTouchEnded(Touch* touch, Event* event)
 
     float deltaX = touchPointInNode.x - player->getPositionX();
 
-    if (true)
+    if (player->checkCanMove())
     {
         if (deltaX < 0)
         {
@@ -551,6 +639,10 @@ bool GameScene::onTouchEnded(Touch* touch, Event* event)
                 }),
             nullptr
         ));
+    }
+    else
+    {
+        CCLOG("cant move");
     }
 
     return true;
@@ -632,11 +724,11 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
         {
             if (nodeA->getCollisionBitmask() == 0)
             {
-                getChildOfTileMapWithName(nodeA->getName().c_str());
+                getItemInTileMapWithName(nodeA->getName().c_str());
             }
             else
             {
-                getChildOfTileMapWithName(nodeB->getName().c_str());
+                getItemInTileMapWithName(nodeB->getName().c_str());
             }
             
             if (nodeA->getTag() == 000 || nodeB->getTag() == 000)
@@ -673,11 +765,11 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
         {
             if (nodeA->getCollisionBitmask() == 0)
             {
-                getChildOfTileMapWithName(nodeA->getName().c_str());
+                getItemInTileMapWithName(nodeA->getName().c_str());
             }
             else
             {
-                getChildOfTileMapWithName(nodeB->getName().c_str());
+                getItemInTileMapWithName(nodeB->getName().c_str());
             }
 
             if (nodeA->getTag() == 000 || nodeB->getTag() == 000)
@@ -702,6 +794,52 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
     return true;
 }
 
+void GameScene::playerShowItem(float dt)
+{
+    sortItemInventory();
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    auto spriteSize = _tilemap->getTileSize();
+
+    // Tọa độ X ban đầu (bắt đầu từ bên phải màn hình)
+    float startX = visibleSize.width - spriteSize.width/2;
+
+    // Tọa độ Y cố định (giữa màn hình)
+    float startY = visibleSize.height / 20;
+
+    for (int i = 0; i < 5; i++)
+    {
+        std::string name = "id item sprite " + std::to_string(i);
+        //CCLOG("name sprite view %s", name.c_str());
+        if (player->items[i] != "") 
+        {
+            std::string pathItem = "inGame/itemSprite/" + player->items[i] + ".png";
+            auto spriteItem = Sprite::create(pathItem);
+
+            if (spriteItem)
+            {
+                // Đặt vị trí cho Sprite từ phải sang trái
+                float posX = startX - i * spriteItem->getContentSize().width;
+                spriteItem->setPosition(Vec2(posX, startY));
+                spriteItem->setName(name);
+                //CCLOG("[%s]", spriteItem->getName().c_str());
+
+                this->addChild(spriteItem);
+
+                //CCLOG("link sprite: %s", player->items[i].c_str());
+            }
+            else
+            {
+                auto child = this->getChildByName(name);
+                if (child)
+                {
+                    child->removeFromParent();
+                }
+            }
+        }
+    }
+}
 
 void GameScene::pauseGame()
 {
@@ -747,4 +885,10 @@ void GameScene::goToHome(cocos2d::Ref* pSender)
 
     // Thay thế Scene hiện tại bằng MainMenu Scene
     Director::getInstance()->replaceScene(mainMenuScene);
+}
+
+void GameScene::goToSelectLevelMenu()
+{
+    auto selectLevel = LevelSelectScene::createScene();
+    Director::getInstance()->replaceScene(selectLevel);
 }
