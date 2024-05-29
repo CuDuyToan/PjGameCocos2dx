@@ -18,11 +18,12 @@ bool GameScene::init() {
 
     this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     this->getPhysicsWorld()->setGravity(Vec2(0, -2000));
+    
 
-    createTileMap();
+    createTileMap(); //error
 
     createUiMenu();
-    createButtonHand();
+    createButtonHand(); //error
 
      //Thêm event listener cho sự kiện chạm
     auto touchListener = EventListenerTouchOneByOne::create();
@@ -36,7 +37,7 @@ bool GameScene::init() {
     listener->onContactSeparate = CC_CALLBACK_1(GameScene::onContactSeparate, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::update), 0.0f);
+    //this->schedule(CC_SCHEDULE_SELECTOR(GameScene::update), 0.0f);
     this->schedule(CC_SCHEDULE_SELECTOR(GameScene::playerShowItem), 0.0f);
 
     return true;
@@ -51,18 +52,23 @@ bool GameScene::createTileMap()
 
     if (_tilemap->initWithTMXFile("TileMap/maptest.tmx")) 
     {
-        this->addChild(_tilemap);
+        this->addChild(_tilemap, 1);
+
+        getLocaSpawn();
+        spawnPlayer(spawnX, spawnY);
 
         getGround();
         getWall();
         getCeiling();
+
         //getBarrier();
+        
         getHideItem();
-        getLocaSpawn();
         getAllQuest();
         getDoor();
+        addBackGroundToTilemap();
 
-        spawnPlayer(spawnX, spawnY);
+
 
 
         return true;
@@ -71,6 +77,22 @@ bool GameScene::createTileMap()
     else {
         return false;
     }
+}
+
+void GameScene::addBackGroundToTilemap()
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    //auto tileSize = _tilemap->getTileSize();
+    //auto mapSize = _tilemap->getMapSize();
+
+    //auto backGroundSize = Size(tileSize.width * mapSize.width, tileSize.height * mapSize.height);
+
+    auto backGround = Sprite::create("BackGround/backGroundMap1.png");
+    backGround->setContentSize(visibleSize);
+    backGround->setAnchorPoint(Vec2(0, 0));
+    this->addChild(backGround, 0);
 }
 
 void GameScene::getGround()
@@ -104,7 +126,7 @@ void GameScene::getGround()
             sprite->setPhysicsBody(physicsBody);
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
-            _tilemap->addChild(sprite);
+            _tilemap->addChild(sprite, 2);
         }
     }
     else
@@ -144,7 +166,7 @@ void GameScene::getWall()
             sprite->setPhysicsBody(physicsBody);
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
-            _tilemap->addChild(sprite);
+            _tilemap->addChild(sprite, 2);
         }
     }
     else
@@ -184,7 +206,7 @@ void GameScene::getCeiling()
             sprite->setPhysicsBody(physicsBody);
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
-            _tilemap->addChild(sprite);
+            _tilemap->addChild(sprite, 2);
         }
     }
     else
@@ -224,7 +246,7 @@ void GameScene::getBarrier()
             sprite->setPhysicsBody(physicsBody);
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
-            _tilemap->addChild(sprite);
+            _tilemap->addChild(sprite, 2);
         }
     }
     else
@@ -292,7 +314,7 @@ void GameScene::getAllQuest()
             //sprite->setName(name.c_str());
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
-            _tilemap->addChild(sprite, -1);
+            _tilemap->addChild(sprite, 2);
         }
     }
     else
@@ -334,7 +356,7 @@ void GameScene::getDoor()
             sprite->setPhysicsBody(physicsBody);
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
-            _tilemap->addChild(sprite);
+            _tilemap->addChild(sprite, 2);
         }
     }
     else
@@ -405,7 +427,7 @@ void GameScene::getHideItem()
                 sprite->setPhysicsBody(physicsBody);
                 //sprite->setName(name.c_str());
                 // Đặt vị trí cho sprite và thêm vào scenes
-                sprite->setPosition(Vec2(x + width / 2, y + height / 2));
+                sprite->setPosition(Vec2(Vec2(x + width / 2, y + height / 2)));
                 sprite->setName("sprite " + name);
                 _tilemap->addChild(sprite, layer);
             }
@@ -452,7 +474,7 @@ void GameScene::getQuestList()
             sprite->setPhysicsBody(physicsBody);
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
-            _tilemap->addChild(sprite);
+            _tilemap->addChild(sprite, 2);
         }
     }
     else
@@ -679,7 +701,7 @@ void GameScene::spawnPlayer(float spawnX, float spawnY)
     player = Player::create();
     player->setAnchorPoint(Vec2(0 , 0));
     player->setPosition(Vec2(spawnX, spawnY));
-    this->addChild(player);
+    this->addChild(player,10);
 }
 
 //void GameScene::updateAction(float dt) {
@@ -812,11 +834,17 @@ void GameScene::playerShowItem(float dt)
     {
         std::string name = "id item sprite " + std::to_string(i);
         //CCLOG("name sprite view %s", name.c_str());
-        if (player->items[i] != "") 
+        if (player->items[i] != "" && player->items[i] != "next level")
         {
             std::string pathItem = "inGame/itemSprite/" + player->items[i] + ".png";
             auto spriteItem = Sprite::create(pathItem);
 
+            auto removeChild = this->getChildByName(name);
+            if (removeChild)
+            {
+                removeChild->setPosition(Vec2(50, 2000));
+                removeChild->removeFromParent();
+            }
             if (spriteItem)
             {
                 // Đặt vị trí cho Sprite từ phải sang trái
@@ -825,18 +853,18 @@ void GameScene::playerShowItem(float dt)
                 spriteItem->setName(name);
                 //CCLOG("[%s]", spriteItem->getName().c_str());
 
-                this->addChild(spriteItem);
+                this->addChild(spriteItem, 100);
 
                 //CCLOG("link sprite: %s", player->items[i].c_str());
             }
-            else
-            {
-                auto child = this->getChildByName(name);
-                if (child)
-                {
-                    child->removeFromParent();
-                }
-            }
+            //else
+            //{
+            //    auto child = this->getChildByName(name);
+            //    if (child)
+            //    {
+            //        child->removeFromParent();
+            //    }
+            //}
         }
     }
 }
@@ -863,7 +891,7 @@ void GameScene::createUiMenu()
     //tao menu va them cac nut
     auto menu = Menu::create(Home,nullptr);
 
-    addChild(menu);
+    addChild(menu ,100);
 }
 
 void GameScene::createButtonHand()

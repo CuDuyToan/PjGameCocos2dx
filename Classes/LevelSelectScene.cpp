@@ -194,7 +194,7 @@ void LevelSelectScene::createButtonPageLevel1()
 
     auto playLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
     playLevel->setScale(0.5);
-    playLevel->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 250 + origin.y));
+    playLevel->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 5 + origin.y));
     playLevel->addClickEventListener([=](Ref* sender) {
         auto nextScene = GameScene::create();
         Director::getInstance()->replaceScene(nextScene);
@@ -203,7 +203,7 @@ void LevelSelectScene::createButtonPageLevel1()
 
     auto nextLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
     nextLevel->setScale(0.5);
-    nextLevel->setPosition(Vec2(visibleSize.width / 2 + 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
+    nextLevel->setPosition(Vec2(visibleSize.width / 10 * 8 + origin.x, visibleSize.height / 5 + origin.y));
     nextLevel->addClickEventListener([=](Ref* sender) {
         createButtonPageLevel2();
     });

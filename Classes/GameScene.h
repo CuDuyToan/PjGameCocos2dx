@@ -16,6 +16,7 @@ public:
     Player* player;
 
     bool createTileMap();
+    void addBackGroundToTilemap();
 
     void getGround();
     void getWall();

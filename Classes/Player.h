@@ -1,47 +1,39 @@
-﻿#ifndef _PLAYER_H_
+﻿// Player.h
+#ifndef _PLAYER_H_
 #define _PLAYER_H_
 
 #include "cocos2d.h"
-//#include "GameScene.h"
 
 using namespace cocos2d;
 
-class Player :public Node
+class Player : public cocos2d::Node
 {
 public:
-	static Player* createPlayer();
-	virtual bool init();
+    static Player* createPlayer();
+    virtual bool init();
+    CREATE_FUNC(Player);
 
-	Sprite* spritePlayer;
+    std::string items[5] = {};
 
-	Sprite* chat;
+    void setMoveL();
+    void setMoveR();
+    void setMoveIdle();
+    void setWork();
+    bool checkCanMove();
 
-	PhysicsBody* physicPlayer;
-
-	Animation* createAnimation(std::string tenFrame, int soFrame, float delay);
-
-	void addSpriteFrames();
-	void createSprite();
-	void addPhysicBodyForSprite();
-
-	void setMoveL();
-	void setMoveR();
-	void setMoveIdle();
-	void setWork();
-
-	bool checkCanMove();
-	std::string items[5] = {};
-
-	CREATE_FUNC(Player);
 private:
+    Sprite* spritePlayer;
+    PhysicsBody* physicPlayer;
+    bool canMove;
+    int contactCheck;
+    int inertia;
+    int inertiaMax;
 
-	bool canMove = true;
-	void changeCanMove(float dt);
-	
-
-	int contactCheck = 0;
-	int inertia = 0;
-	int inertiaMax = 9; 
+    void createSprite();
+    void addSpriteFrames();
+    void addPhysicBodyForSprite();
+    Animation* createAnimation(std::string tenFrame, int soFrame, float delay);
+    void changeCanMove(float dt);
 };
 
-#endif// _PLAYER_H_
+#endif // _PLAYER_H_
