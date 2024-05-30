@@ -18,14 +18,14 @@ bool GameScene::init() {
 
     this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     this->getPhysicsWorld()->setGravity(Vec2(0, -2000));
-    
+
 
     createTileMap(); //error
 
     createUiMenu();
-    createButtonHand(); //error
+    //createButtonHand(); //error
 
-     //Thêm event listener cho sự kiện chạm
+    //Thêm event listener cho sự kiện chạm
     auto touchListener = EventListenerTouchOneByOne::create();
     touchListener->setSwallowTouches(true);
     touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
@@ -40,7 +40,22 @@ bool GameScene::init() {
     //this->schedule(CC_SCHEDULE_SELECTOR(GameScene::update), 0.0f);
     this->schedule(CC_SCHEDULE_SELECTOR(GameScene::playerShowItem), 0.0f);
 
+
+
     return true;
+}
+
+
+void GameScene::winLevel(int level) {
+
+    UserDefault::getInstance()->setIntegerForKey("current_level", level);
+    UserDefault::getInstance()->setBoolForKey("next_level_button_state", true);
+
+    UserDefault::getInstance()->flush();
+    CCLOG("Level %d has been saved after winning.", level);
+    UserDefault::getInstance()->destroyInstance();
+    auto levelSelectScene = LevelSelectScene::createScene();
+    Director::getInstance()->replaceScene(levelSelectScene);
 }
 
 
@@ -50,8 +65,10 @@ bool GameScene::createTileMap()
     _tilemap = new TMXTiledMap();
     int count = 0;
 
-    if (_tilemap->initWithTMXFile("TileMap/maptest.tmx")) 
+    if (_tilemap->initWithTMXFile("TileMap/Map1Tester.tmx"))
     {
+        _tilemap->setScale(Director::getInstance()->getVisibleSize().width / _tilemap->getContentSize().width,
+            Director::getInstance()->getVisibleSize().height / _tilemap->getContentSize().height);
         this->addChild(_tilemap, 1);
 
         getLocaSpawn();
@@ -62,7 +79,7 @@ bool GameScene::createTileMap()
         getCeiling();
 
         //getBarrier();
-        
+
         getHideItem();
         getAllQuest();
         getDoor();
@@ -431,7 +448,7 @@ void GameScene::getHideItem()
                 sprite->setName("sprite " + name);
                 _tilemap->addChild(sprite, layer);
             }
-            
+
         }
     }
     else
@@ -485,7 +502,7 @@ void GameScene::getQuestList()
 
 void GameScene::getItemInTileMapWithName(std::string name)
 {
-    auto nameItem = _tilemap->getChildByName("menu "+name);
+    auto nameItem = _tilemap->getChildByName("menu " + name);
     if (nameItem) {
         CCLOG("[%s]", nameItem->getName().c_str());
         auto button = nameItem->getChildByName("button");
@@ -511,7 +528,7 @@ void GameScene::getItemInNodeContact(Ref* sender, const std::string& name)
         {
             player->items[i] = name.c_str();
             //_tilemap->getChildByName("menu "+ name)->removeFromParent();
-            auto menu = _tilemap->getChildByName("menu "+name);
+            auto menu = _tilemap->getChildByName("menu " + name);
             auto sprite = _tilemap->getChildByName("sprite " + name);
             if (menu)
             {
@@ -541,9 +558,11 @@ void GameScene::requestItemForNodeContact(Ref* sender, const std::string& reques
     {
         if (player->items[i] == reward && reward == "next level")
         {
-            goToSelectLevelMenu();
+            winLevel(1);
             return;
         }
+
+
     }
     for (int i = 0; i < 5; i++)
     {
@@ -583,7 +602,7 @@ void GameScene::sortItemInventory()
             {
                 if (player->items[j] != "")
                 {
-                    player->items[i] = player->items[j]; 
+                    player->items[i] = player->items[j];
                     player->items[j] = "";
                     break;
                 }
@@ -597,7 +616,7 @@ void GameScene::appearHandButton()
 
 }
 
-bool GameScene::onTouchBegan(Touch* touch, Event* event) 
+bool GameScene::onTouchBegan(Touch* touch, Event* event)
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
@@ -699,9 +718,10 @@ void GameScene::getLocaSpawn()
 void GameScene::spawnPlayer(float spawnX, float spawnY)
 {
     player = Player::create();
-    player->setAnchorPoint(Vec2(0 , 0));
+    player->setAnchorPoint(Vec2(0, 0));
     player->setPosition(Vec2(spawnX, spawnY));
-    this->addChild(player,10);
+    player->setScale(1 * Director::getInstance()->getContentScaleFactor());
+    this->addChild(player, 10);
 }
 
 //void GameScene::updateAction(float dt) {
@@ -752,12 +772,12 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
             {
                 getItemInTileMapWithName(nodeB->getName().c_str());
             }
-            
+
             if (nodeA->getTag() == 000 || nodeB->getTag() == 000)
             {
-                
 
-                
+
+
             }
 
             if (nodeA->getCollisionBitmask() == 0)
@@ -771,7 +791,7 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
             }
         }
     }
-    
+
     return true;
 }
 
@@ -825,7 +845,7 @@ void GameScene::playerShowItem(float dt)
     auto spriteSize = _tilemap->getTileSize();
 
     // Tọa độ X ban đầu (bắt đầu từ bên phải màn hình)
-    float startX = visibleSize.width - spriteSize.width/2;
+    float startX = visibleSize.width - spriteSize.width / 2;
 
     // Tọa độ Y cố định (giữa màn hình)
     float startY = visibleSize.height / 20;
@@ -886,12 +906,12 @@ void GameScene::createUiMenu()
         "SquareButton/Home col_Square Button.png",
         CC_CALLBACK_1(GameScene::goToHome, this));
     Home->setScale(0.3);
-    Home->setPosition(Vec2(visibleSize.width/2 - Home->getContentSize().width / 10 * 2,
-        visibleSize.height/2 - Home->getContentSize().width / 10 * 2));
+    Home->setPosition(Vec2(visibleSize.width / 2 - Home->getContentSize().width / 10 * 2,
+        visibleSize.height / 2 - Home->getContentSize().width / 10 * 2));
     //tao menu va them cac nut
-    auto menu = Menu::create(Home,nullptr);
+    auto menu = Menu::create(Home, nullptr);
 
-    addChild(menu ,100);
+    addChild(menu, 100);
 }
 
 void GameScene::createButtonHand()
@@ -900,7 +920,7 @@ void GameScene::createButtonHand()
         "LargeButton/Exit Button.png",
         "LargeButton/Exit  col_Button.png",
         CC_CALLBACK_1(GameScene::goToHome, this));
-    HandButton->setContentSize(HandButton->getContentSize()*0.02);
+    HandButton->setContentSize(HandButton->getContentSize() * 0.02);
     HandButton->setPosition(Vec2(player->getPosition().x + 2, player->getPosition().y));
     HandButton->setTag(0);
     //this->addChild(HandButton);

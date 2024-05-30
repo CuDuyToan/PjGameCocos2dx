@@ -20,7 +20,7 @@
    </object>
   </objectgroup>
  </group>
- <group id="9" name="door" visible="0">
+ <group id="9" name="door">
   <layer id="11" name="door" width="16" height="12">
    <data encoding="base64" compression="zlib">
    eJxjYBgFo4D+gA+I+SnQLwvEclRwBwAiTABZ

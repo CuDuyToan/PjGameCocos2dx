@@ -54,6 +54,7 @@ public:
 
     cocos2d::TMXTiledMap* _tilemap;
 
+    void winLevel(int level);
 
     CREATE_FUNC(GameScene);
 

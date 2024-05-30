@@ -23,12 +23,34 @@ bool LevelSelectScene::init() {
     mainBackGround();
     menuButton();
 
-    createButtonPageLevel1();
-    /*createCasualButton();
-    createLevelText();*/
+    if (loadLevel() >= 2) {
+        createButtonPageLevel2();
+    }
+    else {
+        createButtonPageLevel1();
+    }
 
     return true;
 }
+
+void LevelSelectScene::saveNextLevelButtonState(bool state) {
+    UserDefault::getInstance()->setBoolForKey("next_level_button_state", state);
+    UserDefault::getInstance()->flush();
+}
+
+bool LevelSelectScene::loadNextLevelButtonState() {
+    return UserDefault::getInstance()->getBoolForKey("next_level_button_state", false);
+}
+
+void LevelSelectScene::saveLevel(int level) {
+    UserDefault::getInstance()->setIntegerForKey("current_level", level);
+    UserDefault::getInstance()->flush();
+}
+
+int LevelSelectScene::loadLevel() {
+    return UserDefault::getInstance()->getIntegerForKey("current_level", 1);
+}
+
 
 void LevelSelectScene::levelSelectedCallback(cocos2d::Ref* pSender) {
     auto button = dynamic_cast<cocos2d::MenuItem*>(pSender);
@@ -188,7 +210,7 @@ void LevelSelectScene::createButtonPageLevel1()
     reducedLevel->setScale(0.3);
     reducedLevel->setPosition(Vec2(visibleSize.width / 2 - 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
     reducedLevel->addClickEventListener([=](Ref* sender) {
-        
+
     });
     this->addChild(reducedLevel);*/
 
@@ -206,8 +228,13 @@ void LevelSelectScene::createButtonPageLevel1()
     nextLevel->setPosition(Vec2(visibleSize.width / 10 * 8 + origin.x, visibleSize.height / 5 + origin.y));
     nextLevel->addClickEventListener([=](Ref* sender) {
         createButtonPageLevel2();
-    });
+        });
+    nextLevel->setVisible(false);
     this->addChild(nextLevel);
+
+    if (loadLevel() >= 1) {
+        nextLevel->setVisible(true);
+    }
 }
 
 void LevelSelectScene::createButtonPageLevel2()
@@ -225,13 +252,27 @@ void LevelSelectScene::createButtonPageLevel2()
         });
     this->addChild(reducedLevel);
 
+    auto playLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
+    playLevel->setScale(0.5);
+    playLevel->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 5 + origin.y));
+    playLevel->addClickEventListener([=](Ref* sender) {
+        auto nextScene = GameScene::create();
+        Director::getInstance()->replaceScene(nextScene);
+        });
+    this->addChild(playLevel);
+
     auto nextLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
     nextLevel->setScale(0.5);
     nextLevel->setPosition(Vec2(visibleSize.width / 2 + 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
     nextLevel->addClickEventListener([=](Ref* sender) {
         createButtonPageLevel3();
         });
+    nextLevel->setVisible(false);
     this->addChild(nextLevel);
+
+    if (loadLevel() >= 2) {
+        nextLevel->setVisible(true);
+    }
 }
 
 void LevelSelectScene::createButtonPageLevel3()

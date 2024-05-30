@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "maptest.tmx",
+    "activeFile": "Map1Tester.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -103,12 +103,20 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "Map1Tester.tmx": {
+            "scale": 0.78078125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 641.0246147688614,
+                "y": 288.17290374224535
+            }
+        },
         "MapReview.tmx": {
             "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1602,
-                "y": 512
+                "x": 1598,
+                "y": 504
             }
         },
         "cartoon.tsx": {
@@ -129,19 +137,23 @@
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 256.33333333333326,
-                "y": 512
+                "x": 255.66666666666669,
+                "y": 918.6666666666666
             }
         },
         "maptest.tmx": {
             "expandedGroupLayers": [
                 12
             ],
+            "expandedObjectLayers": [
+                12,
+                14
+            ],
             "scale": 1,
             "selectedLayer": 14,
             "viewCenter": {
-                "x": 623.5,
-                "y": 506
+                "x": 621.5,
+                "y": 504
             }
         },
         "maptest.tmx#background": {
@@ -165,7 +177,8 @@
         "CartoonArt.tsx",
         "levelmapDemo.tmx",
         "MapReview.tmx",
-        "maptest.tmx"
+        "maptest.tmx",
+        "Map1Tester.tmx"
     ],
     "project": "LevelMap.tiled-project",
     "recentFiles": [
@@ -175,12 +188,12 @@
         "levelmapDemo.tmx",
         "MapReview.tmx",
         "maptest.tmx",
+        "Map1Tester.tmx",
         "Map1Demo.tmx",
         "GuraAdventureMap1.tmx",
         "Map1.tmx",
         "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/theMaze1.tmx",
-        "D:/tool extract/Game/Gaer/Gaer/Resources/fullmap.tmx",
-        "D:/tool extract/Game/mygame/Resources/TileMap/Map1.tmx"
+        "D:/tool extract/Game/Gaer/Gaer/Resources/fullmap.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
@@ -188,4 +201,3 @@
         "width": 16
     }
 }
-

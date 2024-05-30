@@ -26,6 +26,14 @@ public:
     void createButtonPageLevel2();
     void createButtonPageLevel3();
 
+    void saveNextLevelButtonState(bool state);
+
+    bool loadNextLevelButtonState();
+
+    void saveLevel(int level);
+
+    int loadLevel();
+
     CREATE_FUNC(LevelSelectScene);
 
 private:
