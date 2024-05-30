@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Map1Tester.tmx",
+    "activeFile": "CartoonArt.tsx",
     "expandedProjectPaths": [
         "."
     ],
@@ -108,15 +108,15 @@
             "selectedLayer": 1,
             "viewCenter": {
                 "x": 641.0246147688614,
-                "y": 288.17290374224535
+                "y": 286.8921352811687
             }
         },
         "MapReview.tmx": {
             "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1598,
-                "y": 504
+                "x": 1602,
+                "y": 514
             }
         },
         "cartoon.tsx": {
@@ -129,16 +129,16 @@
         },
         "levelmapDemo.tmx": {
             "expandedGroupLayers": [
-                22,
-                18,
+                15,
                 13,
-                15
+                18,
+                22
             ],
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 255.66666666666669,
-                "y": 918.6666666666666
+                "x": 256.33333333333326,
+                "y": 435.66666666666663
             }
         },
         "maptest.tmx": {
@@ -152,8 +152,8 @@
             "scale": 1,
             "selectedLayer": 14,
             "viewCenter": {
-                "x": 621.5,
-                "y": 504
+                "x": 512.5,
+                "y": 384.5
             }
         },
         "maptest.tmx#background": {
@@ -164,7 +164,7 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "D:/tilemap tool/extract/Cartoon Art/Level design tools and tile set Free version/Free version",
+    "last.imagePath": "D:/tool extract/Game/GuraAdventure/Resources/TileMap",
     "map.height": 48,
     "map.lastUsedFormat": "tmx",
     "map.layerDataFormat": null,
@@ -178,22 +178,23 @@
         "levelmapDemo.tmx",
         "MapReview.tmx",
         "maptest.tmx",
-        "Map1Tester.tmx"
+        "Map1Tester.tmx",
+        "cartoon.tsx"
     ],
     "project": "LevelMap.tiled-project",
     "recentFiles": [
         "Dungeon6.tsx",
         "dungeon3.tsx",
-        "CartoonArt.tsx",
-        "levelmapDemo.tmx",
-        "MapReview.tmx",
-        "maptest.tmx",
+        "cartoon.tsx",
         "Map1Tester.tmx",
+        "maptest.tmx",
+        "MapReview.tmx",
+        "levelmapDemo.tmx",
+        "CartoonArt.tsx",
         "Map1Demo.tmx",
         "GuraAdventureMap1.tmx",
         "Map1.tmx",
-        "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/theMaze1.tmx",
-        "D:/tool extract/Game/Gaer/Gaer/Resources/fullmap.tmx"
+        "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/theMaze1.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
