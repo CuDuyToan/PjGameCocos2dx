@@ -34,6 +34,8 @@ public:
 
     int loadLevel();
 
+    void createButtonPageLevel(int level);
+
     CREATE_FUNC(LevelSelectScene);
 
 private:

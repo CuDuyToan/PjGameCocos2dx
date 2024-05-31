@@ -23,12 +23,14 @@ bool LevelSelectScene::init() {
     mainBackGround();
     menuButton();
 
-    if (loadLevel() >= 2) {
+    /*if (loadLevel() >= 2) {
         createButtonPageLevel2();
     }
     else {
         createButtonPageLevel1();
-    }
+    }*/
+
+    createButtonPageLevel(1);
 
     return true;
 }
@@ -199,20 +201,23 @@ void LevelSelectScene::createCasualButton()
     this->addChild(menu);*/
 }
 
-void LevelSelectScene::createButtonPageLevel1()
+
+void LevelSelectScene::createButtonPageLevel(int level)
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    createButtonChangeLevel("Level 1");
+    createButtonChangeLevel("Level " + std::to_string(level));
 
-    /*auto reducedLevel = ui::Button::create("res/UI-73.png", "res/UI-81.png");
-    reducedLevel->setScale(0.3);
-    reducedLevel->setPosition(Vec2(visibleSize.width / 2 - 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
-    reducedLevel->addClickEventListener([=](Ref* sender) {
-
-    });
-    this->addChild(reducedLevel);*/
+    if (level > 1) {
+        auto reducedLevel = ui::Button::create("res/UI-73.png", "res/UI-81.png");
+        reducedLevel->setScale(0.5);
+        reducedLevel->setPosition(Vec2(visibleSize.width / 2 - 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
+        reducedLevel->addClickEventListener([=](Ref* sender) {
+            createButtonPageLevel(level - 1);
+            });
+        this->addChild(reducedLevel);
+    }
 
     auto playLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
     playLevel->setScale(0.5);
@@ -225,78 +230,13 @@ void LevelSelectScene::createButtonPageLevel1()
 
     auto nextLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
     nextLevel->setScale(0.5);
-    nextLevel->setPosition(Vec2(visibleSize.width / 10 * 8 + origin.x, visibleSize.height / 5 + origin.y));
+    nextLevel->setPosition(level == 1 ? Vec2(visibleSize.width / 10 * 8 + origin.x, visibleSize.height / 5 + origin.y) :
+        Vec2(visibleSize.width / 2 + 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
     nextLevel->addClickEventListener([=](Ref* sender) {
-        createButtonPageLevel2();
+        createButtonPageLevel(level + 1);
         });
-    nextLevel->setVisible(false);
+    nextLevel->setVisible(loadLevel() >= level);
     this->addChild(nextLevel);
-
-    if (loadLevel() >= 1) {
-        nextLevel->setVisible(true);
-    }
-}
-
-void LevelSelectScene::createButtonPageLevel2()
-{
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    createButtonChangeLevel("Level 2");
-
-    auto reducedLevel = ui::Button::create("res/UI-73.png", "res/UI-81.png");
-    reducedLevel->setScale(0.5);
-    reducedLevel->setPosition(Vec2(visibleSize.width / 2 - 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
-    reducedLevel->addClickEventListener([=](Ref* sender) {
-        createButtonPageLevel1();
-        });
-    this->addChild(reducedLevel);
-
-    auto playLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
-    playLevel->setScale(0.5);
-    playLevel->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 5 + origin.y));
-    playLevel->addClickEventListener([=](Ref* sender) {
-        auto nextScene = GameScene::create();
-        Director::getInstance()->replaceScene(nextScene);
-        });
-    this->addChild(playLevel);
-
-    auto nextLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
-    nextLevel->setScale(0.5);
-    nextLevel->setPosition(Vec2(visibleSize.width / 2 + 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
-    nextLevel->addClickEventListener([=](Ref* sender) {
-        createButtonPageLevel3();
-        });
-    nextLevel->setVisible(false);
-    this->addChild(nextLevel);
-
-    if (loadLevel() >= 2) {
-        nextLevel->setVisible(true);
-    }
-}
-
-void LevelSelectScene::createButtonPageLevel3()
-{
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    createButtonChangeLevel("Level 3");
-
-    auto reducedLevel = ui::Button::create("res/UI-73.png", "res/UI-81.png");
-    reducedLevel->setScale(0.5);
-    reducedLevel->setPosition(Vec2(visibleSize.width / 2 - 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
-    reducedLevel->addClickEventListener([=](Ref* sender) {
-        createButtonPageLevel2();
-        });
-    this->addChild(reducedLevel);
-
-    /*auto nextLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
-    nextLevel->setScale(0.3);
-    nextLevel->setPosition(Vec2(visibleSize.width / 2 + 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
-    nextLevel->addClickEventListener([=](Ref* sender) {
-
-        });
-    this->addChild(nextLevel);*/
 }
 
 void LevelSelectScene::createButtonChangeLevel(const std::string& nameLevel)
@@ -310,11 +250,127 @@ void LevelSelectScene::createButtonChangeLevel(const std::string& nameLevel)
     addChild(tableLevel);
 
     auto label = Label::createWithTTF(nameLevel, "fonts/Marker Felt.ttf", 50);
-    label->setPosition(Vec2(origin.x + visibleSize.width / 2,
-        origin.y + visibleSize.height / 10 * 7));
+    label->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 10 * 7));
     label->setTextColor(Color4B::BLACK);
     this->addChild(label);
 }
+
+//void LevelSelectScene::createButtonPageLevel1()
+//{
+//    auto visibleSize = Director::getInstance()->getVisibleSize();
+//    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+//
+//    createButtonChangeLevel("Level 1");
+//
+//    /*auto reducedLevel = ui::Button::create("res/UI-73.png", "res/UI-81.png");
+//    reducedLevel->setScale(0.3);
+//    reducedLevel->setPosition(Vec2(visibleSize.width / 2 - 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
+//    reducedLevel->addClickEventListener([=](Ref* sender) {
+//
+//    });
+//    this->addChild(reducedLevel);*/
+//
+//    auto playLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
+//    playLevel->setScale(0.5);
+//    playLevel->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 5 + origin.y));
+//    playLevel->addClickEventListener([=](Ref* sender) {
+//        auto nextScene = GameScene::create();
+//        Director::getInstance()->replaceScene(nextScene);
+//        });
+//    this->addChild(playLevel);
+//
+//    auto nextLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
+//    nextLevel->setScale(0.5);
+//    nextLevel->setPosition(Vec2(visibleSize.width / 10 * 8 + origin.x, visibleSize.height / 5 + origin.y));
+//    nextLevel->addClickEventListener([=](Ref* sender) {
+//        createButtonPageLevel2();
+//        });
+//    nextLevel->setVisible(false);
+//    this->addChild(nextLevel);
+//
+//    if (loadLevel() >= 1) {
+//        nextLevel->setVisible(true);
+//    }
+//}
+//
+//void LevelSelectScene::createButtonPageLevel2()
+//{
+//    auto visibleSize = Director::getInstance()->getVisibleSize();
+//    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+//
+//    createButtonChangeLevel("Level 2");
+//
+//    auto reducedLevel = ui::Button::create("res/UI-73.png", "res/UI-81.png");
+//    reducedLevel->setScale(0.5);
+//    reducedLevel->setPosition(Vec2(visibleSize.width / 2 - 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
+//    reducedLevel->addClickEventListener([=](Ref* sender) {
+//        createButtonPageLevel1();
+//        });
+//    this->addChild(reducedLevel);
+//
+//    auto playLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
+//    playLevel->setScale(0.5);
+//    playLevel->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 5 + origin.y));
+//    playLevel->addClickEventListener([=](Ref* sender) {
+//        auto nextScene = GameScene::create();
+//        Director::getInstance()->replaceScene(nextScene);
+//        });
+//    this->addChild(playLevel);
+//
+//    auto nextLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
+//    nextLevel->setScale(0.5);
+//    nextLevel->setPosition(Vec2(visibleSize.width / 2 + 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
+//    nextLevel->addClickEventListener([=](Ref* sender) {
+//        createButtonPageLevel3();
+//        });
+//    nextLevel->setVisible(false);
+//    this->addChild(nextLevel);
+//
+//    if (loadLevel() >= 2) {
+//        nextLevel->setVisible(true);
+//    }
+//}
+//
+//void LevelSelectScene::createButtonPageLevel3()
+//{
+//    auto visibleSize = Director::getInstance()->getVisibleSize();
+//    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+//
+//    createButtonChangeLevel("Level 3");
+//
+//    auto reducedLevel = ui::Button::create("res/UI-73.png", "res/UI-81.png");
+//    reducedLevel->setScale(0.5);
+//    reducedLevel->setPosition(Vec2(visibleSize.width / 2 - 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
+//    reducedLevel->addClickEventListener([=](Ref* sender) {
+//        createButtonPageLevel2();
+//        });
+//    this->addChild(reducedLevel);
+//
+//    /*auto nextLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
+//    nextLevel->setScale(0.3);
+//    nextLevel->setPosition(Vec2(visibleSize.width / 2 + 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
+//    nextLevel->addClickEventListener([=](Ref* sender) {
+//
+//        });
+//    this->addChild(nextLevel);*/
+//}
+//
+//void LevelSelectScene::createButtonChangeLevel(const std::string& nameLevel)
+//{
+//    auto visibleSize = Director::getInstance()->getVisibleSize();
+//    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+//
+//    auto tableLevel = Sprite::create("res/UI-59.png");
+//    tableLevel->setScale(0.8);
+//    tableLevel->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+//    addChild(tableLevel);
+//
+//    auto label = Label::createWithTTF(nameLevel, "fonts/Marker Felt.ttf", 50);
+//    label->setPosition(Vec2(origin.x + visibleSize.width / 2,
+//        origin.y + visibleSize.height / 10 * 7));
+//    label->setTextColor(Color4B::BLACK);
+//    this->addChild(label);
+//}
 
 void LevelSelectScene::menuButton()
 {
