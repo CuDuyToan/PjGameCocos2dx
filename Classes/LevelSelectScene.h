@@ -20,11 +20,7 @@ public:
     void createLevelText();
     void mainBackGround();
 
-    void createButtonPageLevel1();
-
     void createButtonChangeLevel(const std::string& nameLevel);
-    void createButtonPageLevel2();
-    void createButtonPageLevel3();
 
     void saveNextLevelButtonState(bool state);
 
