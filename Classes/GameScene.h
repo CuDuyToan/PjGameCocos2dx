@@ -25,6 +25,8 @@ public:
     void getAllQuest();
     void getDoor();
     void getHideItem();
+    //void setColorLayer();
+    //Color3B colorFromHex(const std::string& hexString);
 
     void getQuestList();
 

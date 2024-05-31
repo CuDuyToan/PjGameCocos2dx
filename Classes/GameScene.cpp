@@ -500,6 +500,44 @@ void GameScene::getQuestList()
     }
 }
 
+//void GameScene::setColorLayer()
+//{
+//    for (int i = 1; i < 3; i++)
+//    {
+//        std::string nameLayer = "tree" + std::to_string(i);
+//        CCLOG("name layer [%s]", nameLayer.c_str());
+//        auto layer = _tilemap->getLayer(nameLayer.c_str());
+//        if (layer) {
+//            ValueMap properties = layer->getProperties();
+//            for (const auto& prop : properties) {
+//                std::string propName = prop.first;
+//                CCLOG("nameProperty %s", propName.c_str());
+//                Value propValue = prop.second;
+//                if (propValue.getType() == Value::Type::STRING) {
+//                    CCLOG("Property %s: %s", propName.c_str(), propValue.asString().c_str());
+//                }
+//                else if (propValue.getType() == Value::Type::INTEGER) {
+//                    CCLOG("Property %s: %d", propName.c_str(), propValue.asInt());
+//                }
+//                else if (propValue.getType() == Value::Type::FLOAT) {
+//                    CCLOG("Property %s: %f", propName.c_str(), propValue.asFloat());
+//                } // Thêm các kiểu dữ liệu khác nếu cần
+//            }
+//        }
+//        else {
+//            CCLOG("Layer not found");
+//        }
+//
+//    }
+//}
+//
+//Color3B GameScene::colorFromHex(const std::string& hexString) {
+//    int r, g, b;
+//    sscanf(hexString.c_str(), "#%02x%02x%02x", &r, &g, &b);
+//    return Color3B(r, g, b);
+//}
+
+
 void GameScene::getItemInTileMapWithName(std::string name)
 {
     auto nameItem = _tilemap->getChildByName("menu " + name);

@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "CartoonArt.tsx",
+    "activeFile": "Map1Tester.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -56,6 +56,14 @@
                 "y": 384.2565511097914
             }
         },
+        "Dungeon 1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "Dungeon 2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "Dungeon6.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -104,11 +112,14 @@
             "scaleInEditor": 1
         },
         "Map1Tester.tmx": {
+            "expandedGroupLayers": [
+                5
+            ],
             "scale": 0.78078125,
-            "selectedLayer": 1,
+            "selectedLayer": 7,
             "viewCenter": {
                 "x": 641.0246147688614,
-                "y": 286.8921352811687
+                "y": 226.05563338002804
             }
         },
         "MapReview.tmx": {
@@ -129,31 +140,32 @@
         },
         "levelmapDemo.tmx": {
             "expandedGroupLayers": [
-                15,
                 13,
                 18,
-                22
+                22,
+                15
             ],
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
                 "x": 256.33333333333326,
-                "y": 435.66666666666663
+                "y": 434.99999999999994
             }
         },
         "maptest.tmx": {
             "expandedGroupLayers": [
-                12
+                12,
+                3
             ],
             "expandedObjectLayers": [
                 12,
                 14
             ],
             "scale": 1,
-            "selectedLayer": 14,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 512.5,
-                "y": 384.5
+                "x": 510.5,
+                "y": 382.5
             }
         },
         "maptest.tmx#background": {
@@ -172,29 +184,28 @@
     "map.tileWidth": 16,
     "map.width": 64,
     "openFiles": [
-        "Dungeon6.tsx",
-        "dungeon3.tsx",
         "CartoonArt.tsx",
         "levelmapDemo.tmx",
         "MapReview.tmx",
-        "maptest.tmx",
         "Map1Tester.tmx",
-        "cartoon.tsx"
+        "Dungeon 1.tsx",
+        "Dungeon 2.tsx",
+        "maptest.tmx"
     ],
     "project": "LevelMap.tiled-project",
     "recentFiles": [
+        "CartoonArt.tsx",
+        "levelmapDemo.tmx",
+        "MapReview.tmx",
+        "maptest.tmx",
+        "Dungeon 2.tsx",
+        "Dungeon 1.tsx",
+        "Map1Tester.tmx",
         "Dungeon6.tsx",
         "dungeon3.tsx",
         "cartoon.tsx",
-        "Map1Tester.tmx",
-        "maptest.tmx",
-        "MapReview.tmx",
-        "levelmapDemo.tmx",
-        "CartoonArt.tsx",
         "Map1Demo.tmx",
-        "GuraAdventureMap1.tmx",
-        "Map1.tmx",
-        "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/theMaze1.tmx"
+        "GuraAdventureMap1.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
