@@ -19,12 +19,12 @@ public:
     void setMoveR();
     void setMoveIdle();
     void setWork();
-    bool checkCanMove();
+    bool checkAction();
 
 private:
     Sprite* spritePlayer;
     PhysicsBody* physicPlayer;
-    bool canMove;
+    bool action;
     int contactCheck;
     int inertia;
     int inertiaMax;
@@ -33,7 +33,9 @@ private:
     void addSpriteFrames();
     void addPhysicBodyForSprite();
     Animation* createAnimation(std::string tenFrame, int soFrame, float delay);
-    void changeCanMove(float dt);
+    void changeActionStatus(float dt);
+
+    void needRequest(bool TOrF, std::string itemNeed);
 };
 
 #endif // _PLAYER_H_

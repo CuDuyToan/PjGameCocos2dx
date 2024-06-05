@@ -21,7 +21,7 @@ bool Player::init()
     //createSprite();
     addSpriteFrames();
     addPhysicBodyForSprite();
-    canMove = true;
+    action = true;
     contactCheck = 0;
     inertia = 0;
     inertiaMax = 9;
@@ -71,7 +71,7 @@ void Player::addPhysicBodyForSprite()
     physicPlayer = PhysicsBody::createBox(Size(spritePlayer->getContentSize().width / 5 * 4,
         spritePlayer->getContentSize().height) / 10 * 7,
         PhysicsMaterial(1.0f, 1.0f, 0.0f),
-        Vec2(0, -(spritePlayer->getContentSize().height / 10)));
+        Vec2(0, -(spritePlayer->getContentSize().height / 15)));
     physicPlayer->setDynamic(true);
     physicPlayer->setGravityEnable(true);
     physicPlayer->setRotationEnable(false);
@@ -109,27 +109,28 @@ void Player::setMoveIdle()
 
 void Player::setWork()
 {
-    canMove = false;
-    if (!canMove)
+    action = false;
+    if (!action)
     {
         spritePlayer->stopAllActions();
         Animate* animatePlayer = Animate::create(createAnimation("GuraWork (", 10, 0.2f));
         animatePlayer->setTag(201);
         spritePlayer->runAction(RepeatForever::create(animatePlayer));
-        this->scheduleOnce(CC_CALLBACK_1(Player::changeCanMove, this), 1.0f, "change_can_move_key");
+        this->scheduleOnce(CC_CALLBACK_1(Player::changeActionStatus, this), 1.0f, "change_can_move_key");
     }
 }
 
-void Player::changeCanMove(float dt)
+void Player::changeActionStatus(float dt)
 {
-    canMove = !canMove;
-    if (canMove)
+    action = !action;
+    if (action)
     {
         setMoveIdle();
     }
 }
 
-bool Player::checkCanMove()
+bool Player::checkAction()
 {
-    return canMove;
+    return action;
 }
+

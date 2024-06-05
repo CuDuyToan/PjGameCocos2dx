@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="9" tilewidth="64" tileheight="64" infinite="0" nextlayerid="27" nextobjectid="10">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="9" tilewidth="64" tileheight="64" infinite="0" nextlayerid="31" nextobjectid="10">
  <tileset firstgid="1" source="CartoonArt.tsx"/>
+ <tileset firstgid="121" source="CartoonArt1.tsx"/>
+ <tileset firstgid="241" source="CartoonArt2.tsx"/>
  <group id="2" name="spawnPoint">
   <objectgroup id="21" name="spawnPoint">
    <object id="5" name="spawnPoint" x="66" y="318" width="64" height="64"/>
@@ -18,24 +20,24 @@
   </objectgroup>
  </group>
  <group id="5" name="accessory">
-  <layer id="22" name="bush3" width="20" height="9" tintcolor="#646464">
+  <layer id="30" name="bush3" width="20" height="9">
    <data encoding="base64" compression="zlib">
-   eJxjYBgFwxnwADEvlM2NxscmRogvDcQyULYUGh+bGCE+tQEAPq8CJQ==
+   eJxjYBgFwxn8AeK/UPZvND42MUJ8bkYGBh5GCJuLEZWPTYwQn9oAAEDvDnM=
   </data>
   </layer>
-  <layer id="17" name="tree3" width="20" height="9" tintcolor="#646464">
+  <layer id="29" name="tree3" width="20" height="9">
    <data encoding="base64" compression="zlib">
-   eJxjYKAccAMxDxDzUsEsEJACYmkglqGS/ZpAbAnE2kSqJ8b+cDzq0c1Htx+bu9PwuBebe5Dtx+YOdHlkPjb3pDFgAlzuxqYe3T5s5mFTR20AACimCK0=
+   eJxjYKAc/AbiP0D8lwpmgQAXIwMDNxDzMFLHfkmgOZpALM1InHpi7HdnxK0e3Xx0+7G5OwxJDl09Nve4Y3EbsrowNHl3POYzMGCqx+dubOoJ8QmJUwsAADQfFJI=
   </data>
   </layer>
-  <layer id="23" name="bush2" width="20" height="9" tintcolor="#aaaaaa">
+  <layer id="27" name="bush2" width="20" height="9">
    <data encoding="base64" compression="zlib">
-   eJxjYBgFo4A0wA3EPEDMi4eNTx0tAQBbiAC1
+   eJxjYBgFo4A00AzELUDcioeNTx0tAQDUdQe9
   </data>
   </layer>
-  <layer id="16" name="tree2" width="20" height="9" tintcolor="#aaaaaa">
+  <layer id="28" name="tree2" width="20" height="9">
    <data encoding="base64" compression="zlib">
-   eJxjYCAecAMxDxDzkqAHn34pIJYGYhkizcanHwQ0gdgSiLWxyMH0IwN8+mEgHI+cFJp5+PTDQBoeOU0GTJBGgB+ORw4bQLeTFPdhA4Tcl4ZHjhYAAMLbCk4=
+   eJxjYCAeNANxCxC3kqAHn/5JQDwZiKcQaTY+/SCwEIg3AvFiLHIw/cgAn34YOI9HbhKaefj0w8A9PHILGTABPv3o8uhy2AA+/ejy6HLEmIePT4z7KAUAdr8kFg==
   </data>
   </layer>
   <layer id="15" name="tree1" width="20" height="9">
@@ -50,7 +52,7 @@
   </layer>
   <layer id="26" name="brick" width="20" height="9">
    <data encoding="base64" compression="zlib">
-   eJxjYBgFwxGwQDG1gBcUD1bzmKA0AJxAATM=
+   eJxjYBgFwxGwQDG1gBcUD1bzYAAAnDABMQ==
   </data>
   </layer>
   <layer id="25" name="flower" width="20" height="9">
@@ -83,7 +85,7 @@
   <objectgroup id="11" name="hideItem">
    <object id="9" name="key" x="938" y="470" width="64" height="64">
     <properties>
-     <property name="layer" value="1"/>
+     <property name="layer" value="2"/>
     </properties>
    </object>
   </objectgroup>

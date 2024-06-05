@@ -33,6 +33,7 @@ public:
     void getItemInTileMapWithName(std::string name);
     void getItemInNodeContact(Ref* sender, const std::string& message);
     void requestItemForNodeContact(Ref* sender, const std::string& request, const std::string& reward);
+    void visibleChatIcon(bool TF, std::string itemName);
     void completeTheQuest();
     void sortItemInventory();
     void playerShowItem(float dt);

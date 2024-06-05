@@ -440,6 +440,7 @@ void GameScene::getHideItem()
 
                 _tilemap->addChild(menu, 100);
 
+                sprite->setOpacity(255);
                 sprite->setContentSize(Size(width, height));
                 sprite->setPhysicsBody(physicsBody);
                 //sprite->setName(name.c_str());
@@ -559,73 +560,88 @@ void GameScene::getItemInTileMapWithName(std::string name)
 
 void GameScene::getItemInNodeContact(Ref* sender, const std::string& name)
 {
-    CCLOG("name item %s", name.c_str());
-    for (int i = 0; i < 5; ++i)
+    if (player->checkAction())
     {
-        if (player->items[i] == "")
+        CCLOG("name item %s", name.c_str());
+        for (int i = 0; i < 5; ++i)
         {
-            player->items[i] = name.c_str();
-            //_tilemap->getChildByName("menu "+ name)->removeFromParent();
-            auto menu = _tilemap->getChildByName("menu " + name);
-            auto sprite = _tilemap->getChildByName("sprite " + name);
-            if (menu)
+            if (player->items[i] == "")
             {
-                menu->removeFromParent();
+                player->items[i] = name.c_str();
+                //_tilemap->getChildByName("menu "+ name)->removeFromParent();
+                auto menu = _tilemap->getChildByName("menu " + name);
+                auto sprite = _tilemap->getChildByName("sprite " + name);
+                if (menu)
+                {
+                    menu->removeFromParentAndCleanup(true);
+                }
+                if (sprite)
+                {
+                    sprite->removeFromParentAndCleanup(true);
+                }
+                break;
             }
-            if (sprite)
+            else
             {
-                sprite->removeFromParent();
+                if (i == 4)
+                {
+                    CCLOG("inventory full");
+                }
             }
-            break;
         }
-        else
-        {
-            if (i == 4)
-            {
-                CCLOG("inventory full");
-            }
-        }
+
     }
 }
 
 void GameScene::requestItemForNodeContact(Ref* sender, const std::string& request, const std::string& reward)
 {
-    bool found = false;
-    CCLOG("requestItem");
-    for (int i = 0; i < 5; i++)
+    if (player->checkAction())
     {
-        if (player->items[i] == reward && reward == "next level")
+
+        bool found = false;
+        CCLOG("requestItem");
+        for (int i = 0; i < 5; i++)
         {
-            winLevel(1);
-            return;
-        }
-
-
-    }
-    for (int i = 0; i < 5; i++)
-    {
-        player->setWork();
-        if (player->items[i] == request.c_str()) {
-            player->items[i] = "";
-            found = true;
-            CCLOG("delete %s", request.c_str());
-            CCLOG("delete check [%s]", player->items[i].c_str());
-
-            for (int j = i; j < 5; j++)
+            if (player->items[i] == reward && reward == "next level")
             {
-                if (player->items[j] == "")
-                {
-                    player->items[4] = reward;
-                    CCLOG("take [%s]", reward.c_str());
-                    break;
-                }
+                winLevel(3);
+                return;
             }
-            break;
-        }
-    }
 
-    if (!found)
-    {
+
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            player->setWork();
+            if (player->items[i] == request.c_str()) {
+                //std::string nameChild = request.c_str();
+                player->items[i] = "";
+                //auto childRemove = this->getChildByName(nameChild);
+                found = true;
+                CCLOG("delete %s", request.c_str());
+                CCLOG("delete check [%s]", player->items[i].c_str());
+
+                for (int j = i; j < 5; j++)
+                {
+                    if (player->items[j] == "")
+                    {
+                        player->items[4] = reward;
+                        CCLOG("take [%s]", reward.c_str());
+                        break;
+                    }
+                }
+                break;
+            }
+            else
+            {
+
+            }
+        }
+
+        if (!found)
+        {
+
+        }
 
     }
 }
@@ -692,7 +708,7 @@ bool GameScene::onTouchEnded(Touch* touch, Event* event)
 
     float deltaX = touchPointInNode.x - player->getPositionX();
 
-    if (player->checkCanMove())
+    if (player->checkAction())
     {
         if (deltaX < 0)
         {
@@ -897,12 +913,6 @@ void GameScene::playerShowItem(float dt)
             std::string pathItem = "inGame/itemSprite/" + player->items[i] + ".png";
             auto spriteItem = Sprite::create(pathItem);
 
-            auto removeChild = this->getChildByName(name);
-            if (removeChild)
-            {
-                removeChild->setPosition(Vec2(50, 2000));
-                removeChild->removeFromParent();
-            }
             if (spriteItem)
             {
                 // Đặt vị trí cho Sprite từ phải sang trái
@@ -923,6 +933,15 @@ void GameScene::playerShowItem(float dt)
             //        child->removeFromParent();
             //    }
             //}
+        }
+        else
+        {
+            auto removeChild = this->getChildByName(name);
+            if (removeChild)
+            {
+                removeChild->setPosition(Vec2(50, 2000));
+                removeChild->removeFromParentAndCleanup(true);
+            }
         }
     }
 }
@@ -977,4 +996,9 @@ void GameScene::goToSelectLevelMenu()
 {
     auto selectLevel = LevelSelectScene::createScene();
     Director::getInstance()->replaceScene(selectLevel);
+}
+
+void GameScene::visibleChatIcon(bool TF, std::string nameItem)
+{
+    
 }

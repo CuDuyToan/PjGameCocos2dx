@@ -15,6 +15,12 @@
             "scaleInDock": 0.33,
             "scaleInEditor": 1
         },
+        "CartoonArt1.tsx": {
+            "scaleInDock": 1
+        },
+        "CartoonArt2.tsx": {
+            "scaleInDock": 1
+        },
         "D:/tool extract/Game/Gaer/Gaer/Resources/fullmap.tmx": {
             "scale": 0.5,
             "selectedLayer": 0,
@@ -113,13 +119,14 @@
         },
         "Map1Tester.tmx": {
             "expandedGroupLayers": [
+                6,
                 5
             ],
-            "scale": 0.78078125,
-            "selectedLayer": 7,
+            "scale": 0.75,
+            "selectedLayer": 19,
             "viewCenter": {
-                "x": 641.0246147688614,
-                "y": 226.05563338002804
+                "x": 644.6666666666665,
+                "y": 300.66666666666674
             }
         },
         "MapReview.tmx": {
@@ -140,10 +147,10 @@
         },
         "levelmapDemo.tmx": {
             "expandedGroupLayers": [
+                15,
                 13,
-                18,
                 22,
-                15
+                18
             ],
             "scale": 1.5,
             "selectedLayer": 1,
@@ -164,8 +171,8 @@
             "scale": 1,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 510.5,
-                "y": 382.5
+                "x": 512.5,
+                "y": 384.5
             }
         },
         "maptest.tmx#background": {

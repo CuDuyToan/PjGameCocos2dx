@@ -31,6 +31,9 @@ public:
     int musicID;
 
     CREATE_FUNC(MenuScene);
+
+private:
+    float scaleS = 1;
 };
 
 #endif // __MENU_SCENE_H__

@@ -33,7 +33,7 @@ bool MenuScene::init() {
 
 
 
-    CCLOG("main menu dsa");
+    CCLOG("main menu ss");
 
     return true;
 }
@@ -118,23 +118,26 @@ void MenuScene::createButton()
         "LargeButton/Exit Button.png",
         "LargeButton/Exit  col_Button.png",
         CC_CALLBACK_1(MenuScene::menuExitCallback, this));
-    exitItem->setScale(0.6f);
     exitItem->setTag(0);
+
+    scaleS = exitItem->getContentSize().width / visibleSize.width;
 
     // Tạo nút "Play" và thêm vào menu
     auto playItem = MenuItemImage::create(
         "LargeButton/Play Button.png",
         "LargeButton/Play col_Button.png",
         CC_CALLBACK_1(MenuScene::menuPlayCallback, this));
-    playItem->setScale(0.6f);
     playItem->setTag(2);
     // tao nut "option"
     auto optionsItem = MenuItemImage::create(
         "LargeButton/Options Button.png",
         "LargeButton/Options  col_Button.png",
         CC_CALLBACK_1(MenuScene::menuOptionsCallback, this));
-    optionsItem->setScale(0.6f);
     optionsItem->setTag(3);
+
+    exitItem->setScale(scaleS);
+    playItem->setScale(scaleS);
+    optionsItem->setScale(scaleS);
 
     //tao menu va them cac nut
     auto menu = Menu::create(playItem, optionsItem, exitItem, nullptr);
@@ -152,7 +155,12 @@ void MenuScene::menuPlayCallback(Ref* pSender) {
 
 void MenuScene::menuOptionsCallback(cocos2d::Ref* pSender)
 {
-    increaseBackgroundMusicVolume(0.5);
+    UserDefault::getInstance()->setIntegerForKey("current_level", 0);
+    UserDefault::getInstance()->setBoolForKey("next_level_button_state", true);
+
+    UserDefault::getInstance()->flush();
+    CCLOG("Level %d has been saved after winning.", 0);
+    UserDefault::getInstance()->destroyInstance();
 }
 
 void MenuScene::increaseBackgroundMusicVolume(float volumeDelta) {
@@ -191,6 +199,7 @@ void MenuScene::createGuraFallingSprite()
         origin.y + visibleSize.height - visibleSize.height / 10 * 9));
     this->addChild(sprite);
     sprite->runAction(RepeatForever::create(animate));
+    sprite->setScale(1.5 * scaleS);
 
 }
 
@@ -219,6 +228,7 @@ void MenuScene::createAhhSharkSprite()
         origin.y + visibleSize.height - visibleSize.height / 10));
     this->addChild(sprite);
     sprite->runAction(RepeatForever::create(animate));
+    sprite->setScale(1.5 * scaleS);
 }
 
 void MenuScene::createImageGura()
@@ -234,5 +244,6 @@ void MenuScene::createImageGura()
     //image->setScale(2);
     auto rotateAction = RepeatForever::create(RotateBy::create(2.0f, -360)); // 360 độ trong 1 giây
     image->runAction(rotateAction);
-    this->addChild(image); // Đặt background ở layer thấp hơn để nó nằm dưới các phần tử khác của Scene
+    image->setScale(1.5 *scaleS);
+    this->addChild(image, 0); // Đặt background ở layer thấp hơn để nó nằm dưới các phần tử khác của Scene
 }
