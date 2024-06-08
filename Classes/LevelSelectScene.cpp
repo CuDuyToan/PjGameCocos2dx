@@ -75,34 +75,63 @@ void LevelSelectScene::createButtonPageLevel(int level)
 
     createButtonChangeLevel("Level " + std::to_string(level));
 
-    if (level > 1) {
-        auto reducedLevel = ui::Button::create("res/UI-73.png", "res/UI-81.png");
-        reducedLevel->setScale(0.5);
-        reducedLevel->setPosition(Vec2(visibleSize.width / 2 - 250 + origin.x, visibleSize.height / 2 - 250 + origin.y));
-        reducedLevel->addClickEventListener([=](Ref* sender) {
-            createButtonPageLevel(level - 1);
+    auto storyBook = this->getChildByName("story book");
+
+    if (storyBook)
+    {
+        if (storyBook->getChildByName("next level"))
+        {
+            storyBook->removeChildByName("next level");
+        }
+        if (storyBook->getChildByName("play level"))
+        {
+            storyBook->removeChildByName("play level");
+        }
+        if (storyBook->getChildByName("reduced level"))
+        {
+            storyBook->removeChildByName("reduced level");
+        }
+        if (level > 1) {
+
+            auto reducedLevel = ui::Button::create("select level/button return.png", "select level/button return2.png");
+            reducedLevel->setScale(0.08 * (sizeTable / reducedLevel->getContentSize().height));
+            reducedLevel->setPosition(Vec2(reducedLevel->getContentSize().width,
+                reducedLevel->getContentSize().height));
+            reducedLevel->addClickEventListener([=](Ref* sender) {
+                createButtonPageLevel(level - 1);
+                });
+
+            reducedLevel->setName("reduced level");
+            storyBook->addChild(reducedLevel, 1);
+        }
+
+        auto playLevel = ui::Button::create("SquareButton/Play Square Button.png", "SquareButton/Play col_Square Button.png");
+        playLevel->setScale(0.08 * (sizeTable / playLevel->getContentSize().height));
+        playLevel->setPosition(Vec2(storyBook->getContentSize().width / 2, storyBook->getContentSize().height / 10));
+        playLevel->addClickEventListener([=](Ref* sender) {
+            auto nextScene = GameScene::create();
+            Director::getInstance()->replaceScene(nextScene);
             });
-        this->addChild(reducedLevel);
+        playLevel->setName("play level");
+        storyBook->addChild(playLevel);
+
+        auto nextLevel = ui::Button::create("select level/button next.png", "select level/button next2.png");
+        nextLevel->setScale(0.08 * (sizeTable / nextLevel->getContentSize().height));
+        nextLevel->setPosition(Vec2(storyBook->getContentSize().width - nextLevel->getContentSize().width,
+            nextLevel->getContentSize().height));
+        nextLevel->addClickEventListener([=](Ref* sender) {
+            createButtonPageLevel(level + 1);
+            });
+        nextLevel->setVisible(loadLevel() >= level);
+        nextLevel->setName("next level");
+        storyBook->addChild(nextLevel);
+    }
+    else
+    {
+        CCLOG("cant found story book");
     }
 
-    auto playLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
-    playLevel->setScale(0.5);
-    playLevel->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 5 + origin.y));
-    playLevel->addClickEventListener([=](Ref* sender) {
-        auto nextScene = GameScene::create();
-        Director::getInstance()->replaceScene(nextScene);
-        });
-    this->addChild(playLevel);
 
-    auto nextLevel = ui::Button::create("res/UI-74.png", "res/UI-82.png");
-    nextLevel->setScale(0.5);
-    nextLevel->setPosition(level == 1 ? Vec2(visibleSize.width / 10 * 8 + origin.x, visibleSize.height / 5 + origin.y) :
-        Vec2(visibleSize.width / 10 * 8 + origin.x, visibleSize.height / 5 + origin.y));
-    nextLevel->addClickEventListener([=](Ref* sender) {
-        createButtonPageLevel(level + 1);
-        });
-    nextLevel->setVisible(loadLevel() >= level);
-    this->addChild(nextLevel);
 }
 
 void LevelSelectScene::createButtonChangeLevel(const std::string& nameLevel)
@@ -110,15 +139,46 @@ void LevelSelectScene::createButtonChangeLevel(const std::string& nameLevel)
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    auto tableLevel = Sprite::create("res/UI-59.png");
-    tableLevel->setScale(0.8);
-    tableLevel->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-    addChild(tableLevel);
+    if (!this->getChildByName("story book"))
+    {
+        auto tableLevel = Sprite::create("select level/storyBook.png");
+        sizeTable = tableLevel->getContentSize().height;
+        tableLevel->setScale(0.8 * (visibleSize.height / tableLevel->getContentSize().height));
 
-    auto label = Label::createWithTTF(nameLevel, "fonts/Marker Felt.ttf", 50);
-    label->setPosition(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height / 10 * 7));
-    label->setTextColor(Color4B::BLACK);
-    this->addChild(label);
+        tableLevel->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+        tableLevel->setName("story book");
+        addChild(tableLevel, 0);
+
+        auto label = Label::createWithTTF(nameLevel, "fonts/Marker Felt.ttf", 24);      
+        label->setAnchorPoint(Vec2(0.5, 0.5));
+        label->setScale(0.05 * (sizeTable / label->getContentSize().height));
+        label->setPosition(Vec2(tableLevel->getContentSize().width / 2,
+            tableLevel->getContentSize().height - (label->getContentSize().height * 2)));
+        label->setTextColor(Color4B::BLACK);
+
+        label->setName("level name");
+        tableLevel->addChild(label);
+    }
+    else
+    {
+        auto tableLevel = this->getChildByName("story book");
+        auto labelOld = tableLevel->getChildByName("level name");
+        if (labelOld)
+        {
+            labelOld->removeFromParentAndCleanup(true);
+        }
+
+
+        auto label = Label::createWithTTF(nameLevel, "fonts/Marker Felt.ttf", 24);
+        label->setAnchorPoint(Vec2(0.5, 0.5));
+        label->setScale(0.05 * (sizeTable / label->getContentSize().height));
+        label->setPosition(Vec2(tableLevel->getContentSize().width / 2,
+            tableLevel->getContentSize().height - (label->getContentSize().height * 2)));
+        label->setTextColor(Color4B::BLACK);
+
+        label->setName("level name");
+        tableLevel->addChild(label);
+    }
 }
 
 
@@ -133,10 +193,10 @@ void LevelSelectScene::menuButton()
     auto homeSelected = Sprite::create("SquareButton/Home col_Square Button.png");
     auto homeButton = MenuItemSprite::create(homeNormal, homeSelected, CC_CALLBACK_1(LevelSelectScene::homeButton, this));
     /*homeButton->setContentSize(homeButton->getContentSize() * 0.1);*/
-    homeButton->setScale(0.35);
+    homeButton->setScale(0.1 * (visibleSize.height / homeButton->getContentSize().height));
     homeButton->setAnchorPoint(Vec2(1, 1));
-    homeButton->setPosition(Vec2(visibleSize.width - homeButton->getContentSize().width / 10,
-        visibleSize.height - homeButton->getContentSize().width / 10)); // Đặt vị trí cho nút Home
+    homeButton->setPosition(Vec2(visibleSize.width - homeButton->getContentSize().width / 8,
+        visibleSize.height - homeButton->getContentSize().width / 8)); // Đặt vị trí cho nút Home
 
     // Tạo menu và thêm nút Home vào menu
     auto menu = Menu::create(homeButton, nullptr);

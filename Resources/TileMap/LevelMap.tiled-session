@@ -119,14 +119,46 @@
         },
         "Map1Tester.tmx": {
             "expandedGroupLayers": [
-                6,
-                5
+                4,
+                31,
+                5,
+                2,
+                6
             ],
-            "scale": 0.75,
-            "selectedLayer": 19,
+            "expandedObjectLayers": [
+                19,
+                21,
+                4,
+                31,
+                32,
+                2
+            ],
+            "scale": 0.5,
+            "selectedLayer": 21,
             "viewCenter": {
-                "x": 644.6666666666665,
-                "y": 300.66666666666674
+                "x": 503,
+                "y": 95
+            }
+        },
+        "Map2Tester.tmx": {
+            "expandedGroupLayers": [
+                8,
+                5,
+                10
+            ],
+            "expandedObjectLayers": [
+                7,
+                9,
+                4,
+                8,
+                5,
+                10
+            ],
+            "scale": 2,
+            "selectedLayer": 12,
+            "viewCenter": {
+                "x": 81.25,
+                "y": 158.75
             }
         },
         "MapReview.tmx": {
@@ -147,10 +179,10 @@
         },
         "levelmapDemo.tmx": {
             "expandedGroupLayers": [
-                15,
-                13,
                 22,
-                18
+                18,
+                15,
+                13
             ],
             "scale": 1.5,
             "selectedLayer": 1,
@@ -197,13 +229,16 @@
         "Map1Tester.tmx",
         "Dungeon 1.tsx",
         "Dungeon 2.tsx",
-        "maptest.tmx"
+        "maptest.tmx",
+        "Map2Tester.tmx"
     ],
     "project": "LevelMap.tiled-project",
+    "property.type": "float",
     "recentFiles": [
         "CartoonArt.tsx",
         "levelmapDemo.tmx",
         "MapReview.tmx",
+        "Map2Tester.tmx",
         "maptest.tmx",
         "Dungeon 2.tsx",
         "Dungeon 1.tsx",
@@ -211,8 +246,7 @@
         "Dungeon6.tsx",
         "dungeon3.tsx",
         "cartoon.tsx",
-        "Map1Demo.tmx",
-        "GuraAdventureMap1.tmx"
+        "Map1Demo.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

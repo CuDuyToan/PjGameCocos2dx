@@ -60,13 +60,17 @@ void GameScene::winLevel(int level) {
 
 
 bool GameScene::createTileMap()
-{
+{    
     //load tile map
     _tilemap = new TMXTiledMap();
     int count = 0;
 
-    if (_tilemap->initWithTMXFile("TileMap/Map1Tester.tmx"))
+    if (_tilemap->initWithTMXFile("TileMap/Map2Tester.tmx"))
     {
+        getScaleSizeInTileMap();
+        CalculateNewSizeTile();
+        //scaleS = _tilemap->getMapSize().height / (_tilemap->getTileSize().height * (Director::getInstance()->getVisibleSize().height / _tilemap->getContentSize().height));
+
         _tilemap->setScale(Director::getInstance()->getVisibleSize().width / _tilemap->getContentSize().width,
             Director::getInstance()->getVisibleSize().height / _tilemap->getContentSize().height);
         this->addChild(_tilemap, 1);
@@ -94,6 +98,18 @@ bool GameScene::createTileMap()
     else {
         return false;
     }
+}
+
+void GameScene::CalculateNewSizeTile()
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto origin = Director::getInstance()->getVisibleOrigin();
+
+    float tilemapH = (visibleSize.height / _tilemap->getTileSize().height) * _tilemap->getTileSize().height;
+    float tileH = tilemapH / _tilemap->getMapSize().height;
+    float sizeFullScene = (visibleSize.height / player->getSizePlayer()) / _tilemap->getTileSize().height;
+    scaleS = (tileH / player->getSizePlayer()) * scaleSizeInMap;
+    CCLOG("%f", tilemapH);
 }
 
 void GameScene::addBackGroundToTilemap()
@@ -405,7 +421,7 @@ void GameScene::getHideItem()
             float height = objectProperties["height"].asFloat();
             std::string name = objectProperties["name"].asString();
             int layer = objectProperties["layer"].asInt();
-            std::string spritePath = "inGame/itemSprite/" + name + ".png";
+            std::string spritePath = "inGame/item sprite/" + name + ".png";
 
             // Lấy ra tọa độ trái và phải từ physics body
 
@@ -720,7 +736,7 @@ bool GameScene::onTouchEnded(Touch* touch, Event* event)
         }
 
         float distanceX = fabs(deltaX);
-        float duration = distanceX / 500.0f;
+        float duration = distanceX / ((player->getSizePlayer()*3) * (scaleS * 1.25));
 
         player->stopAllActions();
         //this->runAction(MoveTo::create(duration, Vec2(touchPointInNode.x, this->getPositionY())));
@@ -745,9 +761,14 @@ bool GameScene::onTouchEnded(Touch* touch, Event* event)
 
 void GameScene::getLocaSpawn()
 {
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    // Lấy toạ độ gốc của toạ độ trực quan
+    auto origin = Director::getInstance()->getVisibleOrigin();
     std::string obj = "spawnPoint";
     // Lấy layer chứa các đối tượng từ Tiled Map
     auto objectLayer = _tilemap->getObjectGroup(obj);
+    float XAxisVariable = visibleSize.width / _tilemap->getContentSize().width;
+    float YAxisVariable = visibleSize.height / _tilemap->getContentSize().height;
 
     if (objectLayer) {
         // Lấy danh sách các đối tượng từ object layer
@@ -757,8 +778,8 @@ void GameScene::getLocaSpawn()
         for (const auto& object : objects) {
             ValueMap objectProperties = object.asValueMap();
 
-            spawnX = objectProperties["x"].asFloat();
-            spawnY = objectProperties["y"].asFloat();
+            spawnX = objectProperties["x"].asFloat() * XAxisVariable;
+            spawnY = objectProperties["y"].asFloat() * YAxisVariable;
 
             // Lấy ra tọa độ trái và phải từ obj
         }
@@ -771,13 +792,44 @@ void GameScene::getLocaSpawn()
 
 void GameScene::spawnPlayer(float spawnX, float spawnY)
 {
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto origin = Director::getInstance()->getVisibleOrigin();
+
     player = Player::create();
     player->setAnchorPoint(Vec2(0, 0));
     player->setPosition(Vec2(spawnX, spawnY));
-    player->setScale(1 * Director::getInstance()->getContentScaleFactor());
+    player->setScale(scaleS);
     this->addChild(player, 10);
 }
 
+void GameScene::getScaleSizeInTileMap()
+{
+    std::string obj = "scale";
+    // Lấy layer chứa các đối tượng từ Tiled Map
+    auto objectLayer = _tilemap->getObjectGroup(obj);
+
+    if (objectLayer) {
+        // Lấy danh sách các đối tượng từ object layer
+        ValueVector objects = objectLayer->getObjects();
+
+        // Duyệt qua từng đối tượng và gán physics body
+        for (const auto& object : objects) {
+            ValueMap objectProperties = object.asValueMap();
+
+            scaleSizeInMap = objectProperties["scaleSize"].asFloat();
+            if (objectProperties["scaleSize"].asFloat())
+            {
+               
+            }
+
+            // Lấy ra tọa độ trái và phải từ obj
+        }
+    }
+    else
+    {
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
+    }
+}
 //void GameScene::updateAction(float dt) {
 //
 //    auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -910,7 +962,7 @@ void GameScene::playerShowItem(float dt)
         //CCLOG("name sprite view %s", name.c_str());
         if (player->items[i] != "" && player->items[i] != "next level")
         {
-            std::string pathItem = "inGame/itemSprite/" + player->items[i] + ".png";
+            std::string pathItem = "inGame/item sprite/" + player->items[i] + ".png";
             auto spriteItem = Sprite::create(pathItem);
 
             if (spriteItem)
@@ -962,12 +1014,13 @@ void GameScene::createUiMenu()
         "SquareButton/Home Square Button.png",
         "SquareButton/Home col_Square Button.png",
         CC_CALLBACK_1(GameScene::goToHome, this));
-    Home->setScale(0.3);
-    Home->setPosition(Vec2(visibleSize.width / 2 - Home->getContentSize().width / 10 * 2,
-        visibleSize.height / 2 - Home->getContentSize().width / 10 * 2));
+    Home->setAnchorPoint(Vec2(1,1));
+    Home->setScale(0.1 * (visibleSize.height / Home->getContentSize().height));
+    Home->setPosition(Vec2(visibleSize.width - Home->getContentSize().width/10,
+        visibleSize.height - Home->getContentSize().width/10));
     //tao menu va them cac nut
     auto menu = Menu::create(Home, nullptr);
-
+    menu->setPosition(Vec2::ZERO);
     addChild(menu, 100);
 }
 

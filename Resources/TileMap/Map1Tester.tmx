@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="9" tilewidth="64" tileheight="64" infinite="0" nextlayerid="31" nextobjectid="10">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="9" tilewidth="64" tileheight="64" infinite="0" nextlayerid="33" nextobjectid="11">
  <tileset firstgid="1" source="CartoonArt.tsx"/>
  <tileset firstgid="121" source="CartoonArt1.tsx"/>
  <tileset firstgid="241" source="CartoonArt2.tsx"/>
  <group id="2" name="spawnPoint">
   <objectgroup id="21" name="spawnPoint">
-   <object id="5" name="spawnPoint" x="66" y="318" width="64" height="64"/>
+   <object id="5" name="spawnPoint" x="70" y="148" width="64" height="64"/>
   </objectgroup>
  </group>
  <group id="3" name="quest">
@@ -86,6 +86,15 @@
    <object id="9" name="key" x="938" y="470" width="64" height="64">
     <properties>
      <property name="layer" value="2"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="31" name="scale">
+  <objectgroup id="32" name="scale">
+   <object id="10" name="scale" x="0" y="0" width="64" height="64">
+    <properties>
+     <property name="scaleSize" type="float" value="1.5"/>
     </properties>
    </object>
   </objectgroup>

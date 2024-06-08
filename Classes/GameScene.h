@@ -41,6 +41,7 @@ public:
     void appearHandButton();
 
     void getLocaSpawn();
+    void getScaleSizeInTileMap();
 
     void spawnPlayer(float x, float y);
 
@@ -59,9 +60,14 @@ public:
 
     void winLevel(int level);
 
+    void CalculateNewSizeTile();
+
     CREATE_FUNC(GameScene);
 
 private:
+
+    float scaleS = 1;
+    float scaleSizeInMap = 1;
 
     float spawnX = 0;
     float spawnY = 0;

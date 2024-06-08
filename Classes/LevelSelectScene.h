@@ -35,6 +35,7 @@ public:
     CREATE_FUNC(LevelSelectScene);
 
 private:
+    float sizeTable = 1;
     int a = 2;
 };
 

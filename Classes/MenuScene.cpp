@@ -25,15 +25,16 @@ bool MenuScene::init() {
     playBackGroundMusic();
 
     //sprite in mainmenu
+    createImageGura();
     createGuraFallingSprite();
     createAhhSharkSprite();
-    createImageGura();
+    
 
     //GameScene::createTileMap();
 
 
 
-    CCLOG("main menu ss");
+    CCLOG("main menu dsa");
 
     return true;
 }
@@ -119,8 +120,7 @@ void MenuScene::createButton()
         "LargeButton/Exit  col_Button.png",
         CC_CALLBACK_1(MenuScene::menuExitCallback, this));
     exitItem->setTag(0);
-
-    scaleS = exitItem->getContentSize().width / visibleSize.width;
+    exitItem->setScale(0.2 * (visibleSize.height / exitItem->getContentSize().height));
 
     // Tạo nút "Play" và thêm vào menu
     auto playItem = MenuItemImage::create(
@@ -128,16 +128,14 @@ void MenuScene::createButton()
         "LargeButton/Play col_Button.png",
         CC_CALLBACK_1(MenuScene::menuPlayCallback, this));
     playItem->setTag(2);
+    playItem->setScale(0.2 * (visibleSize.height / playItem->getContentSize().height));
     // tao nut "option"
     auto optionsItem = MenuItemImage::create(
         "LargeButton/Options Button.png",
         "LargeButton/Options  col_Button.png",
         CC_CALLBACK_1(MenuScene::menuOptionsCallback, this));
     optionsItem->setTag(3);
-
-    exitItem->setScale(scaleS);
-    playItem->setScale(scaleS);
-    optionsItem->setScale(scaleS);
+    optionsItem->setScale(0.2 * (visibleSize.height / playItem->getContentSize().height));
 
     //tao menu va them cac nut
     auto menu = Menu::create(playItem, optionsItem, exitItem, nullptr);
@@ -195,11 +193,11 @@ void MenuScene::createGuraFallingSprite()
 
     Animate* animate = Animate::create(animation);
     Sprite* sprite = Sprite::create();
-    sprite->setPosition(Vec2(origin.x + visibleSize.width - visibleSize.width / 10 * 9,
-        origin.y + visibleSize.height - visibleSize.height / 10 * 9));
+    sprite->setPosition(Vec2(visibleSize.width / 10 * 2,
+        visibleSize.height / 10 * 2));
     this->addChild(sprite);
     sprite->runAction(RepeatForever::create(animate));
-    sprite->setScale(1.5 * scaleS);
+    sprite->setScale(0.2 * scaleS);
 
 }
 
@@ -224,11 +222,11 @@ void MenuScene::createAhhSharkSprite()
 
     Animate* animate = Animate::create(animation);
     Sprite* sprite = Sprite::create();
-    sprite->setPosition(Vec2(origin.x + visibleSize.width - visibleSize.width / 4,
-        origin.y + visibleSize.height - visibleSize.height / 10));
+    sprite->setPosition(Vec2(visibleSize.width / 10 * 8,
+        visibleSize.height / 10 * 8));
     this->addChild(sprite);
     sprite->runAction(RepeatForever::create(animate));
-    sprite->setScale(1.5 * scaleS);
+    sprite->setScale(0.2 * scaleS);
 }
 
 void MenuScene::createImageGura()
@@ -239,11 +237,12 @@ void MenuScene::createImageGura()
     //auto background = Sprite::create("BackGround/backGround.png");
     auto image = Sprite::create("imageGura/GuraMeme (160).png");
 
-    image->setPosition(origin.x + visibleSize.width - visibleSize.width / 10,
-        origin.y + visibleSize.height - (visibleSize.height - image->getContentSize().height / 2));
+    image->setPosition(Vec2(visibleSize.width / 10 * 8,
+        visibleSize.height / 10 * 2));
     //image->setScale(2);
     auto rotateAction = RepeatForever::create(RotateBy::create(2.0f, -360)); // 360 độ trong 1 giây
     image->runAction(rotateAction);
-    image->setScale(1.5 *scaleS);
+    scaleS = (visibleSize.height / image->getContentSize().height);
+    image->setScale(0.2 * scaleS);
     this->addChild(image, 0); // Đặt background ở layer thấp hơn để nó nằm dưới các phần tử khác của Scene
 }

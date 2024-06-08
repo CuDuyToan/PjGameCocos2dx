@@ -21,6 +21,8 @@ public:
     void setWork();
     bool checkAction();
 
+    float getSizePlayer();
+
 private:
     Sprite* spritePlayer;
     PhysicsBody* physicPlayer;

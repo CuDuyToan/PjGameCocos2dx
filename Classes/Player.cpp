@@ -129,6 +129,12 @@ void Player::changeActionStatus(float dt)
     }
 }
 
+float Player::getSizePlayer()
+{
+    auto defaultSprite = Sprite::create("imageGura/GuraMeme (160).png");
+    return  defaultSprite->getContentSize().height;
+}
+
 bool Player::checkAction()
 {
     return action;

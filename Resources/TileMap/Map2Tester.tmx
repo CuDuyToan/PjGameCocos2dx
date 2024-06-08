@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="11">
+ <tileset firstgid="1" source="Dungeon 2.tsx"/>
+ <group id="6" name="accessory">
+  <layer id="1" name="brick" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJzt0MsNQFAQRuGx5nZjoQHJ1YBXbaqgFUqgCCwciYWFvZ/cSb5MMquT8WbWCfMP3m76Ul+FGiMmNNdNxY4MMxakWLGJcJFZwe4xIEfMLRHxhb721leK9Sk7f6f8KyfQEATKwvx7Djl4k04=
+  </data>
+  </layer>
+ </group>
+ <group id="5" name="ground">
+  <layer id="3" name="ground" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBdQEKoMcc49iijAADgUJEQ==
+  </data>
+  </layer>
+  <objectgroup id="4" name="ground">
+   <object id="1" name="ground" x="0" y="240" width="640" height="48"/>
+  </objectgroup>
+ </group>
+ <group id="12" name="door">
+  <layer id="14" name="wall" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztzrENACAQw8CIkWEEGAH25csMAFIKn+TeEgAA+K03aVhpZj0tK82up2OlSf/DWxcP8Aih
+  </data>
+  </layer>
+  <layer id="11" name="door" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwShgYBBgYmAQZBpoV+AGikC3KQ1i9xkB3WY8iN03CqgHAP2PANY=
+  </data>
+  </layer>
+  <layer id="13" name="step" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgY/MCCiYHBkmmgXYEbeALd5jWI3TcKqAcAVWoBDQ==
+  </data>
+  </layer>
+  <layer id="15" name="chan" width="40" height="18" visible="0">
+   <data encoding="base64" compression="zlib">
+   eJztzjkBACAQwLAe/i2CBJDAI4CVY2gUBCRJkqAGtMhe3PV9Gx//5rmV7IVeWDvxBJ8=
+  </data>
+  </layer>
+ </group>
+ <group id="8" name="spawnPoint">
+  <objectgroup id="7" name="spawnPoint">
+   <object id="3" name="spawnPoint" x="48" y="80" width="15" height="16"/>
+  </objectgroup>
+ </group>
+ <group id="10" name="scale">
+  <objectgroup id="9" name="scale">
+   <object id="4" name="scale" x="31" y="8.5" width="15" height="11">
+    <properties>
+     <property name="scaleSize" type="float" value="2"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+</map>
