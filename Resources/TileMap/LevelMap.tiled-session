@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Map1Tester.tmx",
+    "activeFile": "Map2Tester.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -120,24 +120,21 @@
         "Map1Tester.tmx": {
             "expandedGroupLayers": [
                 4,
-                31,
-                5,
-                2,
-                6
+                31
             ],
             "expandedObjectLayers": [
+                4,
+                2,
+                32,
                 19,
                 21,
-                4,
-                31,
-                32,
-                2
+                31
             ],
             "scale": 0.5,
-            "selectedLayer": 21,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 503,
-                "y": 95
+                "x": 501,
+                "y": 93
             }
         },
         "Map2Tester.tmx": {
@@ -147,26 +144,37 @@
                 10
             ],
             "expandedObjectLayers": [
-                7,
-                9,
                 4,
                 8,
                 5,
-                10
+                7,
+                10,
+                9
             ],
             "scale": 2,
             "selectedLayer": 12,
             "viewCenter": {
-                "x": 81.25,
+                "x": 404.25,
                 "y": 158.75
+            }
+        },
+        "Map3Tester.tmx": {
+            "expandedGroupLayers": [
+                3
+            ],
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 311.6666666666667,
+                "y": 148.33333333333337
             }
         },
         "MapReview.tmx": {
             "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1602,
-                "y": 514
+                "x": 1598,
+                "y": 510
             }
         },
         "cartoon.tsx": {
@@ -179,26 +187,26 @@
         },
         "levelmapDemo.tmx": {
             "expandedGroupLayers": [
-                22,
                 18,
                 15,
-                13
+                13,
+                22
             ],
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 256.33333333333326,
-                "y": 434.99999999999994
+                "x": 255.66666666666669,
+                "y": 433.66666666666663
             }
         },
         "maptest.tmx": {
             "expandedGroupLayers": [
-                12,
-                3
+                3,
+                12
             ],
             "expandedObjectLayers": [
-                12,
-                14
+                14,
+                12
             ],
             "scale": 1,
             "selectedLayer": 9,
@@ -216,33 +224,33 @@
         }
     },
     "last.imagePath": "D:/tool extract/Game/GuraAdventure/Resources/TileMap",
-    "map.height": 48,
+    "map.height": 18,
     "map.lastUsedFormat": "tmx",
     "map.layerDataFormat": null,
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 64,
+    "map.width": 40,
     "openFiles": [
         "CartoonArt.tsx",
         "levelmapDemo.tmx",
         "MapReview.tmx",
         "Map1Tester.tmx",
+        "Map2Tester.tmx",
         "Dungeon 1.tsx",
         "Dungeon 2.tsx",
-        "maptest.tmx",
-        "Map2Tester.tmx"
+        "maptest.tmx"
     ],
     "project": "LevelMap.tiled-project",
     "property.type": "float",
     "recentFiles": [
-        "CartoonArt.tsx",
         "levelmapDemo.tmx",
         "MapReview.tmx",
-        "Map2Tester.tmx",
+        "CartoonArt.tsx",
+        "Map1Tester.tmx",
         "maptest.tmx",
         "Dungeon 2.tsx",
         "Dungeon 1.tsx",
-        "Map1Tester.tmx",
+        "Map2Tester.tmx",
         "Dungeon6.tsx",
         "dungeon3.tsx",
         "cartoon.tsx",

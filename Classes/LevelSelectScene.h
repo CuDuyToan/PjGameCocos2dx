@@ -29,6 +29,9 @@ public:
     void saveLevel(int level);
 
     int loadLevel();
+    bool checkPathExists(int level);
+
+    void selectLevel(int levelSelect);
 
     void createButtonPageLevel(int level);
 

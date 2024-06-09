@@ -1,6 +1,7 @@
 ﻿#include "LevelSelectScene.h"
 #include "MenuScene.h"
 #include "GameScene.h"
+#include <sys/stat.h>
 
 #include "ui/CocosGUI.h"
 
@@ -51,6 +52,21 @@ void LevelSelectScene::saveLevel(int level) {
 
 int LevelSelectScene::loadLevel() {
     return UserDefault::getInstance()->getIntegerForKey("current_level", 1);
+}
+
+bool LevelSelectScene::checkPathExists(int level)
+{
+    std::string fileName = "TileMap/Map" + std::to_string(level) + "Tester.tmx";
+    if (FileUtils::getInstance()->isFileExist(fileName))
+    {
+        CCLOG("true");
+    }
+    return FileUtils::getInstance()->isFileExist(fileName);
+}
+
+void LevelSelectScene::selectLevel(int levelSelect) {
+    UserDefault::getInstance()->setIntegerForKey("select_level", levelSelect);
+    UserDefault::getInstance()->flush();
 }
 
 void LevelSelectScene::mainBackGround()
@@ -109,6 +125,7 @@ void LevelSelectScene::createButtonPageLevel(int level)
         playLevel->setScale(0.08 * (sizeTable / playLevel->getContentSize().height));
         playLevel->setPosition(Vec2(storyBook->getContentSize().width / 2, storyBook->getContentSize().height / 10));
         playLevel->addClickEventListener([=](Ref* sender) {
+            selectLevel(level);
             auto nextScene = GameScene::create();
             Director::getInstance()->replaceScene(nextScene);
             });
@@ -122,7 +139,14 @@ void LevelSelectScene::createButtonPageLevel(int level)
         nextLevel->addClickEventListener([=](Ref* sender) {
             createButtonPageLevel(level + 1);
             });
-        nextLevel->setVisible(loadLevel() >= level);
+        if (loadLevel() >= level && checkPathExists(level + 1))
+        {
+            nextLevel->setVisible(true);
+        }
+        else
+        {
+            nextLevel->setVisible(false);
+        }
         nextLevel->setName("next level");
         storyBook->addChild(nextLevel);
     }

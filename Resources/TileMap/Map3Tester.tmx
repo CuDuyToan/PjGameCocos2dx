@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="1">
+ <tileset firstgid="1" source="Dungeon 1.tsx"/>
+ <group id="2" name="spawnPoint">
+  <objectgroup id="9" name="spawnPoint"/>
+ </group>
+ <group id="3" name="quest">
+  <objectgroup id="10" name="questList"/>
+ </group>
+ <group id="4" name="accessory"/>
+ <group id="5" name="door"/>
+ <group id="6" name="ground"/>
+ <group id="7" name="hideItem"/>
+ <group id="8" name="scale"/>
+</map>

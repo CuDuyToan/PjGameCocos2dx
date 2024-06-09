@@ -45,6 +45,10 @@ bool GameScene::init() {
     return true;
 }
 
+int GameScene::loadLevel()
+{
+    return UserDefault::getInstance()->getIntegerForKey("select_level", 1);
+}
 
 void GameScene::winLevel(int level) {
 
@@ -65,7 +69,7 @@ bool GameScene::createTileMap()
     _tilemap = new TMXTiledMap();
     int count = 0;
 
-    if (_tilemap->initWithTMXFile("TileMap/Map2Tester.tmx"))
+    if (_tilemap->initWithTMXFile("TileMap/Map" + std::to_string(loadLevel()) + "Tester.tmx"))
     {
         getScaleSizeInTileMap();
         CalculateNewSizeTile();
@@ -108,7 +112,7 @@ void GameScene::CalculateNewSizeTile()
     float tilemapH = (visibleSize.height / _tilemap->getTileSize().height) * _tilemap->getTileSize().height;
     float tileH = tilemapH / _tilemap->getMapSize().height;
     float sizeFullScene = (visibleSize.height / player->getSizePlayer()) / _tilemap->getTileSize().height;
-    scaleS = (tileH / player->getSizePlayer()) * scaleSizeInMap;
+    scaleS = (tileH / player->getSizePlayer());
     CCLOG("%f", tilemapH);
 }
 
@@ -308,7 +312,8 @@ void GameScene::getAllQuest()
             float height = objectProperties["height"].asFloat();
             std::string name = objectProperties["name"].asString();
             std::string request = objectProperties["request"].asString();
-            std::string reward = objectProperties["reward"].asString();//
+            std::string reward = objectProperties["reward"].asString();
+            std::string spritePath = "inGame/item sprite/" + request + ".png";
 
             // Lấy ra tọa độ trái và phải từ physics body
 
@@ -322,23 +327,30 @@ void GameScene::getAllQuest()
             physicsBody->setName(name.c_str());
 
             //tao nut "thao tac voi quest"
-            auto ButtonNormal = Sprite::create("inGame/button/handIcon.png");
-            auto ButtonSelected = Sprite::create("inGame/button/handIcon.png");
-            ButtonNormal->setScale(0.5);
-            ButtonSelected->setScale(0.6);
+            auto ButtonNormal = Sprite::create("inGame/button/buttonInQuest.png");
+            //ButtonNormal->setAnchorPoint(Vec2(0.5, 0.5));
+            auto ButtonSelected = Sprite::create("inGame/button/buttonInQuest.png");
+            //ButtonSelected->setAnchorPoint(Vec2(0.5, 0.5));
+            ButtonNormal->setScale((scaleS * 1));
+            ButtonSelected->setScale((scaleS * 1));
             auto buttonGetItem = MenuItemSprite::create(
                 ButtonNormal,
                 ButtonSelected,
                 std::bind(&GameScene::requestItemForNodeContact, this, std::placeholders::_1, request, reward));
-            buttonGetItem->setScale(0.1);
+            //buttonGetItem->setScale(buttonGetItem->getContentSize().height / ((ButtonNormal->getContentSize().height) * 1.5));
             buttonGetItem->setVisible(false);
             buttonGetItem->setTag(578);
             buttonGetItem->setName("button");
             buttonGetItem->setAnchorPoint(Vec2(0.5, 0));
+            /*auto buttonInQuest = Sprite::create("inGame/button/buttonInQuest.png");
+            buttonInQuest->setPosition(buttonGetItem->getPosition().x + buttonGetItem->getContentSize().width * 0.4,
+                buttonGetItem->getPosition().y + buttonGetItem->getContentSize().width * 0.4);
+            buttonInQuest->setScale((buttonGetItem->getContentSize().height / buttonInQuest->getContentSize().height)*1.5);
+            buttonGetItem->addChild(buttonInQuest, -1);*/
 
             //tao menu va them cac nut
             auto menu = Menu::create(buttonGetItem, nullptr);
-            menu->setPosition(Vec2(x + width / 2, y + height * 2));
+            menu->setPosition(Vec2(x + width, y + height * 2));
             menu->setName("menu " + name);
 
             _tilemap->addChild(menu, 100);
@@ -437,14 +449,14 @@ void GameScene::getHideItem()
                 physicsBody->setName(name.c_str());
 
                 //tao nut "thao tac voi quest"
-                auto ButtonNormal = Sprite::create("inGame/button/handIcon.png");
-                auto ButtonSelected = Sprite::create("inGame/button/handIcon.png");
+                auto ButtonNormal = Sprite::create("inGame/button/takeItem.png");
+                auto ButtonSelected = Sprite::create("inGame/button/takeItem.png");
                 ButtonSelected->setScale(1.1);
                 auto buttonGetItem = MenuItemSprite::create(
                     ButtonNormal,
                     ButtonSelected,
                     std::bind(&GameScene::getItemInNodeContact, this, std::placeholders::_1, name));
-                buttonGetItem->setScale(0.1);
+                buttonGetItem->setScale(scaleS);
                 buttonGetItem->setVisible(false);
                 buttonGetItem->setTag(578);
                 buttonGetItem->setName("button");
@@ -620,7 +632,7 @@ void GameScene::requestItemForNodeContact(Ref* sender, const std::string& reques
         {
             if (player->items[i] == reward && reward == "next level")
             {
-                winLevel(3);
+                winLevel(loadLevel());
                 return;
             }
 
@@ -736,7 +748,7 @@ bool GameScene::onTouchEnded(Touch* touch, Event* event)
         }
 
         float distanceX = fabs(deltaX);
-        float duration = distanceX / ((player->getSizePlayer()*3) * (scaleS * 1.25));
+        float duration = distanceX / ((player->getSizePlayer()*3) * (scaleS * 1.5));
 
         player->stopAllActions();
         //this->runAction(MoveTo::create(duration, Vec2(touchPointInNode.x, this->getPositionY())));
@@ -798,7 +810,8 @@ void GameScene::spawnPlayer(float spawnX, float spawnY)
     player = Player::create();
     player->setAnchorPoint(Vec2(0, 0));
     player->setPosition(Vec2(spawnX, spawnY));
-    player->setScale(scaleS);
+    player->setScale(scaleS * scaleSizeInMap);
+    CCLOG("%f", scaleSizeInMap);
     this->addChild(player, 10);
 }
 

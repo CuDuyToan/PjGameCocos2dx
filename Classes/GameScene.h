@@ -13,6 +13,9 @@ public:
 
     virtual bool init();
 
+    int loadLevel();
+    int level = 1;
+
     Player* player;
 
     bool createTileMap();
