@@ -3,6 +3,11 @@
 #include "GameScene.h"
 #include <sys/stat.h>
 
+#include "cocos2d.h"
+#include "json/document.h"
+#include "json/filereadstream.h"
+#include <cstdio>
+
 #include "ui/CocosGUI.h"
 
 USING_NS_CC;
@@ -90,7 +95,7 @@ void LevelSelectScene::createButtonPageLevel(int level)
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     createButtonChangeLevel("Level " + std::to_string(level));
-
+    readStory(level);
     auto storyBook = this->getChildByName("story book");
 
     if (storyBook)
@@ -121,7 +126,8 @@ void LevelSelectScene::createButtonPageLevel(int level)
             storyBook->addChild(reducedLevel, 1);
         }
 
-        auto playLevel = ui::Button::create("SquareButton/Play Square Button.png", "SquareButton/Play col_Square Button.png");
+        auto playLevel = ui::Button::create("SquareButton/Play Square Button.png", 
+            "SquareButton/Play col_Square Button.png");
         playLevel->setScale(0.08 * (sizeTable / playLevel->getContentSize().height));
         playLevel->setPosition(Vec2(storyBook->getContentSize().width / 2, storyBook->getContentSize().height / 10));
         playLevel->addClickEventListener([=](Ref* sender) {
@@ -173,7 +179,7 @@ void LevelSelectScene::createButtonChangeLevel(const std::string& nameLevel)
         tableLevel->setName("story book");
         addChild(tableLevel, 0);
 
-        auto label = Label::createWithTTF(nameLevel, "fonts/Marker Felt.ttf", 24);      
+        auto label = Label::createWithTTF(nameLevel, "fonts/Marker Felt.ttf", 24);     
         label->setAnchorPoint(Vec2(0.5, 0.5));
         label->setScale(0.05 * (sizeTable / label->getContentSize().height));
         label->setPosition(Vec2(tableLevel->getContentSize().width / 2,
@@ -205,7 +211,77 @@ void LevelSelectScene::createButtonChangeLevel(const std::string& nameLevel)
     }
 }
 
+void LevelSelectScene::readStory(int level)
+{
+    auto storyBook = this->getChildByName("story book");
+    if (storyBook->getChildByName("story"))
+    {
+        storyBook->removeChildByName("story");
+        stopFlag = true;
+    }
+    if (storyBook->getChildByName("image"))
+    {
+        storyBook->removeChildByName("image");
+        CCLOG("remove image");
+    }
 
+    // Đọc nội dung từ file .txt
+    std::string filePath = FileUtils::getInstance()->fullPathForFilename("level preview/level" + std::to_string(level) + "/story.txt");
+    
+    if (filePath != "" && loadLevel() >= level && checkPathExists(level + 1))
+    {
+        stopFlag = false;
+        std::string storedText = FileUtils::getInstance()->getStringFromFile(filePath);
+
+        // Tạo một label và hiển thị nội dung với hiệu ứng dần xuất hiện
+        showTextWithEffect(storedText, level);
+    }
+}
+
+void LevelSelectScene::showTextWithEffect(const std::string& text, int level) {
+    addCharacterByCharacter(text, 0.01f, level);
+}
+
+void LevelSelectScene::addCharacterByCharacter(const std::string& text, float delay, int level) {
+    auto storyBook = this->getChildByName("story book");
+
+    if (storyBook)
+    {
+        auto label = Label::createWithTTF("", "fonts/Marker Felt.ttf", 24);
+        label->setPosition(Vec2(storyBook->getContentSize().width * 0.5,
+            storyBook->getContentSize().height * 0.5)); // Đặt vị trí của label trên màn hình
+        label->setTextColor(Color4B::BLACK);
+        label->setWidth((storyBook->getContentSize().width * 0.7));
+        label->setHeight(storyBook->getContentSize().height * 0.7);
+        label->setOverflow(Label::Overflow::CLAMP);
+        label->setName("story");
+        storyBook->addChild(label,2);
+
+        std::string pathImage = "level preview/level" + std::to_string(level) + "/Map" + std::to_string(level) + "Tester.png";
+        auto image = Sprite::create(pathImage);
+        if (image)
+        {
+            image->setScale((storyBook->getContentSize().height / image->getContentSize().height) * 0.2);
+            image->setPosition(Vec2(storyBook->getContentSize().width * 0.5,
+                storyBook->getContentSize().height * 0.25));
+            image->setName("image");
+            CCLOG("add image");
+            storyBook->addChild(image);
+        }
+
+        int length = text.size();
+        int index = 0;
+
+        this->schedule([=](float dt) mutable {
+            if ((index < length) && !stopFlag) {
+                label->setString(text.substr(0, ++index));
+            }
+            else {
+                this->unschedule("add_char_schedule");
+            }
+            }, delay, "add_char_schedule");
+    }
+}
 
 void LevelSelectScene::menuButton()
 {

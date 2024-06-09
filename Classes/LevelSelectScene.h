@@ -22,6 +22,10 @@ public:
 
     void createButtonChangeLevel(const std::string& nameLevel);
 
+    void readStory(int level);
+    void showTextWithEffect(const std::string& text, int level);
+    void addCharacterByCharacter(const std::string& text, float delay, int level);
+
     void saveNextLevelButtonState(bool state);
 
     bool loadNextLevelButtonState();
@@ -38,6 +42,7 @@ public:
     CREATE_FUNC(LevelSelectScene);
 
 private:
+    bool stopFlag = false;
     float sizeTable = 1;
     int a = 2;
 };
