@@ -28,10 +28,13 @@ public:
     void getAllQuest();
     void getDoor();
     void getHideItem();
+    void getLadder();
     //void setColorLayer();
     //Color3B colorFromHex(const std::string& hexString);
 
     void getQuestList();
+
+    void useLadder(Ref* sender, const std::string& nameLadder, const std::string& location, float width, float height);
 
     void getItemInTileMapWithName(std::string name);
     void getItemInNodeContact(Ref* sender, const std::string& message);
@@ -68,21 +71,22 @@ public:
     CREATE_FUNC(GameScene);
 
 private:
-
+    std::vector<Rect*> listOfLadder;
+    MenuItemSprite* buttonMove = nullptr;
     float scaleS = 1;
     float scaleSizeInMap = 1;
 
     float spawnX = 0;
     float spawnY = 0;
 
-    Layer* menuButton = nullptr;
+    //Layer* menuButton = nullptr;
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     bool onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
 
-    Sprite* Home = nullptr;
-    Sprite* Dot = nullptr;
-    MenuItemImage* HandButton = nullptr;
+    //Sprite* Home = nullptr;
+    //Sprite* Dot = nullptr;
+    //MenuItemImage* HandButton = nullptr;
 
     PhysicsWorld* world;
     void setPhysicWorld(PhysicsWorld* _world)

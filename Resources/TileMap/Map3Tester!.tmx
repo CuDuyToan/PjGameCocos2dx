@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="7">
+ <tileset firstgid="1" source="Dungeon 1.tsx"/>
+ <tileset firstgid="271" source="Dungeon 2.tsx"/>
+ <group id="16" name="backGround">
+  <layer id="15" name="backGround" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxTZGBgUBzFwx6HDSKMy32uQOw2iN0XAsShg9h9gwWPum/UfaPuG3UfPd03ikfxQGAAW5SsYg==
+  </data>
+  </layer>
+ </group>
+ <group id="2" name="spawnPoint">
+  <objectgroup id="9" name="spawnPoint"/>
+ </group>
+ <group id="3" name="quest">
+  <objectgroup id="10" name="questList"/>
+ </group>
+ <group id="4" name="accessory"/>
+ <group id="5" name="door">
+  <objectgroup id="13" name="door">
+   <object id="6" x="160" y="176" width="32" height="48"/>
+  </objectgroup>
+  <layer id="14" name="door" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGLpBjZmCQZx5oV+AG+kC3GQxi9zkA3eY4iN03CkYBLQAAH24BMA==
+  </data>
+  </layer>
+ </group>
+ <group id="6" name="ground">
+  <layer id="12" name="ground" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztlksOgkAQROsMrlyC0bg10XgDb8AF8LdGFM9vdUgHMqFRXJhaOMnLwHQzU6kOmc4B5IKU5EgqciM1uQ+8P0hDniOxKoi923vsLNd3IDuyEWLb016QBbRGRtbkRPbQ1Ge6aujqm6OtrfmoqE+9vn//vh8ZOv9sVtVn/qnW1/1Tr6/db4r6/P8wjSsyE2KJ7v4wjd4rpM9nciHXYD3KTb8pJ+Smcauv9wqf9EjRWtObvYeL8obiUW6B3/eeU3gBY+lS8w==
+  </data>
+  </layer>
+  <objectgroup id="11" name="ground">
+   <object id="1" x="0" y="224" width="640" height="64"/>
+   <object id="2" x="0" y="0" width="640" height="48"/>
+   <object id="4" x="592" y="0" width="48" height="288"/>
+   <object id="5" x="0" y="0" width="32" height="288"/>
+  </objectgroup>
+ </group>
+ <group id="7" name="hideItem"/>
+ <group id="8" name="scale"/>
+</map>

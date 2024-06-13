@@ -183,7 +183,7 @@ void LevelSelectScene::createButtonChangeLevel(const std::string& nameLevel)
         label->setAnchorPoint(Vec2(0.5, 0.5));
         label->setScale(0.05 * (sizeTable / label->getContentSize().height));
         label->setPosition(Vec2(tableLevel->getContentSize().width / 2,
-            tableLevel->getContentSize().height - (label->getContentSize().height * 2)));
+            tableLevel->getContentSize().height * 0.95));
         label->setTextColor(Color4B::BLACK);
 
         label->setName("level name");
@@ -203,7 +203,7 @@ void LevelSelectScene::createButtonChangeLevel(const std::string& nameLevel)
         label->setAnchorPoint(Vec2(0.5, 0.5));
         label->setScale(0.05 * (sizeTable / label->getContentSize().height));
         label->setPosition(Vec2(tableLevel->getContentSize().width / 2,
-            tableLevel->getContentSize().height - (label->getContentSize().height * 2)));
+            tableLevel->getContentSize().height * 0.95));
         label->setTextColor(Color4B::BLACK);
 
         label->setName("level name");
@@ -247,12 +247,15 @@ void LevelSelectScene::addCharacterByCharacter(const std::string& text, float de
 
     if (storyBook)
     {
-        auto label = Label::createWithTTF("", "fonts/Marker Felt.ttf", 24);
+        auto label = Label::createWithTTF("story :", "fonts/Marker Felt.ttf",
+            24);
+        float scaleLabel = 0.04 * (sizeTable / label->getContentSize().height);
+        label->setScale(scaleLabel);
         label->setPosition(Vec2(storyBook->getContentSize().width * 0.5,
             storyBook->getContentSize().height * 0.5)); // Đặt vị trí của label trên màn hình
         label->setTextColor(Color4B::BLACK);
-        label->setWidth((storyBook->getContentSize().width * 0.7));
-        label->setHeight(storyBook->getContentSize().height * 0.7);
+        label->setWidth((storyBook->getContentSize().width * 0.7 / scaleLabel));
+        label->setHeight(storyBook->getContentSize().height * 0.7 / scaleLabel);
         label->setOverflow(Label::Overflow::CLAMP);
         label->setName("story");
         storyBook->addChild(label,2);

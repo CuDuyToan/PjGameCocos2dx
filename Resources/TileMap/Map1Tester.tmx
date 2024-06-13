@@ -5,7 +5,7 @@
  <tileset firstgid="241" source="CartoonArt2.tsx"/>
  <group id="2" name="spawnPoint">
   <objectgroup id="21" name="spawnPoint">
-   <object id="5" name="spawnPoint" x="70" y="148" width="64" height="64"/>
+   <object id="5" name="spawnPoint" x="130" y="410.667" width="64" height="64"/>
   </objectgroup>
  </group>
  <group id="3" name="quest">

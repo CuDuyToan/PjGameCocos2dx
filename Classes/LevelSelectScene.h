@@ -16,8 +16,8 @@ public:
     void homeButton(cocos2d::Ref* pSender);
 
     void menuButton();
-    void createCasualButton();
-    void createLevelText();
+    //void createCasualButton();
+    //void createLevelText();
     void mainBackGround();
 
     void createButtonChangeLevel(const std::string& nameLevel);

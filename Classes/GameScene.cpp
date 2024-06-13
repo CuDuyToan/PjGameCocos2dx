@@ -16,7 +16,7 @@ bool GameScene::init() {
         return false;
     }
 
-    this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_NONE);
     this->getPhysicsWorld()->setGravity(Vec2(0, -2000));
 
 
@@ -85,8 +85,8 @@ bool GameScene::createTileMap()
         getGround();
         getWall();
         getCeiling();
-
-        //getBarrier();
+        getLadder();
+        getBarrier();
 
         getHideItem();
         getAllQuest();
@@ -259,6 +259,7 @@ void GameScene::getBarrier()
     auto objectLayer = _tilemap->getObjectGroup(obj);
 
     if (objectLayer) {
+        CCLOG("barrier");
         // Lấy danh sách các đối tượng từ object layer
         ValueVector objects = objectLayer->getObjects();
 
@@ -279,7 +280,7 @@ void GameScene::getBarrier()
             physicsBody->setDynamic(false);
             physicsBody->setGravityEnable(false);
             physicsBody->setContactTestBitmask(true);
-            physicsBody->setCollisionBitmask(204);
+            physicsBody->setCollisionBitmask(201);
             sprite->setPhysicsBody(physicsBody);
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
@@ -294,6 +295,8 @@ void GameScene::getBarrier()
 
 void GameScene::getAllQuest()
 {
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+
     std::string obj = "questList";
     // Lấy layer chứa các đối tượng từ Tiled Map
     auto objectLayer = _tilemap->getObjectGroup(obj);
@@ -331,17 +334,16 @@ void GameScene::getAllQuest()
             //ButtonNormal->setAnchorPoint(Vec2(0.5, 0.5));
             auto ButtonSelected = Sprite::create("inGame/button/buttonInQuest.png");
             //ButtonSelected->setAnchorPoint(Vec2(0.5, 0.5));
-            ButtonNormal->setScale((scaleS * 1));
-            ButtonSelected->setScale((scaleS * 1));
+            ButtonSelected->setContentSize(Size(ButtonNormal->getContentSize().width * 1.1,
+                ButtonNormal->getContentSize().height * 1.1));
             auto buttonGetItem = MenuItemSprite::create(
                 ButtonNormal,
                 ButtonSelected,
                 std::bind(&GameScene::requestItemForNodeContact, this, std::placeholders::_1, request, reward));
-            //buttonGetItem->setScale(buttonGetItem->getContentSize().height / ((ButtonNormal->getContentSize().height) * 1.5));
+            buttonGetItem->setScale(0.075 * (visibleSize.height / buttonGetItem->getContentSize().height));
             buttonGetItem->setVisible(false);
             buttonGetItem->setTag(578);
             buttonGetItem->setName("button");
-            buttonGetItem->setAnchorPoint(Vec2(0.5, 0));
             /*auto buttonInQuest = Sprite::create("inGame/button/buttonInQuest.png");
             buttonInQuest->setPosition(buttonGetItem->getPosition().x + buttonGetItem->getContentSize().width * 0.4,
                 buttonGetItem->getPosition().y + buttonGetItem->getContentSize().width * 0.4);
@@ -350,7 +352,7 @@ void GameScene::getAllQuest()
 
             //tao menu va them cac nut
             auto menu = Menu::create(buttonGetItem, nullptr);
-            menu->setPosition(Vec2(x + width, y + height * 2));
+            menu->setPosition(Vec2(x + width/2, y + height * 2));
             menu->setName("menu " + name);
 
             _tilemap->addChild(menu, 100);
@@ -451,12 +453,13 @@ void GameScene::getHideItem()
                 //tao nut "thao tac voi quest"
                 auto ButtonNormal = Sprite::create("inGame/button/takeItem.png");
                 auto ButtonSelected = Sprite::create("inGame/button/takeItem.png");
-                ButtonSelected->setScale(1.1);
+                ButtonSelected->setContentSize(Size(ButtonNormal->getContentSize().width * 1.1,
+                    ButtonNormal->getContentSize().height * 1.1));
                 auto buttonGetItem = MenuItemSprite::create(
                     ButtonNormal,
                     ButtonSelected,
                     std::bind(&GameScene::getItemInNodeContact, this, std::placeholders::_1, name));
-                buttonGetItem->setScale(scaleS);
+                buttonGetItem->setScale(0.05 * (visibleSize.height / ButtonNormal->getContentSize().height));
                 buttonGetItem->setVisible(false);
                 buttonGetItem->setTag(578);
                 buttonGetItem->setName("button");
@@ -476,6 +479,94 @@ void GameScene::getHideItem()
                 sprite->setPosition(Vec2(Vec2(x + width / 2, y + height / 2)));
                 sprite->setName("sprite " + name);
                 _tilemap->addChild(sprite, layer);
+            }
+
+        }
+    }
+    else
+    {
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
+    }
+}
+
+void GameScene::getLadder()
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+
+    std::string obj = "ladder";
+    // Lấy layer chứa các đối tượng từ Tiled Map
+    auto objectLayer = _tilemap->getObjectGroup(obj);
+
+    if (objectLayer) {
+        // Lấy danh sách các đối tượng từ object layer
+        ValueVector objects = objectLayer->getObjects();
+
+        // Duyệt qua từng đối tượng và gán physics body
+        for (const auto& object : objects) {
+            ValueMap objectProperties = object.asValueMap();
+
+            float x = objectProperties["x"].asFloat();
+            float y = objectProperties["y"].asFloat();
+            float width = objectProperties["width"].asFloat();
+            float height = objectProperties["height"].asFloat();
+            std::string name = objectProperties["name"].asString();
+            std::string location = objectProperties["location"].asString();
+            int layer = objectProperties["layer"].asInt();
+            std::string spritePath = "inGame/item sprite/" + location + ".png";
+            listOfLadder.push_back(new Rect(x, y, width, height));
+            // Lấy ra tọa độ trái và phải từ physics body
+
+        // Tạo sprite và physics body
+            auto sprite = Sprite::create();
+            if (sprite)
+            {
+                auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
+                physicsBody->setDynamic(false);
+                physicsBody->setGravityEnable(false);
+                physicsBody->setContactTestBitmask(true);
+                physicsBody->setCollisionBitmask(0);
+                physicsBody->setName(name + ", location " + location);
+
+                //tao nut "thao tac voi quest"
+                std::string pathButton;
+                if (location == "bottom")
+                {
+                    pathButton = "inGame/button/Up.png";
+                }
+                else if (location == "top")
+                {
+                    pathButton = "inGame/button/Down.png";
+                }
+                if (location != "middle")
+                {
+                    auto ButtonNormal = Sprite::create(pathButton);
+                    auto ButtonSelected = Sprite::create(pathButton);
+                    ButtonSelected->setContentSize(Size(ButtonNormal->getContentSize().width * 1.1,
+                        ButtonNormal->getContentSize().height * 1.1));
+                    buttonMove = MenuItemSprite::create(
+                        ButtonNormal,
+                        ButtonSelected,
+                        std::bind(&GameScene::useLadder, this, std::placeholders::_1, name, location, width, height));
+                    buttonMove->setScale(0.025 * (visibleSize.height / ButtonNormal->getContentSize().height));
+                    buttonMove->setVisible(false);
+                    buttonMove->setName("button");
+
+                    //tao menu va them cac nut
+                    auto menu = Menu::create(buttonMove, nullptr);
+                    menu->setPosition(Vec2(x + width / 2, y + height * 2.5));
+                    menu->setName("menu " + name + ", location " + location);
+
+                    _tilemap->addChild(menu, 100);
+
+                    //sprite->setOpacity(255);
+                    sprite->setContentSize(Size(width, height));
+                    sprite->setPhysicsBody(physicsBody);
+                    //sprite->setName(name.c_str());
+                    // Đặt vị trí cho sprite và thêm vào scenes
+                    sprite->setPosition(Vec2(Vec2(x + width / 2, y + height / 2)));
+                    sprite->setName("sprite " + name + ", location " + location);
+                    _tilemap->addChild(sprite, layer);
+                }
             }
 
         }
@@ -527,6 +618,29 @@ void GameScene::getQuestList()
     {
         CCLOG("khong the lay %s tu tiled", obj.c_str());
     }
+}
+
+void GameScene::useLadder(Ref* sender, const std::string& nameLadder, const std::string& location, float width, float height)
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    float x = 0;
+    float y = 0;
+    float XAxisVariable = visibleSize.width / _tilemap->getContentSize().width;
+    float YAxisVariable = visibleSize.height / _tilemap->getContentSize().height;
+    if (location == "bottom")
+    {
+        x = _tilemap->getChildByName("sprite " + nameLadder + ", location " + "top")->getPositionX() * XAxisVariable;
+        y = (_tilemap->getChildByName("sprite " + nameLadder + ", location " + "top")->getPositionY() + height*1.5) * YAxisVariable;
+        CCLOG("x= %f , y= %f", x, y);
+    }
+    else if (location == "top")
+    {
+        x = _tilemap->getChildByName("sprite " + nameLadder + ", location " + "bottom")->getPositionX() * XAxisVariable;
+        y = _tilemap->getChildByName("sprite " + nameLadder + ", location " + "bottom")->getPositionY() * YAxisVariable;
+        CCLOG("x= %f , y= %f", x, y);
+    }
+
+    player->setPosition(Vec2(x, y));
 }
 
 //void GameScene::setColorLayer()
@@ -812,7 +926,7 @@ void GameScene::spawnPlayer(float spawnX, float spawnY)
     player->setPosition(Vec2(spawnX, spawnY));
     player->setScale(scaleS * scaleSizeInMap);
     CCLOG("%f", scaleSizeInMap);
-    this->addChild(player, 10);
+    this->addChild(player, 9999);
 }
 
 void GameScene::getScaleSizeInTileMap()
@@ -885,10 +999,12 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
         {
             if (nodeA->getCollisionBitmask() == 0)
             {
+                CCLOG("button visible");
                 getItemInTileMapWithName(nodeA->getName().c_str());
             }
             else
             {
+                CCLOG("button visible");
                 getItemInTileMapWithName(nodeB->getName().c_str());
             }
 
@@ -899,7 +1015,7 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
 
             }
 
-            if (nodeA->getCollisionBitmask() == 0)
+            /*if (nodeA->getCollisionBitmask() == 0)
             {
                 CCLOG("door");
             }
@@ -907,9 +1023,33 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
             if (nodeB->getCollisionBitmask() == 0)
             {
                 CCLOG("door");
-            }
+            }*/
         }
     }
+    
+    /*if (nodeA->getCollisionBitmask() == 66 && nodeB->getCollisionBitmask() == 100 ||
+        nodeA->getCollisionBitmask() == 100 && nodeB->getCollisionBitmask() == 66)
+    {
+        if (nodeA->getNode() != nullptr && nodeB->getNode() != nullptr)
+        {
+            if (nodeA->getCollisionBitmask() == 66)
+            {
+                nodeA->getNode()->getChildByName("menu ladder1")->getChildByName("button")->setVisible(true);
+            }
+            else
+            {
+                nodeB->getNode()->getChildByName("menu ladder1")->getChildByName("button")->setVisible(true);
+            }
+            if (nodeA->getCollisionBitmask() == 0)
+            {
+                CCLOG("door");
+            }
+            if (nodeB->getCollisionBitmask() == 0)
+            {
+                CCLOG("door");
+            }
+        }
+    }*/
 
     return true;
 }
@@ -957,6 +1097,11 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
 
 void GameScene::playerShowItem(float dt)
 {
+    if (player)
+    {
+        
+        //CCLOG("%f, %f", player->getPosition().x, player->getPosition().y);
+    }
     sortItemInventory();
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -1037,17 +1182,17 @@ void GameScene::createUiMenu()
     addChild(menu, 100);
 }
 
-void GameScene::createButtonHand()
-{
-    HandButton = MenuItemImage::create(
-        "LargeButton/Exit Button.png",
-        "LargeButton/Exit  col_Button.png",
-        CC_CALLBACK_1(GameScene::goToHome, this));
-    HandButton->setContentSize(HandButton->getContentSize() * 0.02);
-    HandButton->setPosition(Vec2(player->getPosition().x + 2, player->getPosition().y));
-    HandButton->setTag(0);
-    //this->addChild(HandButton);
-}
+//void GameScene::createButtonHand()
+//{
+//    Handbutto = MenuItemImage::create(
+//        "LargeButton/Exit Button.png",
+//        "LargeButton/Exit  col_Button.png",
+//        CC_CALLBACK_1(GameScene::goToHome, this));
+//    HandButton->setContentSize(HandButton->getContentSize() * 0.02);
+//    HandButton->setPosition(Vec2(player->getPosition().x + 2, player->getPosition().y));
+//    HandButton->setTag(0);
+//    //this->addChild(HandButton);
+//}
 
 void GameScene::goToHome(cocos2d::Ref* pSender)
 {
