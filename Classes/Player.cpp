@@ -21,6 +21,8 @@ bool Player::init()
     //createSprite();
     addSpriteFrames();
     addPhysicBodyForSprite();
+    addChatDanger();
+
     action = true;
     contactCheck = 0;
     inertia = 0;
@@ -138,5 +140,16 @@ float Player::getSizePlayer()
 bool Player::checkAction()
 {
     return action;
+}
+
+void Player::addChatDanger()
+{
+    auto chat = Sprite::create("inGame/chat icon/danger.png");
+    chat->setScale(0.1*(Director::getInstance()->getVisibleSize().height / chat->getContentSize().height));
+    chat->setVisible(false);
+    chat->setName("danger");
+
+    this->addChild(chat, 100);
+    chat->setPosition(Vec2(0, spritePlayer->getContentSize().height*0.6));
 }
 

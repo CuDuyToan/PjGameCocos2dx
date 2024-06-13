@@ -29,16 +29,23 @@ public:
     void getDoor();
     void getHideItem();
     void getLadder();
+    void getTrap();
+    void getSwitch();
+
+    void getTrapByName(std::string trapName);
     //void setColorLayer();
     //Color3B colorFromHex(const std::string& hexString);
 
     void getQuestList();
 
+    void visibleNextLevel(float dt);
+
+    void turnTrap(Ref* sender, const std::string& controlObjects, const std::string& name, bool& status, Sprite* sprite);
     void useLadder(Ref* sender, const std::string& nameLadder, const std::string& location, float width, float height);
 
     void getItemInTileMapWithName(std::string name);
     void getItemInNodeContact(Ref* sender, const std::string& message);
-    void requestItemForNodeContact(Ref* sender, const std::string& request, const std::string& reward);
+    void requestItemForNodeContact(Ref* sender, const std::string& request, const std::string& reward, Sprite* sprite);
     void visibleChatIcon(bool TF, std::string itemName);
     void completeTheQuest();
     void sortItemInventory();
@@ -54,6 +61,8 @@ public:
     bool onContactBegin(PhysicsContact& contact);
     bool onContactSeparate(PhysicsContact& contact);
 
+    void playerMoveLR(float dt);
+
     void pauseGame();
     void createUiMenu();
 
@@ -64,13 +73,16 @@ public:
 
     cocos2d::TMXTiledMap* _tilemap;
 
-    void winLevel(int level);
+    void winLevel(Ref* sender, int level);
 
     void CalculateNewSizeTile();
 
     CREATE_FUNC(GameScene);
 
 private:
+    bool stopFlag = false;
+    float direction = 1;
+
     std::vector<Rect*> listOfLadder;
     MenuItemSprite* buttonMove = nullptr;
     float scaleS = 1;

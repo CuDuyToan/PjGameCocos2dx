@@ -21,6 +21,8 @@ public:
     void setWork();
     bool checkAction();
 
+    void addChatDanger();
+
     float getSizePlayer();
 
 private:

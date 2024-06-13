@@ -50,16 +50,18 @@ int GameScene::loadLevel()
     return UserDefault::getInstance()->getIntegerForKey("select_level", 1);
 }
 
-void GameScene::winLevel(int level) {
+void GameScene::winLevel(Ref* sender, int level) {
+    if (player->checkAction())
+    {
+        UserDefault::getInstance()->setIntegerForKey("current_level", level);
+        UserDefault::getInstance()->setBoolForKey("next_level_button_state", true);
 
-    UserDefault::getInstance()->setIntegerForKey("current_level", level);
-    UserDefault::getInstance()->setBoolForKey("next_level_button_state", true);
-
-    UserDefault::getInstance()->flush();
-    CCLOG("Level %d has been saved after winning.", level);
-    UserDefault::getInstance()->destroyInstance();
-    auto levelSelectScene = LevelSelectScene::createScene();
-    Director::getInstance()->replaceScene(levelSelectScene);
+        UserDefault::getInstance()->flush();
+        CCLOG("Level %d has been saved after winning.", level);
+        UserDefault::getInstance()->destroyInstance();
+        auto levelSelectScene = LevelSelectScene::createScene();
+        Director::getInstance()->replaceScene(levelSelectScene);
+    }
 }
 
 
@@ -91,6 +93,10 @@ bool GameScene::createTileMap()
         getHideItem();
         getAllQuest();
         getDoor();
+
+        getTrap();
+        getSwitch();
+
         addBackGroundToTilemap();
 
 
@@ -267,6 +273,7 @@ void GameScene::getBarrier()
         for (const auto& object : objects) {
             ValueMap objectProperties = object.asValueMap();
 
+            std::string name = objectProperties["name"].asString();
             float x = objectProperties["x"].asFloat();
             float y = objectProperties["y"].asFloat();
             float width = objectProperties["width"].asFloat();
@@ -280,7 +287,8 @@ void GameScene::getBarrier()
             physicsBody->setDynamic(false);
             physicsBody->setGravityEnable(false);
             physicsBody->setContactTestBitmask(true);
-            physicsBody->setCollisionBitmask(201);
+            physicsBody->setCollisionBitmask(250);
+            physicsBody->setName(name);
             sprite->setPhysicsBody(physicsBody);
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
@@ -313,21 +321,37 @@ void GameScene::getAllQuest()
             float y = objectProperties["y"].asFloat();
             float width = objectProperties["width"].asFloat();
             float height = objectProperties["height"].asFloat();
+            std::string needSprite = objectProperties["needSprite"].asString();
             std::string name = objectProperties["name"].asString();
             std::string request = objectProperties["request"].asString();
             std::string reward = objectProperties["reward"].asString();
-            std::string spritePath = "inGame/item sprite/" + request + ".png";
+            std::string requestPath = "inGame/level" + std::to_string(loadLevel()) + "/sprite/" + request + ".png";
+            std::string spritePath = "inGame/level" + std::to_string(loadLevel()) + "/sprite/" + needSprite + ".png";
+
 
             // Lấy ra tọa độ trái và phải từ physics body
 
         // Tạo sprite và physics body
-            auto sprite = Sprite::create();
+            Sprite* sprite = Sprite::create(spritePath);
             auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
             physicsBody->setDynamic(false);
             physicsBody->setGravityEnable(false);
             physicsBody->setContactTestBitmask(true);
             physicsBody->setCollisionBitmask(0);
             physicsBody->setName(name.c_str());
+
+            auto chat = Sprite::create("inGame/chat icon/chatIcon.png");
+            chat->setScale(0.05 * (Director::getInstance()->getVisibleSize().height / chat->getContentSize().height));
+            chat->setVisible(false);
+            chat->setName("request");
+
+            auto itemRequest = Sprite::create(requestPath);
+            itemRequest->setPosition(Vec2(chat->getContentSize().width * 0.5, chat->getContentSize().height * 0.6));
+            itemRequest->setScale( 0.75 * (chat->getContentSize().height / itemRequest->getContentSize().height));
+            chat->addChild(itemRequest);
+
+            sprite->addChild(chat, 100);
+            chat->setPosition(Vec2(sprite->getContentSize().width/2, sprite->getContentSize().height * 2));
 
             //tao nut "thao tac voi quest"
             auto ButtonNormal = Sprite::create("inGame/button/buttonInQuest.png");
@@ -339,7 +363,7 @@ void GameScene::getAllQuest()
             auto buttonGetItem = MenuItemSprite::create(
                 ButtonNormal,
                 ButtonSelected,
-                std::bind(&GameScene::requestItemForNodeContact, this, std::placeholders::_1, request, reward));
+                std::bind(&GameScene::requestItemForNodeContact, this, std::placeholders::_1, request, reward, sprite));
             buttonGetItem->setScale(0.075 * (visibleSize.height / buttonGetItem->getContentSize().height));
             buttonGetItem->setVisible(false);
             buttonGetItem->setTag(578);
@@ -361,7 +385,7 @@ void GameScene::getAllQuest()
             //sprite->setName(name.c_str());
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
-            _tilemap->addChild(sprite, 2);
+            _tilemap->addChild(sprite, 100);
         }
     }
     else
@@ -372,6 +396,7 @@ void GameScene::getAllQuest()
 
 void GameScene::getDoor()
 {
+    auto visibleSize = Director::getInstance()->getVisibleSize();
     std::string obj = "door";
     // Lấy layer chứa các đối tượng từ Tiled Map
     auto objectLayer = _tilemap->getObjectGroup(obj);
@@ -386,10 +411,32 @@ void GameScene::getDoor()
 
             float x = objectProperties["x"].asFloat();
             float y = objectProperties["y"].asFloat();
+            std::string name = objectProperties["name"].asString();
             float width = objectProperties["width"].asFloat();
             float height = objectProperties["height"].asFloat();
 
             // Lấy ra tọa độ trái và phải từ physics body
+
+            //tao nut "thao tac voi quest"
+            auto ButtonNormal = Sprite::create("inGame/button/win level.png");
+            auto ButtonSelected = Sprite::create("inGame/button/win level.png");
+            ButtonSelected->setContentSize(Size(ButtonNormal->getContentSize().width * 1.1,
+                ButtonNormal->getContentSize().height * 1.1));
+            auto buttonGetItem = MenuItemSprite::create(
+                ButtonNormal,
+                ButtonSelected,
+                std::bind(&GameScene::winLevel, this, std::placeholders::_1, loadLevel()));
+            buttonGetItem->setScale(0.05 * (visibleSize.height / ButtonNormal->getContentSize().height));
+            buttonGetItem->setVisible(false);
+            buttonGetItem->setTag(578);
+            buttonGetItem->setName("button");
+
+            //tao menu va them cac nut
+            auto menu = Menu::create(buttonGetItem, nullptr);
+            menu->setPosition(Vec2(x + width / 2, y + height * 2));
+            menu->setName("menu " + name);
+
+            _tilemap->addChild(menu, 100);
 
         // Tạo sprite và physics body
             auto sprite = Sprite::create();
@@ -398,11 +445,12 @@ void GameScene::getDoor()
             physicsBody->setGravityEnable(false);
             physicsBody->setContactTestBitmask(true);
             physicsBody->setCollisionBitmask(0);
-            physicsBody->setTag(000);
+            physicsBody->setName(name);
 
             sprite->setPhysicsBody(physicsBody);
             // Đặt vị trí cho sprite và thêm vào scene
             sprite->setPosition(Vec2(x + width / 2, y + height / 2));
+            sprite->setName("sprite " + name);
             _tilemap->addChild(sprite, 2);
         }
     }
@@ -435,7 +483,7 @@ void GameScene::getHideItem()
             float height = objectProperties["height"].asFloat();
             std::string name = objectProperties["name"].asString();
             int layer = objectProperties["layer"].asInt();
-            std::string spritePath = "inGame/item sprite/" + name + ".png";
+            std::string spritePath = "inGame/level" + std::to_string(loadLevel()) + "/sprite/" + name + ".png";
 
             // Lấy ra tọa độ trái và phải từ physics body
 
@@ -577,6 +625,213 @@ void GameScene::getLadder()
     }
 }
 
+void GameScene::getTrap()
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+
+    std::string obj = "trap";
+    // Lấy layer chứa các đối tượng từ Tiled Map
+    auto objectLayer = _tilemap->getObjectGroup(obj);
+
+    if (objectLayer) {
+        // Lấy danh sách các đối tượng từ object layer
+        ValueVector objects = objectLayer->getObjects();
+
+        // Duyệt qua từng đối tượng và gán physics body
+        for (const auto& object : objects) {
+            ValueMap objectProperties = object.asValueMap();
+
+            float x = objectProperties["x"].asFloat();
+            float y = objectProperties["y"].asFloat();
+            float width = objectProperties["width"].asFloat();
+            float height = objectProperties["height"].asFloat();
+            std::string name = objectProperties["name"].asString();
+            int layer = objectProperties["layer"].asInt();
+            std::string spritePath = "inGame/level" + std::to_string(loadLevel()) + "/sprite/" + name + ".png";
+            bool addSprite = objectProperties["sprite"].asBool();
+            // Lấy ra tọa độ trái và phải từ physics body
+
+        // Tạo sprite và physics body
+            
+            auto sprite = Sprite::create();
+            if (addSprite)
+            {
+                CCLOG("add sprite path %s", spritePath.c_str());
+                sprite = Sprite::create(spritePath);
+            }
+            if (sprite)
+            {
+                auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
+                physicsBody->setDynamic(false);
+                physicsBody->setGravityEnable(false);
+                physicsBody->setContactTestBitmask(true);
+                physicsBody->setCollisionBitmask(250);
+                physicsBody->setName(name);
+                
+                //tao nut "thao tac voi quest"
+                std::string pathButton;
+
+                //sprite->setOpacity(255);
+                //sprite->setContentSize(Size(width, height));
+                sprite->setPhysicsBody(physicsBody);
+                //sprite->setName(name.c_str());
+                // Đặt vị trí cho sprite và thêm vào scenes
+                sprite->setPosition(Vec2(Vec2(x + width / 2, y + height / 2)));
+                sprite->setName("sprite " + name);
+                _tilemap->addChild(sprite, layer);
+            }
+
+        }
+    }
+    else
+    {
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
+    }
+}
+
+void GameScene::getTrapByName(std::string trapName)
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+
+    std::string obj = "trap";
+    // Lấy layer chứa các đối tượng từ Tiled Map
+    auto objectLayer = _tilemap->getObjectGroup(obj);
+
+    if (objectLayer) {
+        // Lấy danh sách các đối tượng từ object layer
+        ValueVector objects = objectLayer->getObjects();
+
+        // Duyệt qua từng đối tượng và gán physics body
+        for (const auto& object : objects) {
+            ValueMap objectProperties = object.asValueMap();
+
+            float x = objectProperties["x"].asFloat();
+            float y = objectProperties["y"].asFloat();
+            float width = objectProperties["width"].asFloat();
+            float height = objectProperties["height"].asFloat();
+            std::string name = objectProperties["name"].asString();
+            int layer = objectProperties["layer"].asInt();
+            std::string spritePath = "inGame/level" + std::to_string(loadLevel()) + "/sprite/" + name + ".png";
+            bool addSprite = objectProperties["sprite"].asBool();
+            // Lấy ra tọa độ trái và phải từ physics body
+
+        // Tạo sprite và physics body
+
+            auto sprite = Sprite::create();
+            if (addSprite)
+            {
+                CCLOG("add sprite path %s", spritePath.c_str());
+                sprite = Sprite::create(spritePath);
+            }
+            if (sprite && name == trapName)
+            {
+                auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
+                physicsBody->setDynamic(false);
+                physicsBody->setGravityEnable(false);
+                physicsBody->setContactTestBitmask(true);
+                physicsBody->setCollisionBitmask(210);
+                physicsBody->setName(name);
+
+                //tao nut "thao tac voi quest"
+                std::string pathButton;
+
+                //sprite->setOpacity(255);
+                sprite->setContentSize(Size(width, height));
+                sprite->setPhysicsBody(physicsBody);
+                //sprite->setName(name.c_str());
+                // Đặt vị trí cho sprite và thêm vào scenes
+                sprite->setPosition(Vec2(Vec2(x + width / 2, y + height / 2)));
+                sprite->setName("sprite " + name);
+                _tilemap->addChild(sprite, layer);
+            }
+
+        }
+    }
+    else
+    {
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
+    }
+}
+
+void GameScene::getSwitch()
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+
+    std::string obj = "switch";
+    // Lấy layer chứa các đối tượng từ Tiled Map
+    auto objectLayer = _tilemap->getObjectGroup(obj);
+
+    if (objectLayer) {
+        // Lấy danh sách các đối tượng từ object layer
+        ValueVector objects = objectLayer->getObjects();
+
+        // Duyệt qua từng đối tượng và gán physics body
+        for (const auto& object : objects) {
+            ValueMap objectProperties = object.asValueMap();
+
+            float x = objectProperties["x"].asFloat();
+            float y = objectProperties["y"].asFloat();
+            float width = objectProperties["width"].asFloat();
+            float height = objectProperties["height"].asFloat();
+            std::string name = objectProperties["name"].asString();
+            std::string controlObjects = objectProperties["control objects"].asString();
+            int layer = objectProperties["layer"].asInt();
+            bool  status = objectProperties["turn on"].asBool();
+            std::string spritePath = "inGame/level" + std::to_string(loadLevel()) + "/sprite/" + name + "/" + std::to_string(status) + ".png";
+            listOfLadder.push_back(new Rect(x, y, width, height));
+            // Lấy ra tọa độ trái và phải từ physics body
+
+            CCLOG("switch path %s", spritePath.c_str());
+
+        // Tạo sprite và physics body
+            auto sprite = Sprite::create(spritePath);
+            if (sprite)
+            {
+                auto physicsBody = PhysicsBody::createBox(Size(width, height), PhysicsMaterial(1.0f, 0.0f, 0.0f));
+                physicsBody->setDynamic(false);
+                physicsBody->setGravityEnable(false);
+                physicsBody->setContactTestBitmask(true);
+                physicsBody->setCollisionBitmask(0);
+                physicsBody->setName(name);
+
+                //tao nut "thao tac voi quest"
+                auto ButtonNormal = Sprite::create("inGame/button/takeItem.png");
+                auto ButtonSelected = Sprite::create("inGame/button/takeItem.png");
+                ButtonSelected->setContentSize(Size(ButtonNormal->getContentSize().width * 1.1,
+                    ButtonNormal->getContentSize().height * 1.1));
+                buttonMove = MenuItemSprite::create(
+                    ButtonNormal,
+                    ButtonSelected,
+                    std::bind(&GameScene::turnTrap, this, std::placeholders::_1, controlObjects, name, status, sprite));
+                buttonMove->setScale(0.025 * (visibleSize.height / ButtonNormal->getContentSize().height));
+                buttonMove->setVisible(false);
+                buttonMove->setName("button");
+
+                //tao menu va them cac nut
+                auto menu = Menu::create(buttonMove, nullptr);
+                menu->setPosition(Vec2(x + width / 2, y + height * 2.5));
+                menu->setName("menu " + name);
+
+                _tilemap->addChild(menu, 100);
+
+                //sprite->setOpacity(255);
+                sprite->setContentSize(Size(width, height));
+                sprite->setPhysicsBody(physicsBody);
+                //sprite->setName(name.c_str());
+                // Đặt vị trí cho sprite và thêm vào scenes
+                sprite->setPosition(Vec2(Vec2(x + width / 2, y + height / 2)));
+                sprite->setName("sprite " + name);
+                _tilemap->addChild(sprite, layer);
+            }
+
+        }
+    }
+    else
+    {
+        CCLOG("khong the lay %s tu tiled", obj.c_str());
+    }
+}
+
 void GameScene::getQuestList()
 {
     std::string obj = "questList";
@@ -620,6 +875,49 @@ void GameScene::getQuestList()
     }
 }
 
+void GameScene::visibleNextLevel(float dt)
+{
+    for (int i = 0; i < 5; i++)
+    {
+        CCLOG("item in player %s", player->items[i].c_str());
+        if (player->items[i] == "next level")
+        {
+            auto button = _tilemap->getChildByName("menu door")->getChildByName("button");
+            if (button)
+            {
+                button->setVisible(true);
+            }
+            return;
+        }
+    }
+}
+
+void GameScene::turnTrap(Ref* sender, const std::string& controlObjects, const std::string& name, bool& status, Sprite* sprite)
+{
+    status = !status; 
+    std::string newSpritePath = "inGame/level" + std::to_string(loadLevel()) + "/sprite/" + name + "/" + std::to_string(status) + ".png";
+    sprite->setTexture(newSpritePath);
+
+    auto trapSprite = _tilemap->getChildByName("sprite " + controlObjects);
+    if (!trapSprite)
+    {
+        CCLOG("get trap");
+        getTrapByName(controlObjects);
+        return;
+    }
+    for (int i = 0; i < 2; i++)
+    {
+        trapSprite = _tilemap->getChildByName("sprite " + controlObjects);
+        //CCLOG("turn trap %s");
+        if (trapSprite)
+        {
+            i = 0;
+            CCLOG("remove trap");
+            trapSprite->removeFromParentAndCleanup(true);
+        }
+    }
+}
+
 void GameScene::useLadder(Ref* sender, const std::string& nameLadder, const std::string& location, float width, float height)
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -636,7 +934,7 @@ void GameScene::useLadder(Ref* sender, const std::string& nameLadder, const std:
     else if (location == "top")
     {
         x = _tilemap->getChildByName("sprite " + nameLadder + ", location " + "bottom")->getPositionX() * XAxisVariable;
-        y = _tilemap->getChildByName("sprite " + nameLadder + ", location " + "bottom")->getPositionY() * YAxisVariable;
+        y = (_tilemap->getChildByName("sprite " + nameLadder + ", location " + "bottom")->getPositionY() + height * 0.5) * YAxisVariable;
         CCLOG("x= %f , y= %f", x, y);
     }
 
@@ -683,8 +981,26 @@ void GameScene::useLadder(Ref* sender, const std::string& nameLadder, const std:
 
 void GameScene::getItemInTileMapWithName(std::string name)
 {
+    CCLOG("%s", name.c_str());
     auto nameItem = _tilemap->getChildByName("menu " + name);
-    if (nameItem) {
+
+    if (name == "door")
+    {
+        CCLOG("[menu door s %s]", nameItem->getName().c_str());
+        auto button = nameItem->getChildByName("button");
+        if (button)
+        {
+            if (!button->isVisible()) {
+                this->schedule(CC_SCHEDULE_SELECTOR(GameScene::visibleNextLevel), 0.0f);
+            }
+            else
+            {
+                button->setVisible(false);
+                this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::visibleNextLevel));
+            }
+        }
+        return;
+    }else if (nameItem) {
         CCLOG("[%s]", nameItem->getName().c_str());
         auto button = nameItem->getChildByName("button");
         if (button)
@@ -735,43 +1051,38 @@ void GameScene::getItemInNodeContact(Ref* sender, const std::string& name)
     }
 }
 
-void GameScene::requestItemForNodeContact(Ref* sender, const std::string& request, const std::string& reward)
+void GameScene::requestItemForNodeContact(Ref* sender, const std::string& request, const std::string& reward, Sprite* sprite)
 {
     if (player->checkAction())
     {
-
         bool found = false;
-        CCLOG("requestItem");
-        for (int i = 0; i < 5; i++)
-        {
-            if (player->items[i] == reward && reward == "next level")
-            {
-                winLevel(loadLevel());
-                return;
-            }
-
-
-        }
+        CCLOG("requestItem"); 
         for (int i = 0; i < 5; i++)
         {
             player->setWork();
             if (player->items[i] == request.c_str()) {
-                //std::string nameChild = request.c_str();
-                player->items[i] = "";
-                //auto childRemove = this->getChildByName(nameChild);
-                found = true;
-                CCLOG("delete %s", request.c_str());
-                CCLOG("delete check [%s]", player->items[i].c_str());
 
-                for (int j = i; j < 5; j++)
-                {
-                    if (player->items[j] == "")
+                found = true;
+
+                this->scheduleOnce([=](float dt) mutable {
+                    sprite->removeFromParentAndCleanup(true);
+
+                    //std::string nameChild = request.c_str();
+                    player->items[i] = "";
+                    //auto childRemove = this->getChildByName(nameChild);
+                    CCLOG("delete %s", request.c_str());
+                    CCLOG("delete check [%s]", player->items[i].c_str());
+
+                    for (int j = i; j < 5; j++)
                     {
-                        player->items[4] = reward;
-                        CCLOG("take [%s]", reward.c_str());
-                        break;
+                        if (player->items[j] == "")
+                        {
+                            player->items[4] = reward;
+                            CCLOG("take [%s]", reward.c_str());
+                            break;
+                        }
                     }
-                }
+                }, 1.0f, "finish quest");
                 break;
             }
             else
@@ -782,7 +1093,12 @@ void GameScene::requestItemForNodeContact(Ref* sender, const std::string& reques
 
         if (!found)
         {
-
+            this->scheduleOnce([=](float dt) mutable {
+                sprite->getChildByName("request")->setVisible(true);
+                this->scheduleOnce([=](float dt) mutable {
+                    sprite->getChildByName("request")->setVisible(false);
+                    }, 2.0f, "unvisible request");
+                }, 1.0f, "visible request");
         }
 
     }
@@ -850,7 +1166,7 @@ bool GameScene::onTouchEnded(Touch* touch, Event* event)
 
     float deltaX = touchPointInNode.x - player->getPositionX();
 
-    if (player->checkAction())
+    if (player->checkAction() && !stopFlag)
     {
         if (deltaX < 0)
         {
@@ -992,6 +1308,19 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
     auto nodeA = contact.getShapeA()->getBody();
     auto nodeB = contact.getShapeB()->getBody();
 
+    if (nodeA->getCollisionBitmask() == 100 && nodeB->getCollisionBitmask() == 250 ||
+        nodeA->getCollisionBitmask() == 250 && nodeB->getCollisionBitmask() == 100)
+    {
+        stopFlag = true;
+        player->stopAllActions();
+        player->setMoveIdle();
+        this->schedule(CC_SCHEDULE_SELECTOR(GameScene::playerMoveLR), 0.0f);
+
+        if (nodeA->getName() == "barrier" || nodeB->getName() == "barrier")
+        {
+        }
+    }
+
     if (nodeA->getCollisionBitmask() == 100 && nodeB->getCollisionBitmask() == 0 ||
         nodeA->getCollisionBitmask() == 0 && nodeB->getCollisionBitmask() == 100)
     {
@@ -1059,6 +1388,18 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
     auto nodeA = contact.getShapeA()->getBody();
     auto nodeB = contact.getShapeB()->getBody();
 
+    if (nodeA->getCollisionBitmask() == 100 && nodeB->getCollisionBitmask() == 250 ||
+        nodeA->getCollisionBitmask() == 250 && nodeB->getCollisionBitmask() == 100)
+    {
+
+        stopFlag = false;
+        this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::playerMoveLR));
+
+        if (nodeA->getName() == "barrier" || nodeB->getName() == "barrier")
+        {
+        }
+    }
+
     if (nodeA->getCollisionBitmask() == 100 && nodeB->getCollisionBitmask() == 0 ||
         nodeA->getCollisionBitmask() == 0 && nodeB->getCollisionBitmask() == 100)
     {
@@ -1095,6 +1436,18 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
     return true;
 }
 
+void GameScene::playerMoveLR(float dt)
+{
+    direction = -direction;
+    player->setPosition(Vec2(player->getPositionX() + direction, player->getPositionY()));
+
+    player->getChildByName("danger")->setVisible(true);
+
+    this->scheduleOnce([=](float dt) mutable {
+        player->getChildByName("danger")->setVisible(false);
+        }, 1.0f, "unvisible danger");
+}
+
 void GameScene::playerShowItem(float dt)
 {
     if (player)
@@ -1109,10 +1462,10 @@ void GameScene::playerShowItem(float dt)
     auto spriteSize = _tilemap->getTileSize();
 
     // Tọa độ X ban đầu (bắt đầu từ bên phải màn hình)
-    float startX = visibleSize.width - spriteSize.width / 2;
+    float startX = visibleSize.width / 20;
 
     // Tọa độ Y cố định (giữa màn hình)
-    float startY = visibleSize.height / 20;
+    float startY = visibleSize.height / 20 * 19;
 
     for (int i = 0; i < 5; i++)
     {
@@ -1120,13 +1473,14 @@ void GameScene::playerShowItem(float dt)
         //CCLOG("name sprite view %s", name.c_str());
         if (player->items[i] != "" && player->items[i] != "next level")
         {
-            std::string pathItem = "inGame/item sprite/" + player->items[i] + ".png";
+            std::string pathItem = "inGame/level" + std::to_string(loadLevel()) + "/sprite/" + player->items[i] + ".png";
             auto spriteItem = Sprite::create(pathItem);
 
             if (spriteItem)
             {
                 // Đặt vị trí cho Sprite từ phải sang trái
-                float posX = startX - i * spriteItem->getContentSize().width;
+                float posX = startX + i * spriteItem->getContentSize().width;
+                spriteItem->setScale(0.1*(visibleSize.height / spriteItem->getContentSize().height));
                 spriteItem->setPosition(Vec2(posX, startY));
                 spriteItem->setName(name);
                 //CCLOG("[%s]", spriteItem->getName().c_str());

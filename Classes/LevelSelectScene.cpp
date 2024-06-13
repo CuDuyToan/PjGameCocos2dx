@@ -36,7 +36,14 @@ bool LevelSelectScene::init() {
         createButtonPageLevel1();
     }*/
 
-    createButtonPageLevel(1);
+    int level = 1;
+
+    if (loadLevel() >= 1)
+    {
+        level = loadLevel();
+    }
+
+    createButtonPageLevel(level);
 
     return true;
 }
