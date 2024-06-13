@@ -126,6 +126,7 @@ void LevelSelectScene::createButtonPageLevel(int level)
             reducedLevel->setPosition(Vec2(reducedLevel->getContentSize().width,
                 reducedLevel->getContentSize().height));
             reducedLevel->addClickEventListener([=](Ref* sender) {
+                stopFlag = true;
                 createButtonPageLevel(level - 1);
                 });
 
@@ -138,6 +139,7 @@ void LevelSelectScene::createButtonPageLevel(int level)
         playLevel->setScale(0.08 * (sizeTable / playLevel->getContentSize().height));
         playLevel->setPosition(Vec2(storyBook->getContentSize().width / 2, storyBook->getContentSize().height / 10));
         playLevel->addClickEventListener([=](Ref* sender) {
+            stopFlag = true;
             selectLevel(level);
             auto nextScene = GameScene::create();
             Director::getInstance()->replaceScene(nextScene);
@@ -150,6 +152,7 @@ void LevelSelectScene::createButtonPageLevel(int level)
         nextLevel->setPosition(Vec2(storyBook->getContentSize().width - nextLevel->getContentSize().width,
             nextLevel->getContentSize().height));
         nextLevel->addClickEventListener([=](Ref* sender) {
+            stopFlag = true;
             createButtonPageLevel(level + 1);
             });
         if (loadLevel() >= level && checkPathExists(level + 1))
@@ -228,6 +231,7 @@ void LevelSelectScene::readStory(int level)
     }
     if (storyBook->getChildByName("image"))
     {
+        stopFlag = true;
         storyBook->removeChildByName("image");
         CCLOG("remove image");
     }
@@ -251,7 +255,7 @@ void LevelSelectScene::showTextWithEffect(const std::string& text, int level) {
 
 void LevelSelectScene::addCharacterByCharacter(const std::string& text, float delay, int level) {
     auto storyBook = this->getChildByName("story book");
-
+    this->unschedule("add_char_schedule");
     if (storyBook)
     {
         auto label = Label::createWithTTF("story :", "fonts/Marker Felt.ttf",
@@ -282,11 +286,13 @@ void LevelSelectScene::addCharacterByCharacter(const std::string& text, float de
         int length = text.size();
         int index = 0;
 
+
         this->schedule([=](float dt) mutable {
             if ((index < length) && !stopFlag) {
                 label->setString(text.substr(0, ++index));
             }
             else {
+                CCLOG("stop add char");
                 this->unschedule("add_char_schedule");
             }
             }, delay, "add_char_schedule");
