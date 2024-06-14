@@ -21,6 +21,8 @@ public:
     void setWork();
     bool checkAction();
 
+    void playSound();
+
     void addChatDanger();
 
     float getSizePlayer();

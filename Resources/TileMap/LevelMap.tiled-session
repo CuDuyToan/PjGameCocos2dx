@@ -20,7 +20,7 @@
             "scaleInDock": 1
         },
         "CartoonArt2.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 0.33
         },
         "D:/tool extract/Game/Gaer/Gaer/Resources/fullmap.tmx": {
             "scale": 0.5,
@@ -64,11 +64,11 @@
             }
         },
         "Dungeon 1.tsx": {
-            "scaleInDock": 1.5,
-            "scaleInEditor": 1.5
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "Dungeon 2.tsx": {
-            "scaleInDock": 4,
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "Dungeon6.tsx": {
@@ -147,6 +147,7 @@
         },
         "Map2Tester.tmx": {
             "expandedGroupLayers": [
+                36,
                 39,
                 24
             ],
@@ -173,10 +174,10 @@
                 8
             ],
             "scale": 3,
-            "selectedLayer": -1,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 475.16666666666663,
-                "y": 202.16666666666669
+                "x": 244.5,
+                "y": 193.49999999999997
             }
         },
         "Map2Tester2.tmx": {
