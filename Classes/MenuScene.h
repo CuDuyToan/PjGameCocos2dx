@@ -27,6 +27,7 @@ public:
     void createImageGura();
 
     bool isBackgroundMusicPlaying();
+    void saveMusicID();
 
     int musicID;
 

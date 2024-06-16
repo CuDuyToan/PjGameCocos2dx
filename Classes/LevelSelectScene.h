@@ -36,12 +36,18 @@ public:
     bool checkPathExists(int level);
 
     void selectLevel(int levelSelect);
+    int levelSelect();
 
     void createButtonPageLevel(int level);
+
+    int getMusicBackgroundID();
+    void saveMusicID();
+    void changeMusic(std::string newMusicPath);
 
     CREATE_FUNC(LevelSelectScene);
 
 private:
+    int musicID;
     bool stopFlag = false;
     float sizeTable = 1;
     int a = 2;

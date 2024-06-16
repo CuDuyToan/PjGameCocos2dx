@@ -21,13 +21,18 @@ public:
     void setWork();
     bool checkAction();
 
-    void playSound();
+    void moveSoundEffect(bool);
+
+    void playSoundEffect(std::string soundEffect);
 
     void addChatDanger();
+    void dangerNotice(bool trueFalse);
 
-    float getSizePlayer();
+    float getSizePlayerHeight();
 
 private:
+    int moveEffectSound;
+    
     Sprite* spritePlayer;
     PhysicsBody* physicPlayer;
     bool action;

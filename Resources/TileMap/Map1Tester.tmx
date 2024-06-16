@@ -12,9 +12,11 @@
   <objectgroup id="20" name="questList">
    <object id="13" name="quest1" x="1152" y="384" width="128" height="128">
     <properties>
+     <property name="finish sound" value="open door"/>
      <property name="needSprite" value="door close"/>
      <property name="request" value="key"/>
      <property name="reward" value="next level"/>
+     <property name="unfinish sound" value="try open door"/>
     </properties>
    </object>
   </objectgroup>
@@ -83,7 +85,7 @@
  </group>
  <group id="6" name="hideItem">
   <objectgroup id="11" name="hideItem">
-   <object id="9" name="key" x="938" y="470" width="64" height="64">
+   <object id="9" name="key" x="937" y="459" width="64" height="64">
     <properties>
      <property name="layer" value="2"/>
     </properties>

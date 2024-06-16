@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="41" nextobjectid="72">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="41" nextobjectid="73">
  <tileset firstgid="1" source="Dungeon 2.tsx"/>
  <group id="24" name="quest">
   <objectgroup id="32" name="questList">
@@ -8,9 +8,11 @@
    </properties>
    <object id="68" name="quest1" x="528" y="208" width="32" height="32">
     <properties>
+     <property name="finish sound" value=""/>
      <property name="needSprite" value="soldier"/>
      <property name="request" value="water"/>
      <property name="reward" value="next level"/>
+     <property name="unfinish sound" value=""/>
     </properties>
    </object>
   </objectgroup>
@@ -69,7 +71,7 @@
    <object id="1" name="ground" x="0" y="240" width="144" height="48"/>
    <object id="8" name="ground" x="176" y="240" width="96" height="48"/>
    <object id="9" name="ground" x="320" y="240" width="320" height="48"/>
-   <object id="14" name="ground" x="112" y="176" width="240" height="16"/>
+   <object id="14" name="ground" x="112" y="176" width="240" height="4"/>
   </objectgroup>
  </group>
  <group id="23" name="ladder">
@@ -141,7 +143,7 @@
    </object>
   </objectgroup>
  </group>
- <group id="12" name="door" visible="0">
+ <group id="12" name="door">
   <layer id="14" name="wall" width="40" height="18">
    <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIKhDZqZGBhayMD0AlOAdk0lA4+6b/C7j9y0R6/0R27Y0Sv8Rt03CoYqAAB/s0J4
@@ -196,7 +198,11 @@
  </group>
  <group id="26" name="hideItem">
   <objectgroup id="27" name="hideItem">
-   <object id="17" name="water" x="256" y="224" width="16" height="16"/>
+   <object id="17" name="water" x="256" y="224" width="16" height="16">
+    <properties>
+     <property name="layer" value="2"/>
+    </properties>
+   </object>
   </objectgroup>
   <layer id="28" name="water" width="40" height="18">
    <data encoding="base64" compression="zlib">

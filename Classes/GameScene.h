@@ -13,7 +13,10 @@ public:
 
     virtual bool init();
 
+    void decreaseVolumnBackGroundMusic();
+
     int loadLevel();
+    int loadHighScoreLevel();
     int level = 1;
 
     Player* player;
@@ -43,7 +46,7 @@ public:
     void turnTrap(Ref* sender, const std::string& controlObjects, const std::string& name, bool& status, Sprite* sprite);
     void useLadder(Ref* sender, const std::string& nameLadder, const std::string& location, float width, float height);
 
-    void getItemInTileMapWithName(std::string name);
+    void getItemInTileMapWithName(std::string name, bool visible);
     void getItemInNodeContact(Ref* sender, const std::string& message);
     void requestItemForNodeContact(Ref* sender, const std::string& request, const std::string& reward, Sprite* sprite);
     void visibleChatIcon(bool TF, std::string itemName);
@@ -84,7 +87,7 @@ private:
     float direction = 1;
 
     std::vector<Rect*> listOfLadder;
-    MenuItemSprite* buttonMove = nullptr;
+    //MenuItemSprite* buttonMove = nullptr;
     float scaleS = 1;
     float scaleSizeInMap = 1;
 

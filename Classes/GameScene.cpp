@@ -41,8 +41,12 @@ bool GameScene::init() {
     this->schedule(CC_SCHEDULE_SELECTOR(GameScene::playerShowItem), 0.0f);
 
 
-
     return true;
+}
+
+int GameScene::loadHighScoreLevel()
+{
+    return UserDefault::getInstance()->getIntegerForKey("current_level", 1);
 }
 
 int GameScene::loadLevel()
@@ -53,12 +57,18 @@ int GameScene::loadLevel()
 void GameScene::winLevel(Ref* sender, int level) {
     if (player->checkAction())
     {
-        UserDefault::getInstance()->setIntegerForKey("current_level", level);
-        UserDefault::getInstance()->setBoolForKey("next_level_button_state", true);
+        if (level > loadHighScoreLevel())
+        {
+            UserDefault::getInstance()->setIntegerForKey("current_level", level);
+            UserDefault::getInstance()->setBoolForKey("next_level_button_state", true);
 
-        UserDefault::getInstance()->flush();
-        CCLOG("Level %d has been saved after winning.", level);
-        UserDefault::getInstance()->destroyInstance();
+            UserDefault::getInstance()->flush();
+            //CCLOG("Level %d has been saved after winning.", level);
+            UserDefault::getInstance()->destroyInstance();
+        }
+
+        //UserDefault::getInstance()->setIntegerForKey("select_level", level + 1);
+
         auto levelSelectScene = LevelSelectScene::createScene();
         Director::getInstance()->replaceScene(levelSelectScene);
     }
@@ -117,9 +127,9 @@ void GameScene::CalculateNewSizeTile()
 
     float tilemapH = (visibleSize.height / _tilemap->getTileSize().height) * _tilemap->getTileSize().height;
     float tileH = tilemapH / _tilemap->getMapSize().height;
-    float sizeFullScene = (visibleSize.height / player->getSizePlayer()) / _tilemap->getTileSize().height;
-    scaleS = (tileH / player->getSizePlayer());
-    CCLOG("%f", tilemapH);
+    float sizeFullScene = (visibleSize.height / player->getSizePlayerHeight()) / _tilemap->getTileSize().height;
+    scaleS = (tileH / player->getSizePlayerHeight());
+    //CCLOG("%f", tilemapH);
 }
 
 void GameScene::addBackGroundToTilemap()
@@ -265,7 +275,7 @@ void GameScene::getBarrier()
     auto objectLayer = _tilemap->getObjectGroup(obj);
 
     if (objectLayer) {
-        CCLOG("barrier");
+        //CCLOG("barrier");
         // Lấy danh sách các đối tượng từ object layer
         ValueVector objects = objectLayer->getObjects();
 
@@ -303,8 +313,6 @@ void GameScene::getBarrier()
 
 void GameScene::getAllQuest()
 {
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-
     std::string obj = "questList";
     // Lấy layer chứa các đối tượng từ Tiled Map
     auto objectLayer = _tilemap->getObjectGroup(obj);
@@ -325,6 +333,9 @@ void GameScene::getAllQuest()
             std::string name = objectProperties["name"].asString();
             std::string request = objectProperties["request"].asString();
             std::string reward = objectProperties["reward"].asString();
+            bool CollisionBitmask = objectProperties["CollisionBitmask"].asBool();
+
+
             std::string requestPath = "inGame/level" + std::to_string(loadLevel()) + "/sprite/" + request + ".png";
             std::string spritePath = "inGame/level" + std::to_string(loadLevel()) + "/sprite/" + needSprite + ".png";
 
@@ -337,11 +348,21 @@ void GameScene::getAllQuest()
             physicsBody->setDynamic(false);
             physicsBody->setGravityEnable(false);
             physicsBody->setContactTestBitmask(true);
-            physicsBody->setCollisionBitmask(0);
+
+            if (CollisionBitmask)
+            {
+                physicsBody->setCollisionBitmask(300);
+            }
+            else
+            {
+                physicsBody->setCollisionBitmask(0);
+            }
+
+            
             physicsBody->setName(name.c_str());
 
             auto chat = Sprite::create("inGame/chat icon/chatIcon.png");
-            chat->setScale(0.05 * (Director::getInstance()->getVisibleSize().height / chat->getContentSize().height));
+            chat->setScale(0.1 * (_tilemap->getContentSize().height / chat->getContentSize().height));
             chat->setVisible(false);
             chat->setName("request");
 
@@ -351,7 +372,8 @@ void GameScene::getAllQuest()
             chat->addChild(itemRequest);
 
             sprite->addChild(chat, 100);
-            chat->setPosition(Vec2(sprite->getContentSize().width/2, sprite->getContentSize().height * 2));
+            chat->setAnchorPoint(Vec2(0.5, 0));
+            chat->setPosition(Vec2(width/2, height));
 
             //tao nut "thao tac voi quest"
             auto ButtonNormal = Sprite::create("inGame/button/buttonInQuest.png");
@@ -364,10 +386,12 @@ void GameScene::getAllQuest()
                 ButtonNormal,
                 ButtonSelected,
                 std::bind(&GameScene::requestItemForNodeContact, this, std::placeholders::_1, request, reward, sprite));
-            buttonGetItem->setScale(0.075 * (visibleSize.height / buttonGetItem->getContentSize().height));
+            buttonGetItem->setScale(0.15 * (_tilemap->getContentSize().height / buttonGetItem->getContentSize().height));
             buttonGetItem->setVisible(false);
             buttonGetItem->setTag(578);
             buttonGetItem->setName("button");
+            buttonGetItem->setAnchorPoint(Vec2(0.5, 0));
+            buttonGetItem->setPosition(Vec2(width / 2, height));
             /*auto buttonInQuest = Sprite::create("inGame/button/buttonInQuest.png");
             buttonInQuest->setPosition(buttonGetItem->getPosition().x + buttonGetItem->getContentSize().width * 0.4,
                 buttonGetItem->getPosition().y + buttonGetItem->getContentSize().width * 0.4);
@@ -376,11 +400,12 @@ void GameScene::getAllQuest()
 
             //tao menu va them cac nut
             auto menu = Menu::create(buttonGetItem, nullptr);
-            menu->setPosition(Vec2(x + width/2, y + height * 2));
+            menu->setPosition(Vec2(x,y));
             menu->setName("menu " + name);
 
             _tilemap->addChild(menu, 100);
 
+            sprite->setContentSize(Size(width, height));
             sprite->setPhysicsBody(physicsBody);
             //sprite->setName(name.c_str());
             // Đặt vị trí cho sprite và thêm vào scene
@@ -396,7 +421,6 @@ void GameScene::getAllQuest()
 
 void GameScene::getDoor()
 {
-    auto visibleSize = Director::getInstance()->getVisibleSize();
     std::string obj = "door";
     // Lấy layer chứa các đối tượng từ Tiled Map
     auto objectLayer = _tilemap->getObjectGroup(obj);
@@ -426,14 +450,16 @@ void GameScene::getDoor()
                 ButtonNormal,
                 ButtonSelected,
                 std::bind(&GameScene::winLevel, this, std::placeholders::_1, loadLevel()));
-            buttonGetItem->setScale(0.05 * (visibleSize.height / ButtonNormal->getContentSize().height));
+            buttonGetItem->setScale(0.075 * (_tilemap->getContentSize().height / buttonGetItem->getContentSize().height));
             buttonGetItem->setVisible(false);
             buttonGetItem->setTag(578);
             buttonGetItem->setName("button");
+            buttonGetItem->setAnchorPoint(Vec2(0.5, 0));
+            buttonGetItem->setPosition(Vec2(width / 2, height));
 
             //tao menu va them cac nut
             auto menu = Menu::create(buttonGetItem, nullptr);
-            menu->setPosition(Vec2(x + width / 2, y + height * 2));
+            menu->setPosition(Vec2(x, y));
             menu->setName("menu " + name);
 
             _tilemap->addChild(menu, 100);
@@ -462,9 +488,6 @@ void GameScene::getDoor()
 
 void GameScene::getHideItem()
 {
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
     std::string obj = "hideItem";
     // Lấy layer chứa các đối tượng từ Tiled Map
     auto objectLayer = _tilemap->getObjectGroup(obj);
@@ -488,6 +511,7 @@ void GameScene::getHideItem()
             // Lấy ra tọa độ trái và phải từ physics body
 
         // Tạo sprite và physics body
+            //CCLOG("%s", sprit);
             auto sprite = Sprite::create(spritePath.c_str());
             if (sprite)
             {
@@ -507,14 +531,16 @@ void GameScene::getHideItem()
                     ButtonNormal,
                     ButtonSelected,
                     std::bind(&GameScene::getItemInNodeContact, this, std::placeholders::_1, name));
-                buttonGetItem->setScale(0.05 * (visibleSize.height / ButtonNormal->getContentSize().height));
+                buttonGetItem->setScale(0.1 * (_tilemap->getContentSize().height / ButtonNormal->getContentSize().height));
                 buttonGetItem->setVisible(false);
                 buttonGetItem->setTag(578);
                 buttonGetItem->setName("button");
+                //buttonGetItem->setAnchorPoint(Vec2(0.5, 0));
+                buttonGetItem->setPosition(Vec2(width / 2, height * scaleSizeInMap));
 
                 //tao menu va them cac nut
                 auto menu = Menu::create(buttonGetItem, nullptr);
-                menu->setPosition(Vec2(x + width / 2, y + height * 2));
+                menu->setPosition(Vec2(x, y));
                 menu->setName("menu " + name);
 
                 _tilemap->addChild(menu, 100);
@@ -539,8 +565,6 @@ void GameScene::getHideItem()
 
 void GameScene::getLadder()
 {
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-
     std::string obj = "ladder";
     // Lấy layer chứa các đối tượng từ Tiled Map
     auto objectLayer = _tilemap->getObjectGroup(obj);
@@ -591,17 +615,25 @@ void GameScene::getLadder()
                     auto ButtonSelected = Sprite::create(pathButton);
                     ButtonSelected->setContentSize(Size(ButtonNormal->getContentSize().width * 1.1,
                         ButtonNormal->getContentSize().height * 1.1));
-                    buttonMove = MenuItemSprite::create(
+                    auto buttonMove = MenuItemSprite::create(
                         ButtonNormal,
                         ButtonSelected,
                         std::bind(&GameScene::useLadder, this, std::placeholders::_1, name, location, width, height));
-                    buttonMove->setScale(0.025 * (visibleSize.height / ButtonNormal->getContentSize().height));
+                    buttonMove->setScale(0.075 * (_tilemap->getContentSize().height / buttonMove->getContentSize().height));
                     buttonMove->setVisible(false);
                     buttonMove->setName("button");
+                    if (location == "bottom")
+                    {
+                        buttonMove->setPosition(Vec2(width/2, height* scaleSizeInMap));
+                    }
+                    else if (location == "top")
+                    {
+                        buttonMove->setPosition(Vec2(width / 2, 0));
+                    }
 
                     //tao menu va them cac nut
                     auto menu = Menu::create(buttonMove, nullptr);
-                    menu->setPosition(Vec2(x + width / 2, y + height * 2.5));
+                    menu->setPosition(Vec2(x, y));
                     menu->setName("menu " + name + ", location " + location);
 
                     _tilemap->addChild(menu, 100);
@@ -656,7 +688,7 @@ void GameScene::getTrap()
             auto sprite = Sprite::create();
             if (addSprite)
             {
-                CCLOG("add sprite path %s", spritePath.c_str());
+                //CCLOG("add sprite path %s", spritePath.c_str());
                 sprite = Sprite::create(spritePath);
             }
             if (sprite)
@@ -755,7 +787,6 @@ void GameScene::getTrapByName(std::string trapName)
 
 void GameScene::getSwitch()
 {
-    auto visibleSize = Director::getInstance()->getVisibleSize();
 
     std::string obj = "switch";
     // Lấy layer chứa các đối tượng từ Tiled Map
@@ -781,7 +812,7 @@ void GameScene::getSwitch()
             listOfLadder.push_back(new Rect(x, y, width, height));
             // Lấy ra tọa độ trái và phải từ physics body
 
-            CCLOG("switch path %s", spritePath.c_str());
+            //CCLOG("switch path %s", spritePath.c_str());
 
         // Tạo sprite và physics body
             auto sprite = Sprite::create(spritePath);
@@ -799,17 +830,18 @@ void GameScene::getSwitch()
                 auto ButtonSelected = Sprite::create("inGame/button/takeItem.png");
                 ButtonSelected->setContentSize(Size(ButtonNormal->getContentSize().width * 1.1,
                     ButtonNormal->getContentSize().height * 1.1));
-                buttonMove = MenuItemSprite::create(
+                auto buttonGetItem = MenuItemSprite::create(
                     ButtonNormal,
                     ButtonSelected,
                     std::bind(&GameScene::turnTrap, this, std::placeholders::_1, controlObjects, name, status, sprite));
-                buttonMove->setScale(0.025 * (visibleSize.height / ButtonNormal->getContentSize().height));
-                buttonMove->setVisible(false);
-                buttonMove->setName("button");
+                buttonGetItem->setScale(0.1 * (_tilemap->getContentSize().height / buttonGetItem->getContentSize().height));
+                buttonGetItem->setVisible(false);
+                buttonGetItem->setName("button");
+                buttonGetItem->setPosition(Vec2(width / 2, height * scaleSizeInMap));
 
                 //tao menu va them cac nut
-                auto menu = Menu::create(buttonMove, nullptr);
-                menu->setPosition(Vec2(x + width / 2, y + height * 2.5));
+                auto menu = Menu::create(buttonGetItem, nullptr);
+                menu->setPosition(Vec2(x, y));
                 menu->setName("menu " + name);
 
                 _tilemap->addChild(menu, 100);
@@ -879,7 +911,7 @@ void GameScene::visibleNextLevel(float dt)
 {
     for (int i = 0; i < 5; i++)
     {
-        CCLOG("item in player %s", player->items[i].c_str());
+        //CCLOG("item in player %s", player->items[i].c_str());
         if (player->items[i] == "next level")
         {
             auto button = _tilemap->getChildByName("menu door")->getChildByName("button");
@@ -901,7 +933,7 @@ void GameScene::turnTrap(Ref* sender, const std::string& controlObjects, const s
     auto trapSprite = _tilemap->getChildByName("sprite " + controlObjects);
     if (!trapSprite)
     {
-        CCLOG("get trap");
+        //CCLOG("get trap");
         getTrapByName(controlObjects);
         return;
     }
@@ -921,24 +953,92 @@ void GameScene::turnTrap(Ref* sender, const std::string& controlObjects, const s
 void GameScene::useLadder(Ref* sender, const std::string& nameLadder, const std::string& location, float width, float height)
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    float x = 0;
-    float y = 0;
+    float x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+    //float x = 0;
+    //float y = 0;
     float XAxisVariable = visibleSize.width / _tilemap->getContentSize().width;
     float YAxisVariable = visibleSize.height / _tilemap->getContentSize().height;
     if (location == "bottom")
     {
-        x = _tilemap->getChildByName("sprite " + nameLadder + ", location " + "top")->getPositionX() * XAxisVariable;
-        y = (_tilemap->getChildByName("sprite " + nameLadder + ", location " + "top")->getPositionY() + height*1.5) * YAxisVariable;
-        CCLOG("x= %f , y= %f", x, y);
+        x1 = _tilemap->getChildByName("sprite " + nameLadder + ", location " + "bottom")->getPositionX() * XAxisVariable;
+        y1 = (_tilemap->getChildByName("sprite " + nameLadder + ", location " + "bottom")->getPositionY() + height * 0.5) * YAxisVariable;
+
+        x2 = _tilemap->getChildByName("sprite " + nameLadder + ", location " + "top")->getPositionX() * XAxisVariable;
+        y2 = (_tilemap->getChildByName("sprite " + nameLadder + ", location " + "top")->getPositionY() + height*1.5) * YAxisVariable;
+        //CCLOG("x= %f , y= %f", x, y);
     }
     else if (location == "top")
     {
-        x = _tilemap->getChildByName("sprite " + nameLadder + ", location " + "bottom")->getPositionX() * XAxisVariable;
-        y = (_tilemap->getChildByName("sprite " + nameLadder + ", location " + "bottom")->getPositionY() + height * 0.5) * YAxisVariable;
-        CCLOG("x= %f , y= %f", x, y);
-    }
+        x1 = _tilemap->getChildByName("sprite " + nameLadder + ", location " + "top")->getPositionX() * XAxisVariable;
+        y1 = (_tilemap->getChildByName("sprite " + nameLadder + ", location " + "top")->getPositionY()) * YAxisVariable;
 
-    player->setPosition(Vec2(x, y));
+        x2 = _tilemap->getChildByName("sprite " + nameLadder + ", location " + "bottom")->getPositionX() * XAxisVariable;
+        y2 = (_tilemap->getChildByName("sprite " + nameLadder + ", location " + "bottom")->getPositionY() + height * 0.5) * YAxisVariable;
+        //CCLOG("x= %f , y= %f", x, y);
+    }
+    float distanceX = fabs(y2);
+    float duration = distanceX / ((player->getSizePlayerHeight() * 3) * (scaleS * 1.5));
+
+    auto playerTeleBT = CallFunc::create([this, x2, y2]() {
+        player->setPosition(Vec2(x2, y2));
+        });
+
+    auto playerTeleTB = CallFunc::create([this, x1, y1]() {
+        player->setPosition(Vec2(x1, y1));
+        });
+
+    auto playerMoveToLadder = MoveTo::create(0.2, Vec2(x1, y1));
+
+    auto setGravity0 = CallFunc::create([this]() {
+        this->getPhysicsWorld()->setGravity(Vec2(0, 0));
+        });
+
+    //auto changeBitmaskAction = CallFunc::create([this]() {
+
+    //    auto sprite = player->getChildByName("player physic");
+    //    auto body = sprite->getPhysicsBody();
+    //    if (body) {
+    //        body->setCollisionBitmask(0);
+    //    }
+    //    });
+
+    auto playerWork = CallFunc::create([this]() {
+        player->setWork();
+        });
+
+    auto playerUseLadder = MoveTo::create(duration, Vec2(x2, y2));
+
+    //auto changeBitmaskDefault = CallFunc::create([this]() {
+
+    //    auto sprite = player->getChildByName("player physic");
+    //    auto body = sprite->getPhysicsBody();
+    //    if (body) {
+    //        body->setCollisionBitmask(100);
+    //    }
+    //    });
+ 
+        //physicsBody->setVelocity(Vec2(x, physicsBody->getVelocity().y)),
+    auto playerIdle = CallFunc::create([this]() {
+        player->setMoveIdle();
+        });
+
+    auto setGravityDefault = CallFunc::create([this]() {
+        this->getPhysicsWorld()->setGravity(Vec2(0, -2000));
+        });
+        
+    if (location == "bottom")
+    {
+        auto sequence = Sequence::create(playerMoveToLadder, setGravity0, playerWork, playerUseLadder, playerTeleBT, playerIdle, setGravityDefault, nullptr);
+
+        player->runAction(sequence);
+    }
+    else if (location == "top")
+    {
+        auto sequence = Sequence::create(playerMoveToLadder, playerTeleTB, setGravity0, playerWork, playerUseLadder, playerIdle, setGravityDefault, nullptr);
+
+        player->runAction(sequence);
+    }
+    
 }
 
 //void GameScene::setColorLayer()
@@ -979,18 +1079,18 @@ void GameScene::useLadder(Ref* sender, const std::string& nameLadder, const std:
 //}
 
 
-void GameScene::getItemInTileMapWithName(std::string name)
+void GameScene::getItemInTileMapWithName(std::string name, bool visible)
 {
-    CCLOG("%s", name.c_str());
+    //CCLOG("%s", name.c_str());
     auto nameItem = _tilemap->getChildByName("menu " + name);
 
     if (name == "door")
     {
-        CCLOG("[menu door s %s]", nameItem->getName().c_str());
+        //CCLOG("[menu door s %s]", nameItem->getName().c_str());
         auto button = nameItem->getChildByName("button");
         if (button)
         {
-            if (!button->isVisible()) {
+            if (visible) {
                 this->schedule(CC_SCHEDULE_SELECTOR(GameScene::visibleNextLevel), 0.0f);
             }
             else
@@ -1001,7 +1101,7 @@ void GameScene::getItemInTileMapWithName(std::string name)
         }
         return;
     }else if (nameItem) {
-        CCLOG("[%s]", nameItem->getName().c_str());
+        //CCLOG("[%s]", nameItem->getName().c_str());
         auto button = nameItem->getChildByName("button");
         if (button)
         {
@@ -1020,7 +1120,7 @@ void GameScene::getItemInNodeContact(Ref* sender, const std::string& name)
 {
     if (player->checkAction())
     {
-        CCLOG("name item %s", name.c_str());
+        //CCLOG("name item %s", name.c_str());
         for (int i = 0; i < 5; ++i)
         {
             if (player->items[i] == "")
@@ -1056,7 +1156,7 @@ void GameScene::requestItemForNodeContact(Ref* sender, const std::string& reques
     if (player->checkAction())
     {
         bool found = false;
-        CCLOG("requestItem"); 
+        //CCLOG("requestItem"); 
         for (int i = 0; i < 5; i++)
         {
             player->setWork();
@@ -1070,15 +1170,15 @@ void GameScene::requestItemForNodeContact(Ref* sender, const std::string& reques
                     //std::string nameChild = request.c_str();
                     player->items[i] = "";
                     //auto childRemove = this->getChildByName(nameChild);
-                    CCLOG("delete %s", request.c_str());
-                    CCLOG("delete check [%s]", player->items[i].c_str());
+                    /*CCLOG("delete %s", request.c_str());
+                    CCLOG("delete check [%s]", player->items[i].c_str());*/
 
                     for (int j = i; j < 5; j++)
                     {
                         if (player->items[j] == "")
                         {
                             player->items[4] = reward;
-                            CCLOG("take [%s]", reward.c_str());
+                            //CCLOG("take [%s]", reward.c_str());
                             break;
                         }
                     }
@@ -1142,7 +1242,7 @@ bool GameScene::onTouchBegan(Touch* touch, Event* event)
 
 bool GameScene::onTouchEnded(Touch* touch, Event* event)
 {
-    CCLOG("move");
+    //CCLOG("move");
     auto visibleSize = Director::getInstance()->getVisibleSize();
     auto origin = Director::getInstance()->getVisibleOrigin();
 
@@ -1150,7 +1250,7 @@ bool GameScene::onTouchEnded(Touch* touch, Event* event)
 
     auto touchPointInNode = this->convertToNodeSpace(touchPoint);
 
-    CCLOG("%f %f", touchPoint.x, touchPoint.y);
+    //CCLOG("%f %f", touchPoint.x, touchPoint.y);
 
     // Kiểm tra nếu touch nằm trong bounding box của player
     //if (Home->getBoundingBox().containsPoint(touchPointInNode))
@@ -1178,7 +1278,7 @@ bool GameScene::onTouchEnded(Touch* touch, Event* event)
         }
 
         float distanceX = fabs(deltaX);
-        float duration = distanceX / ((player->getSizePlayer()*3) * (scaleS * 1.5));
+        float duration = distanceX / ((player->getSizePlayerHeight()*3) * (scaleS * 1.5));
 
         player->stopAllActions();
         //this->runAction(MoveTo::create(duration, Vec2(touchPointInNode.x, this->getPositionY())));
@@ -1241,7 +1341,7 @@ void GameScene::spawnPlayer(float spawnX, float spawnY)
     player->setAnchorPoint(Vec2(0, 0));
     player->setPosition(Vec2(spawnX, spawnY));
     player->setScale(scaleS * scaleSizeInMap);
-    CCLOG("%f", scaleSizeInMap);
+    //CCLOG("%f", scaleSizeInMap);
     this->addChild(player, 9999);
 }
 
@@ -1314,10 +1414,35 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
         stopFlag = true;
         player->stopAllActions();
         player->setMoveIdle();
+        player->dangerNotice(true);
         this->schedule(CC_SCHEDULE_SELECTOR(GameScene::playerMoveLR), 0.0f);
 
         if (nodeA->getName() == "barrier" || nodeB->getName() == "barrier")
         {
+        }
+    }
+
+    if (nodeA->getCollisionBitmask() == 300 && nodeB->getCollisionBitmask() == 100 ||
+        nodeA->getCollisionBitmask() == 100 && nodeB->getCollisionBitmask() == 300)
+    {
+        if (nodeA->getNode() != nullptr && nodeB->getNode() != nullptr)
+        {
+            //stopFlag = true;
+            //player->stopAllActions();
+            //player->setMoveIdle();
+            //this->scheduleOnce([=](float dt) mutable {
+            //    stopFlag = false;
+            //    }, 1.5f, "delete stop flag");
+            if (nodeA->getCollisionBitmask() == 0)
+            {
+                //CCLOG("button visible");
+                getItemInTileMapWithName(nodeA->getName().c_str(), true);
+            }
+            else
+            {
+                //CCLOG("button visible");
+                getItemInTileMapWithName(nodeB->getName().c_str(), true);
+            }
         }
     }
 
@@ -1328,13 +1453,13 @@ bool GameScene::onContactBegin(PhysicsContact& contact) {
         {
             if (nodeA->getCollisionBitmask() == 0)
             {
-                CCLOG("button visible");
-                getItemInTileMapWithName(nodeA->getName().c_str());
+                //CCLOG("button visible");
+                getItemInTileMapWithName(nodeA->getName().c_str(), true);
             }
             else
             {
-                CCLOG("button visible");
-                getItemInTileMapWithName(nodeB->getName().c_str());
+                //CCLOG("button visible");
+                getItemInTileMapWithName(nodeB->getName().c_str(), true);
             }
 
             if (nodeA->getTag() == 000 || nodeB->getTag() == 000)
@@ -1400,6 +1525,27 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
         }
     }
 
+    if (nodeA->getCollisionBitmask() == 300 && nodeB->getCollisionBitmask() == 100 ||
+        nodeA->getCollisionBitmask() == 100 && nodeB->getCollisionBitmask() == 300)
+    {
+        if (nodeA->getNode() != nullptr && nodeB->getNode() != nullptr)
+        {
+            //stopFlag = false;
+            //this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::playerMoveLR));
+
+            if (nodeA->getCollisionBitmask() == 0)
+            {
+                //CCLOG("button visible");
+                getItemInTileMapWithName(nodeA->getName().c_str(), false);
+            }
+            else
+            {
+                //CCLOG("button visible");
+                getItemInTileMapWithName(nodeB->getName().c_str(), false);
+            }
+        }
+    }
+
     if (nodeA->getCollisionBitmask() == 100 && nodeB->getCollisionBitmask() == 0 ||
         nodeA->getCollisionBitmask() == 0 && nodeB->getCollisionBitmask() == 100)
     {
@@ -1407,11 +1553,11 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
         {
             if (nodeA->getCollisionBitmask() == 0)
             {
-                getItemInTileMapWithName(nodeA->getName().c_str());
+                getItemInTileMapWithName(nodeA->getName().c_str(), false);
             }
             else
             {
-                getItemInTileMapWithName(nodeB->getName().c_str());
+                getItemInTileMapWithName(nodeB->getName().c_str(), false);
             }
 
             if (nodeA->getTag() == 000 || nodeB->getTag() == 000)
@@ -1423,12 +1569,12 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
 
             if (nodeA->getCollisionBitmask() == 0)
             {
-                CCLOG("door");
+                //CCLOG("door");
             }
 
             if (nodeB->getCollisionBitmask() == 0)
             {
-                CCLOG("door");
+                //CCLOG("door");
             }
         }
     }
@@ -1440,12 +1586,6 @@ void GameScene::playerMoveLR(float dt)
 {
     direction = -direction;
     player->setPosition(Vec2(player->getPositionX() + direction, player->getPositionY()));
-
-    player->getChildByName("danger")->setVisible(true);
-
-    this->scheduleOnce([=](float dt) mutable {
-        player->getChildByName("danger")->setVisible(false);
-        }, 1.0f, "unvisible danger");
 }
 
 void GameScene::playerShowItem(float dt)

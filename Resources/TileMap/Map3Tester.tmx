@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="8">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="9">
  <tileset firstgid="1" source="Dungeon 1.tsx"/>
  <tileset firstgid="271" source="Dungeon 2.tsx"/>
  <group id="18" name="spawnPoint">
@@ -45,16 +45,15 @@
   </layer>
  </group>
  <group id="20" name="hideItem">
-  <layer id="8" name="potion" width="20" height="9">
-   <data encoding="base64" compression="zlib">
-   eJxjYBgFIxmsZx5oF1AXAACTbQCz
-  </data>
-  </layer>
-  <objectgroup id="23" name="potion">
+  <objectgroup id="23" name="hideItem">
    <properties>
     <property name="layer" value="2"/>
    </properties>
-   <object id="6" name="potion" x="128" y="96" width="16" height="16"/>
+   <object id="6" name="potion" x="128" y="96" width="16" height="16">
+    <properties>
+     <property name="layer" value="2"/>
+    </properties>
+   </object>
   </objectgroup>
  </group>
  <group id="21" name="door">
@@ -76,18 +75,22 @@
   </objectgroup>
  </group>
  <group id="19" name="quest">
-  <layer id="9" name="monster" width="20" height="9">
-   <data encoding="base64" compression="zlib">
-   eJxjYBgF9AayjAwMcozUM08PaJY+Fc2zB5rlQEXz6AkAFbUBHg==
-  </data>
-  </layer>
   <objectgroup id="15" name="questList">
    <properties>
     <property name="needSprite" value="monster"/>
     <property name="request" value="potion"/>
     <property name="reward" value="remove"/>
    </properties>
-   <object id="4" name="quest" x="208" y="80" width="16" height="32"/>
+   <object id="8" name="quest1" x="208" y="81" width="20.6667" height="31">
+    <properties>
+     <property name="CollisionBitmask" type="bool" value="true"/>
+     <property name="finish sound" value=""/>
+     <property name="needSprite" value="monster"/>
+     <property name="request" value="potion"/>
+     <property name="reward" value="next level"/>
+     <property name="unfinish sound" value=""/>
+    </properties>
+   </object>
   </objectgroup>
  </group>
  <group id="24" name="scale">

@@ -34,7 +34,7 @@ bool MenuScene::init() {
 
 
 
-    CCLOG("main menu 22");
+    CCLOG("main menu 321");
 
     return true;
 }
@@ -44,6 +44,11 @@ bool MenuScene::init() {
 bool  MenuScene::isBackgroundMusicPlaying()
 {
     return AudioEngine::getState(musicID) == AudioEngine::AudioState::PLAYING;
+}
+
+void MenuScene::saveMusicID()
+{
+    UserDefault::getInstance()->setIntegerForKey("Back_ground_music_ID", musicID);
 }
 
 void MenuScene::playBackGroundMusic()
@@ -66,8 +71,6 @@ void MenuScene::playBackGroundMusic()
 void MenuScene::createBackGround(const std::string& backgroundPath)
 {
     const char* cstr = backgroundPath.c_str();
-
-    // In ra chuỗi bằng hàm CCLOG
 
     // Tạo Sprite từ đường dẫn
     auto background = Sprite::create(cstr);
@@ -157,12 +160,12 @@ void MenuScene::menuOptionsCallback(cocos2d::Ref* pSender)
     UserDefault::getInstance()->setBoolForKey("next_level_button_state", true);
 
     UserDefault::getInstance()->flush();
-    CCLOG("Level %d has been saved after winning.", 0);
+    //CCLOG("Level %d has been saved after winning.", 0);
     UserDefault::getInstance()->destroyInstance();
 }
 
 void MenuScene::increaseBackgroundMusicVolume(float volumeDelta) {
-    CCLOG("volume + %f", volumeDelta);
+    //CCLOG("volume + %f", volumeDelta);
     float newVolume = AudioEngine::getVolume(musicID) + volumeDelta;
     AudioEngine::setVolume(musicID, newVolume);
 }

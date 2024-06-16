@@ -3,6 +3,8 @@
 #include "MenuScene.h"
 #include "GameScene.h"
 #include "MenuLayer.h"
+#include "AudioEngine.h"
+
 
 USING_NS_CC;
 
@@ -79,12 +81,14 @@ void Player::addPhysicBodyForSprite()
     physicPlayer->setRotationEnable(false);
     physicPlayer->setContactTestBitmask(true);
     physicPlayer->setCollisionBitmask(100);
+    physicPlayer->setName("player physic");
 
     this->addComponent(physicPlayer);
 }
 
 void Player::setMoveL()
 {
+    moveSoundEffect(true);
     spritePlayer->stopAllActions();
     Animate* animatePlayer = Animate::create(createAnimation("GuraWalkV1 (", 15, 0.025f));
     animatePlayer->setTag(201);
@@ -94,6 +98,7 @@ void Player::setMoveL()
 
 void Player::setMoveR()
 {
+    moveSoundEffect(true);
     spritePlayer->stopAllActions();
     Animate* animatePlayer = Animate::create(createAnimation("GuraWalkV1 (", 15, 0.025f));
     animatePlayer->setTag(201);
@@ -101,8 +106,37 @@ void Player::setMoveR()
     spritePlayer->setFlippedX(false);
 }
 
+void Player::moveSoundEffect(bool trueFalse)
+{
+    std::string pathEffect = "inGame/sound/walk.mp3";
+
+    if (moveEffectSound)
+    {
+        AudioEngine::stop(moveEffectSound);
+        //CCLOG("first effect");
+    }
+    
+    if (trueFalse)
+    {
+
+        moveEffectSound = cocos2d::AudioEngine::play2d(pathEffect, true);
+        CCLOG("move effect");
+        
+    }else if (!trueFalse)
+    {
+        AudioEngine::stop(moveEffectSound);
+        CCLOG("tat effect");
+    }
+    else
+    {
+        CCLOG("no move sound effect");
+    }
+}
+
 void Player::setMoveIdle()
 {
+    moveSoundEffect(false);
+
     spritePlayer->stopAllActions();
     Animate* animatePlayer = Animate::create(createAnimation("GuraIdle (", 4, 0.5f));
     animatePlayer->setTag(201);
@@ -131,7 +165,7 @@ void Player::changeActionStatus(float dt)
     }
 }
 
-float Player::getSizePlayer()
+float Player::getSizePlayerHeight()
 {
     auto defaultSprite = Sprite::create("imageGura/GuraMeme (160).png");
     return  defaultSprite->getContentSize().height;
@@ -151,5 +185,44 @@ void Player::addChatDanger()
 
     this->addChild(chat, 100);
     chat->setPosition(Vec2(0, spritePlayer->getContentSize().height*0.6));
+}
+
+void Player::dangerNotice(bool trueFalse)
+{
+    this->getChildByName("danger")->setVisible(true);
+
+    this->scheduleOnce([=](float dt) mutable {
+        this->getChildByName("danger")->setVisible(false);
+        }, 1.0f, "unvisible danger");
+
+    // Danh sách các tệp âm thanh
+    std::vector<std::string> soundFiles = {
+        "inGame/sound/ahh sound_effect.mp3",
+        "inGame/sound/oh sound_effect.mp3",
+    };
+
+    // Tạo máy phát số ngẫu nhiên
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, soundFiles.size() - 1);
+
+    // Chọn ngẫu nhiên một tệp âm thanh từ danh sách
+    int randomIndex = dis(gen);
+    std::string randomSoundFile = soundFiles[randomIndex];
+
+    // Phát âm thanh ngẫu nhiên
+    int audioID = AudioEngine::play2d(randomSoundFile, false, 1.0f);
+
+    // Đặt âm lượng ngẫu nhiên (nếu muốn)
+    float randomVolume = static_cast<float>(dis(gen)) / (soundFiles.size() - 1);
+    AudioEngine::setVolume(audioID, randomVolume);
+
+
+    //this->getChildByName("danger")->setVisible(trueFalse);
+    //std::string pathSound = "inGame/sound/ahh sound_effect.mp3";
+    //if (trueFalse)
+    //{
+    //    AudioEngine::play2d(pathSound);
+    //}
 }
 

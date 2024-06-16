@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Map2Tester.tmx",
+    "activeFile": "Map1Tester.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -69,7 +69,7 @@
         },
         "Dungeon 2.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 3
         },
         "Dungeon6.tsx": {
             "scaleInDock": 1,
@@ -121,63 +121,66 @@
         "Map1Tester.tmx": {
             "expandedGroupLayers": [
                 3,
-                4,
-                31,
                 6,
-                2
+                31,
+                2,
+                4
             ],
             "expandedObjectLayers": [
-                19,
                 32,
                 3,
-                4,
-                20,
-                11,
-                31,
                 21,
+                19,
                 6,
-                2
+                2,
+                31,
+                11,
+                20,
+                4
             ],
             "scale": 1,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 929.5,
-                "y": 466.5
+                "x": 923.5,
+                "y": 460.5
             }
         },
         "Map2Tester.tmx": {
             "expandedGroupLayers": [
+                26,
                 36,
+                29,
+                24,
                 39,
-                24
+                12
             ],
             "expandedObjectLayers": [
-                9,
                 7,
-                29,
                 32,
-                10,
-                36,
-                35,
-                23,
-                4,
-                5,
-                26,
-                27,
-                34,
-                39,
-                37,
                 38,
+                26,
+                35,
+                36,
+                8,
+                5,
+                27,
                 40,
+                34,
+                29,
                 24,
+                39,
+                23,
+                9,
                 12,
-                8
+                10,
+                4,
+                37
             ],
-            "scale": 3,
-            "selectedLayer": 4,
+            "scale": 1.5,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 244.5,
-                "y": 193.49999999999997
+                "x": 319,
+                "y": 186.33333333333337
             }
         },
         "Map2Tester2.tmx": {
@@ -220,27 +223,36 @@
             "scale": 1.5615625,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 320.5123073844307,
-                "y": 144.40664398639186
+                "x": 319.87192315389234,
+                "y": 144.40664398639188
             }
         },
         "Map3Tester.tmx": {
             "expandedGroupLayers": [
+                18,
+                21,
                 5,
-                16,
+                19,
                 24,
-                18
+                20,
+                16
             ],
             "expandedObjectLayers": [
-                13,
+                15,
                 25,
-                24
+                22,
+                21,
+                19,
+                24,
+                23,
+                20,
+                13
             ],
-            "scale": 1.5,
-            "selectedLayer": 20,
+            "scale": 3,
+            "selectedLayer": 16,
             "viewCenter": {
-                "x": 160.33333333333334,
-                "y": 72.33333333333334
+                "x": 194.83333333333334,
+                "y": 75.83333333333331
             }
         },
         "MapReview.tmx": {
@@ -336,13 +348,13 @@
     "project": "LevelMap.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "Map1Tester.tmx",
         "Map3Tester!.tmx",
         "Dungeon 2.tsx",
         "Dungeon 1.tsx",
         "CartoonArt.tsx",
         "Map3Tester.tmx",
         "Map2Tester.tmx",
+        "Map1Tester.tmx",
         "Map2Tester2.tmx",
         "MapReview.tmx",
         "maptest.tmx",

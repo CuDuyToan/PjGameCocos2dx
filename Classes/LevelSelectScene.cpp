@@ -2,6 +2,7 @@
 #include "MenuScene.h"
 #include "GameScene.h"
 #include <sys/stat.h>
+#include "AudioEngine.h"
 
 #include "cocos2d.h"
 #include "json/document.h"
@@ -26,6 +27,8 @@ bool LevelSelectScene::init() {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+    musicID = getMusicBackgroundID();
+
     mainBackGround();
     menuButton();
 
@@ -46,6 +49,25 @@ bool LevelSelectScene::init() {
     createButtonPageLevel(level);
 
     return true;
+}
+
+void LevelSelectScene::changeMusic(std::string newMusicPath)
+{
+    // Dừng nhạc nền hiện tại
+    AudioEngine::stop(musicID);
+    AudioEngine::uncacheAll();
+    // Phát nhạc nền mới
+    musicID = cocos2d::AudioEngine::play2d(newMusicPath, true);
+}
+
+void LevelSelectScene::saveMusicID()
+{
+    UserDefault::getInstance()->setIntegerForKey("Back_ground_music_ID", musicID);
+}
+
+int LevelSelectScene::getMusicBackgroundID()
+{
+    return UserDefault::getInstance()->getIntegerForKey("Back_ground_music_ID", 0);
 }
 
 void LevelSelectScene::saveNextLevelButtonState(bool state) {
@@ -71,7 +93,7 @@ bool LevelSelectScene::checkPathExists(int level)
     std::string fileName = "TileMap/Map" + std::to_string(level) + "Tester.tmx";
     if (FileUtils::getInstance()->isFileExist(fileName))
     {
-        CCLOG("true");
+        //CCLOG("true");
     }
     return FileUtils::getInstance()->isFileExist(fileName);
 }
@@ -79,6 +101,10 @@ bool LevelSelectScene::checkPathExists(int level)
 void LevelSelectScene::selectLevel(int levelSelect) {
     UserDefault::getInstance()->setIntegerForKey("select_level", levelSelect);
     UserDefault::getInstance()->flush();
+}
+
+int LevelSelectScene::levelSelect() {
+    return UserDefault::getInstance()->getIntegerForKey("select_level", 1);
 }
 
 void LevelSelectScene::mainBackGround()
@@ -100,6 +126,9 @@ void LevelSelectScene::createButtonPageLevel(int level)
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    std::string newMusicPath = "inGame/level" + std::to_string(level) + "/music/music.mp3";
+    changeMusic(newMusicPath);
 
     createButtonChangeLevel("Level " + std::to_string(level));
     readStory(level);
@@ -139,6 +168,7 @@ void LevelSelectScene::createButtonPageLevel(int level)
         playLevel->setScale(0.08 * (sizeTable / playLevel->getContentSize().height));
         playLevel->setPosition(Vec2(storyBook->getContentSize().width / 2, storyBook->getContentSize().height / 10));
         playLevel->addClickEventListener([=](Ref* sender) {
+            saveMusicID();
             stopFlag = true;
             selectLevel(level);
             auto nextScene = GameScene::create();
@@ -233,13 +263,13 @@ void LevelSelectScene::readStory(int level)
     {
         stopFlag = true;
         storyBook->removeChildByName("image");
-        CCLOG("remove image");
+        //CCLOG("remove image");
     }
 
     // Đọc nội dung từ file .txt
     std::string filePath = FileUtils::getInstance()->fullPathForFilename("level preview/level" + std::to_string(level) + "/story.txt");
     
-    if (filePath != "" && loadLevel() >= level && checkPathExists(level + 1))
+    if (filePath != "" && loadLevel())
     {
         stopFlag = false;
         std::string storedText = FileUtils::getInstance()->getStringFromFile(filePath);
@@ -279,7 +309,7 @@ void LevelSelectScene::addCharacterByCharacter(const std::string& text, float de
             image->setPosition(Vec2(storyBook->getContentSize().width * 0.5,
                 storyBook->getContentSize().height * 0.25));
             image->setName("image");
-            CCLOG("add image");
+            //CCLOG("add image");
             storyBook->addChild(image);
         }
 
@@ -292,7 +322,7 @@ void LevelSelectScene::addCharacterByCharacter(const std::string& text, float de
                 label->setString(text.substr(0, ++index));
             }
             else {
-                CCLOG("stop add char");
+                //CCLOG("stop add char");
                 this->unschedule("add_char_schedule");
             }
             }, delay, "add_char_schedule");
