@@ -20,7 +20,7 @@ bool GameScene::init() {
     this->getPhysicsWorld()->setGravity(Vec2(0, -2000));
 
 
-    createTileMap(); //error
+    createTileMap();
 
     createUiMenu();
     //createButtonHand(); //error

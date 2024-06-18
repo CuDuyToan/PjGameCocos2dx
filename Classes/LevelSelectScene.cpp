@@ -85,7 +85,7 @@ void LevelSelectScene::saveLevel(int level) {
 }
 
 int LevelSelectScene::loadLevel() {
-    return UserDefault::getInstance()->getIntegerForKey("current_level", 1);
+    return UserDefault::getInstance()->getIntegerForKey("current_level", 0);
 }
 
 bool LevelSelectScene::checkPathExists(int level)
