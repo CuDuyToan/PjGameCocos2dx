@@ -1,8 +1,9 @@
 ﻿#include "MenuScene.h"
 #include "GameScene.h"
-#include "LevelSelectScene.h"
+//#include "LevelSelectScene.h"
 #include "AudioEngine.h"
 #include "Player.h"
+#include  "LevelScene.h"
 
 USING_NS_CC;
 
@@ -67,7 +68,7 @@ void MenuScene::playBackGroundMusic()
 
 }
 
-//createBG error
+
 void MenuScene::createBackGround(const std::string& backgroundPath)
 {
     const char* cstr = backgroundPath.c_str();
@@ -90,7 +91,6 @@ void MenuScene::createBackGround(const std::string& backgroundPath)
         Director::getInstance()->getRunningScene()->addChild(background, -1);
     }
     else {
-        // Nếu không thể tạo được background từ đường dẫn, thông báo lỗi
         log("Error: Cannot load background from %s", backgroundPath.c_str());
     }
 }
@@ -100,15 +100,15 @@ void MenuScene::mainBackGround()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    //auto background = Sprite::create("BackGround/backGround.png");
     auto background = Sprite::create("BackGround/HoloBackGround.png");
 
     background->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
-    // Thiết lập kích thước của background bằng kích thước hiển thị của cửa sổ
+    
     background->setScaleX(visibleSize.width / background->getContentSize().width);
     background->setScaleY(visibleSize.height / background->getContentSize().height);
-    this->addChild(background, -1); // Đặt background ở layer thấp hơn để nó nằm dưới các phần tử khác của Scene
+    this->addChild(background, -1);
 }
+
 
 void MenuScene::createButton()
 {
@@ -117,7 +117,6 @@ void MenuScene::createButton()
 
     mainBackGround();
 
-    //tao nut "exit"
     auto exitItem = MenuItemImage::create(
         "LargeButton/Exit Button.png",
         "LargeButton/Exit  col_Button.png",
@@ -150,7 +149,7 @@ void MenuScene::createButton()
 }
 
 void MenuScene::menuPlayCallback(Ref* pSender) {
-    auto selectLevel = LevelSelectScene::createScene();
+    auto selectLevel = LevelScene::createScene();
     Director::getInstance()->replaceScene(selectLevel);
 }
 

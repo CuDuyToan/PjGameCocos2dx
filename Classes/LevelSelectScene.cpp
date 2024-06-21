@@ -27,17 +27,7 @@ bool LevelSelectScene::init() {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    musicID = getMusicBackgroundID();
-
-    mainBackGround();
-    menuButton();
-
-    /*if (loadLevel() >= 2) {
-        createButtonPageLevel2();
-    }
-    else {
-        createButtonPageLevel1();
-    }*/
+    //musicID = getMusicBackgroundID();
 
     int level = 1;
 
@@ -127,6 +117,11 @@ void LevelSelectScene::createButtonPageLevel(int level)
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+    musicID = getMusicBackgroundID();
+
+    mainBackGround();
+    menuButton();
+
     std::string newMusicPath = "inGame/level" + std::to_string(level) + "/music/music.mp3";
     changeMusic(newMusicPath);
 
@@ -148,7 +143,7 @@ void LevelSelectScene::createButtonPageLevel(int level)
         {
             storyBook->removeChildByName("reduced level");
         }
-        if (level > 1) {
+        /*if (level > 1) {
 
             auto reducedLevel = ui::Button::create("select level/button return.png", "select level/button return2.png");
             reducedLevel->setScale(0.08 * (sizeTable / reducedLevel->getContentSize().height));
@@ -161,7 +156,7 @@ void LevelSelectScene::createButtonPageLevel(int level)
 
             reducedLevel->setName("reduced level");
             storyBook->addChild(reducedLevel, 1);
-        }
+        }*/
 
         auto playLevel = ui::Button::create("SquareButton/Play Square Button.png", 
             "SquareButton/Play col_Square Button.png");
@@ -169,15 +164,15 @@ void LevelSelectScene::createButtonPageLevel(int level)
         playLevel->setPosition(Vec2(storyBook->getContentSize().width / 2, storyBook->getContentSize().height / 10));
         playLevel->addClickEventListener([=](Ref* sender) {
             saveMusicID();
-            stopFlag = true;
+            //stopFlag = true;
             selectLevel(level);
-            auto nextScene = GameScene::create();
-            Director::getInstance()->replaceScene(nextScene);
+            auto gameScene = GameScene::create();
+            Director::getInstance()->replaceScene(gameScene);
             });
         playLevel->setName("play level");
         storyBook->addChild(playLevel);
 
-        auto nextLevel = ui::Button::create("select level/button next.png", "select level/button next2.png");
+        /*auto nextLevel = ui::Button::create("select level/button next.png", "select level/button next2.png");
         nextLevel->setScale(0.08 * (sizeTable / nextLevel->getContentSize().height));
         nextLevel->setPosition(Vec2(storyBook->getContentSize().width - nextLevel->getContentSize().width,
             nextLevel->getContentSize().height));
@@ -194,13 +189,12 @@ void LevelSelectScene::createButtonPageLevel(int level)
             nextLevel->setVisible(false);
         }
         nextLevel->setName("next level");
-        storyBook->addChild(nextLevel);
+        storyBook->addChild(nextLevel);*/
     }
     else
     {
         CCLOG("cant found story book");
     }
-
 
 }
 
@@ -271,7 +265,7 @@ void LevelSelectScene::readStory(int level)
     
     if (filePath != "")
     {
-        stopFlag = false;
+        ///stopFlag = false;
         std::string storedText = FileUtils::getInstance()->getStringFromFile(filePath);
 
         // Tạo một label và hiển thị nội dung với hiệu ứng dần xuất hiện
@@ -334,7 +328,6 @@ void LevelSelectScene::menuButton()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    // Tạo MenuItemImage cho nút Home
     auto homeNormal = Sprite::create("SquareButton/Home Square Button.png");
     auto homeSelected = Sprite::create("SquareButton/Home col_Square Button.png");
     auto homeButton = MenuItemSprite::create(homeNormal, homeSelected, CC_CALLBACK_1(LevelSelectScene::homeButton, this));
