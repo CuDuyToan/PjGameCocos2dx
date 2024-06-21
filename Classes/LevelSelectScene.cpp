@@ -269,7 +269,7 @@ void LevelSelectScene::readStory(int level)
     // Đọc nội dung từ file .txt
     std::string filePath = FileUtils::getInstance()->fullPathForFilename("level preview/level" + std::to_string(level) + "/story.txt");
     
-    if (filePath != "" && loadLevel())
+    if (filePath != "")
     {
         stopFlag = false;
         std::string storedText = FileUtils::getInstance()->getStringFromFile(filePath);
