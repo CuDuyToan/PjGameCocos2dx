@@ -3,6 +3,7 @@
 #include "LevelSelectScene.h"
 #include "MenuScene.h"
 #include "MenuLayer.h"
+#include "LevelScene.h"
 
 USING_NS_CC;
 
@@ -59,18 +60,24 @@ void GameScene::winLevel(Ref* sender, int level) {
     {
         if (level > loadHighScoreLevel())
         {
-            UserDefault::getInstance()->setIntegerForKey("current_level", level);
-            UserDefault::getInstance()->setBoolForKey("next_level_button_state", true);
+            //UserDefault::getInstance()->setIntegerForKey("current_level", level);
+            //UserDefault::getInstance()->setBoolForKey("next_level_button_state", true);
 
-            UserDefault::getInstance()->flush();
-            //CCLOG("Level %d has been saved after winning.", level);
-            UserDefault::getInstance()->destroyInstance();
+            //UserDefault::getInstance()->flush();
+            ////CCLOG("Level %d has been saved after winning.", level);
+            //UserDefault::getInstance()->destroyInstance();
+
+            int unlockedLevel = UserDefault::getInstance()->getIntegerForKey("unlocked_level", 1);
+            if (level >= unlockedLevel) {
+                UserDefault::getInstance()->setIntegerForKey("unlocked_level", level + 1);
+                UserDefault::getInstance()->flush();
+            }
+
         }
 
         //UserDefault::getInstance()->setIntegerForKey("select_level", level + 1);
-
-        auto levelSelectScene = LevelSelectScene::createScene();
-        Director::getInstance()->replaceScene(levelSelectScene);
+        auto levelScene = LevelScene::createScene();
+        Director::getInstance()->replaceScene(levelScene);
     }
 }
 

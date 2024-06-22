@@ -16,7 +16,7 @@ public:
     CREATE_FUNC(LevelScene);
 
 private:
-    int level = 1;
+    int levelCurent = 1;
 
 };
 

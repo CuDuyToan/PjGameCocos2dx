@@ -26,7 +26,6 @@ bool LevelScene::init() {
     return true;
 }
 
-
 void LevelScene::createButtonLevel()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -34,15 +33,30 @@ void LevelScene::createButtonLevel()
 
     Vector<MenuItem*> menuItems;
 
+    // Load level hiện tại người chơi đã hoàn thành
+    int unlockedLevel = UserDefault::getInstance()->getIntegerForKey("unlocked_level", 1);
+
     for (int i = 0; i < 3; ++i)
     {
+        std::string normalImage = "ButtonLevel/DefaultUnlockLevel.png";
+        std::string selectedImage = "ButtonLevel/UnlockLevel.png";
+
+        //// Nếu level này chưa được mở khóa
+        if (i + 1 > unlockedLevel) {
+
+            normalImage = "ButtonLevel/DefaultLockLevel.png";
+            selectedImage = "ButtonLevel/LockLevel.png";
+        }
+
         auto buttonLevel = MenuItemImage::create(
-            "ButtonLevel/DefaultUnlockLevel.png",
-            "ButtonLevel/UnlockLevel.png",
-            [=](Ref* sender){
-                auto selectScene = LevelSelectScene::create();
-                selectScene->createButtonPageLevel(i + 1);
-                addChild(selectScene);
+            normalImage,
+            selectedImage,
+            [=](Ref* sender) {
+                if (i + 1 <= unlockedLevel) {
+                    auto selectScene = LevelSelectScene::create();
+                    selectScene->createButtonPageLevel(i + 1);
+                    addChild(selectScene);
+                }
             });
 
         buttonLevel->setTag(i);
@@ -52,7 +66,6 @@ void LevelScene::createButtonLevel()
         float startX = (visibleSize.width - totalWidth) / 2;
         buttonLevel->setPosition(Vec2(startX + i * (buttonWidth + 20), visibleSize.height / 2));
 
-        
         auto label = Label::createWithSystemFont(std::to_string(i + 1), "Arial", 36);
         label->setPosition(buttonLevel->getContentSize() / 2);
         buttonLevel->addChild(label);

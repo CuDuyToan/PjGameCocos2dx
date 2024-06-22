@@ -155,12 +155,15 @@ void MenuScene::menuPlayCallback(Ref* pSender) {
 
 void MenuScene::menuOptionsCallback(cocos2d::Ref* pSender)
 {
-    UserDefault::getInstance()->setIntegerForKey("current_level", 0);
-    UserDefault::getInstance()->setBoolForKey("next_level_button_state", true);
+    //UserDefault::getInstance()->setIntegerForKey("unlocked_level", 1);
+    //UserDefault::getInstance()->flush();
+    ////CCLOG("Level %d has been saved after winning.", 0);
+    //UserDefault::getInstance()->destroyInstance();
 
+    UserDefault::getInstance()->setIntegerForKey("unlocked_level", 1);
     UserDefault::getInstance()->flush();
-    //CCLOG("Level %d has been saved after winning.", 0);
-    UserDefault::getInstance()->destroyInstance();
+    this->removeAllChildren();
+    init();
 }
 
 void MenuScene::increaseBackgroundMusicVolume(float volumeDelta) {

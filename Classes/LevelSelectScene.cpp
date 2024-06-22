@@ -29,14 +29,14 @@ bool LevelSelectScene::init() {
 
     //musicID = getMusicBackgroundID();
 
-    int level = 1;
+    /*int level = 1;
 
     if (loadLevel() >= 1)
     {
         level = loadLevel();
-    }
+    }*/
 
-    createButtonPageLevel(level);
+    //createButtonPageLevel(level);
 
     return true;
 }
@@ -60,23 +60,23 @@ int LevelSelectScene::getMusicBackgroundID()
     return UserDefault::getInstance()->getIntegerForKey("Back_ground_music_ID", 0);
 }
 
-void LevelSelectScene::saveNextLevelButtonState(bool state) {
-    UserDefault::getInstance()->setBoolForKey("next_level_button_state", state);
-    UserDefault::getInstance()->flush();
-}
-
-bool LevelSelectScene::loadNextLevelButtonState() {
-    return UserDefault::getInstance()->getBoolForKey("next_level_button_state", false);
-}
-
-void LevelSelectScene::saveLevel(int level) {
-    UserDefault::getInstance()->setIntegerForKey("current_level", level);
-    UserDefault::getInstance()->flush();
-}
-
-int LevelSelectScene::loadLevel() {
-    return UserDefault::getInstance()->getIntegerForKey("current_level", 0);
-}
+//void LevelSelectScene::saveNextLevelButtonState(bool state) {
+//    UserDefault::getInstance()->setBoolForKey("next_level_button_state", state);
+//    UserDefault::getInstance()->flush();
+//}
+//
+//bool LevelSelectScene::loadNextLevelButtonState() {
+//    return UserDefault::getInstance()->getBoolForKey("next_level_button_state", false);
+//}
+//
+//void LevelSelectScene::saveLevel(int level) {
+//    UserDefault::getInstance()->setIntegerForKey("current_level", level);
+//    UserDefault::getInstance()->flush();
+//}
+//
+//int LevelSelectScene::loadLevel() {
+//    return UserDefault::getInstance()->getIntegerForKey("current_level", 0);
+//}
 
 bool LevelSelectScene::checkPathExists(int level)
 {
@@ -93,9 +93,9 @@ void LevelSelectScene::selectLevel(int levelSelect) {
     UserDefault::getInstance()->flush();
 }
 
-int LevelSelectScene::levelSelect() {
-    return UserDefault::getInstance()->getIntegerForKey("select_level", 1);
-}
+//int LevelSelectScene::levelSelect() {
+//    return UserDefault::getInstance()->getIntegerForKey("select_level", 1);
+//}
 
 void LevelSelectScene::mainBackGround()
 {
@@ -129,7 +129,7 @@ void LevelSelectScene::createButtonPageLevel(int level)
     readStory(level);
     auto storyBook = this->getChildByName("story book");
 
-    if (storyBook)
+    /*if (storyBook)
     {
         if (storyBook->getChildByName("next level"))
         {
@@ -142,7 +142,7 @@ void LevelSelectScene::createButtonPageLevel(int level)
         if (storyBook->getChildByName("reduced level"))
         {
             storyBook->removeChildByName("reduced level");
-        }
+        }*/
         /*if (level > 1) {
 
             auto reducedLevel = ui::Button::create("select level/button return.png", "select level/button return2.png");
@@ -190,11 +190,11 @@ void LevelSelectScene::createButtonPageLevel(int level)
         }
         nextLevel->setName("next level");
         storyBook->addChild(nextLevel);*/
-    }
+    /*}
     else
     {
         CCLOG("cant found story book");
-    }
+    }*/
 
 }
 
@@ -251,11 +251,11 @@ void LevelSelectScene::readStory(int level)
     if (storyBook->getChildByName("story"))
     {
         storyBook->removeChildByName("story");
-        stopFlag = true;
+        //stopFlag = true;
     }
     if (storyBook->getChildByName("image"))
     {
-        stopFlag = true;
+        //stopFlag = true;
         storyBook->removeChildByName("image");
         //CCLOG("remove image");
     }
@@ -263,12 +263,12 @@ void LevelSelectScene::readStory(int level)
     // Đọc nội dung từ file .txt
     std::string filePath = FileUtils::getInstance()->fullPathForFilename("level preview/level" + std::to_string(level) + "/story.txt");
     
-    if (filePath != "" && loadLevel())
+    if (filePath != "")
     {
-        ///stopFlag = false;
+        /////stopFlag = false;
         std::string storedText = FileUtils::getInstance()->getStringFromFile(filePath);
 
-        // Tạo một label và hiển thị nội dung với hiệu ứng dần xuất hiện
+        //// Tạo một label và hiển thị nội dung với hiệu ứng dần xuất hiện
         showTextWithEffect(storedText, level);
     }
 }
@@ -280,8 +280,8 @@ void LevelSelectScene::showTextWithEffect(const std::string& text, int level) {
 void LevelSelectScene::addCharacterByCharacter(const std::string& text, float delay, int level) {
     auto storyBook = this->getChildByName("story book");
     this->unschedule("add_char_schedule");
-    if (storyBook)
-    {
+    /*if (storyBook)
+    {*/
         auto label = Label::createWithTTF("story :", "fonts/Marker Felt.ttf",
             24);
         float scaleLabel = 0.04 * (sizeTable / label->getContentSize().height);
@@ -320,7 +320,7 @@ void LevelSelectScene::addCharacterByCharacter(const std::string& text, float de
                 this->unschedule("add_char_schedule");
             }
             }, delay, "add_char_schedule");
-    }
+
 }
 
 void LevelSelectScene::menuButton()
