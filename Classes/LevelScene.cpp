@@ -2,6 +2,7 @@
 #include "ui/CocosGUI.h"
 #include "MenuScene.h"
 #include "LevelSelectScene.h"
+#include "UICompleteGame.h"
 
 USING_NS_CC;
 
@@ -23,6 +24,9 @@ bool LevelScene::init() {
     createButtonLevel();
     buttonBackHome();
 
+    /*auto completeGame = UICompleteGame::create();
+    this->addChild(completeGame);*/
+
     return true;
 }
 
@@ -41,7 +45,6 @@ void LevelScene::createButtonLevel()
         std::string normalImage = "ButtonLevel/DefaultUnlockLevel.png";
         std::string selectedImage = "ButtonLevel/UnlockLevel.png";
 
-        //// Nếu level này chưa được mở khóa
         if (i + 1 > unlockedLevel) {
 
             normalImage = "ButtonLevel/DefaultLockLevel.png";

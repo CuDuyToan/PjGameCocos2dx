@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "Player.h"
 #include "MenuLayer.h"
+#include "UICompleteGame.h"
 
 using namespace cocos2d;
 

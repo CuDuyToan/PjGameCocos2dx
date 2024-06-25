@@ -4,6 +4,7 @@
 #include "MenuScene.h"
 #include "MenuLayer.h"
 #include "LevelScene.h"
+#include "UICompleteGame.h"
 
 USING_NS_CC;
 
@@ -60,13 +61,7 @@ void GameScene::winLevel(Ref* sender, int level) {
     {
         if (level > loadHighScoreLevel())
         {
-            //UserDefault::getInstance()->setIntegerForKey("current_level", level);
-            //UserDefault::getInstance()->setBoolForKey("next_level_button_state", true);
-
-            //UserDefault::getInstance()->flush();
-            ////CCLOG("Level %d has been saved after winning.", level);
-            //UserDefault::getInstance()->destroyInstance();
-
+            
             int unlockedLevel = UserDefault::getInstance()->getIntegerForKey("unlocked_level", 1);
             if (level >= unlockedLevel) {
                 UserDefault::getInstance()->setIntegerForKey("unlocked_level", level + 1);
@@ -76,8 +71,8 @@ void GameScene::winLevel(Ref* sender, int level) {
         }
 
         //UserDefault::getInstance()->setIntegerForKey("select_level", level + 1);
-        auto levelScene = LevelScene::createScene();
-        Director::getInstance()->replaceScene(levelScene);
+        auto completeLevel = UICompleteGame::create();
+        this->addChild(completeLevel, 1);
     }
 }
 
@@ -89,7 +84,8 @@ bool GameScene::createTileMap()
     int count = 0;
 
     if (_tilemap->initWithTMXFile("TileMap/Map" + std::to_string(loadLevel()) + "Tester.tmx"))
-    {
+    {   
+       
         getScaleSizeInTileMap();
         CalculateNewSizeTile();
         //scaleS = _tilemap->getMapSize().height / (_tilemap->getTileSize().height * (Director::getInstance()->getVisibleSize().height / _tilemap->getContentSize().height));
@@ -445,8 +441,6 @@ void GameScene::getDoor()
             std::string name = objectProperties["name"].asString();
             float width = objectProperties["width"].asFloat();
             float height = objectProperties["height"].asFloat();
-
-            // Lấy ra tọa độ trái và phải từ physics body
 
             //tao nut "thao tac voi quest"
             auto ButtonNormal = Sprite::create("inGame/button/win level.png");

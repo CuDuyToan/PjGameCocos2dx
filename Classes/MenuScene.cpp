@@ -162,6 +162,10 @@ void MenuScene::menuOptionsCallback(cocos2d::Ref* pSender)
 
     UserDefault::getInstance()->setIntegerForKey("unlocked_level", 1);
     UserDefault::getInstance()->flush();
+
+    UserDefault::getInstance()->setIntegerForKey("unlocked_level", 1);
+    UserDefault::getInstance()->flush();
+
     this->removeAllChildren();
     init();
 }
