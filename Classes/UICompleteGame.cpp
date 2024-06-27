@@ -54,7 +54,6 @@ void UICompleteGame::createButtons()
 
             auto nextScene = LevelSelectScene::create();
             nextScene->createButtonPageLevel(nextLevel);
-            ////this->addChild(nextScene);
             Director::getInstance()->replaceScene(nextScene);
         });
     nextLevelButton->setScale(0.2);

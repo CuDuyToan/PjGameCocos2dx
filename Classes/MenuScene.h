@@ -17,6 +17,7 @@ public:
     void buttonHandle(cocos2d::Ref* pSender);
 
     void increaseBackgroundMusicVolume(float volumeDelta);
+    void createMusicButton();
 
     void createButton();
     void createBackGround(const std::string& backgroundPath);
