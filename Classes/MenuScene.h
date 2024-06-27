@@ -22,6 +22,7 @@ public:
     void createButton();
     void createBackGround(const std::string& backgroundPath);
     void mainBackGround();
+
     void playBackGroundMusic();
     void createGuraFallingSprite();
     void createAhhSharkSprite();

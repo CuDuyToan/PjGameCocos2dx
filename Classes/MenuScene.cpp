@@ -58,15 +58,22 @@ void MenuScene::playBackGroundMusic()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	//musicID = cocos2d::AudioEngine::play2d("Music/Gura-BGM2.mp3", true);
 	bool isMusicPlaying = UserDefault::getInstance()->getBoolForKey("is_music_playing", true);
+	musicID = UserDefault::getInstance()->getIntegerForKey("Back_ground_music_ID", -1);
 
-	// Play background music based on saved state or start playing if first time
-	if (isMusicPlaying) {
+	if (musicID == -1) {
+		// Chưa có âm thanh nào đang phát, phát âm thanh mới
 		musicID = cocos2d::AudioEngine::play2d("Music/Gura-BGM2.mp3", true);
+		UserDefault::getInstance()->setIntegerForKey("Back_ground_music_ID", musicID);
 	}
 	else {
-		musicID = AudioEngine::INVALID_AUDIO_ID;
+		if (isMusicPlaying && AudioEngine::getState(musicID) != AudioEngine::AudioState::PLAYING) {
+			musicID = cocos2d::AudioEngine::play2d("Music/Gura-BGM2.mp3", true);
+			UserDefault::getInstance()->setIntegerForKey("Back_ground_music_ID", musicID);
+		}
+		else if (!isMusicPlaying && AudioEngine::getState(musicID) == AudioEngine::AudioState::PLAYING) {
+			AudioEngine::pause(musicID);
+		}
 	}
 
 	auto musicBox = ui::CheckBox::create(
@@ -76,8 +83,6 @@ void MenuScene::playBackGroundMusic()
 		"ButtonLevel/DefaultSoundOn.png",
 		"ButtonLevel/SoundOn.png"
 	);
-	// Đặt trạng thái của checkbox theo trạng thái âm nhạc
-	//musicBox->setSelected(true);
 	musicBox->setSelected(isMusicPlaying);
 
 	musicBox->addEventListener(
@@ -86,26 +91,23 @@ void MenuScene::playBackGroundMusic()
 			switch (type)
 			{
 			case ui::CheckBox::EventType::SELECTED:
-				if (musicID == AudioEngine::INVALID_AUDIO_ID) {
+
+				if (AudioEngine::getState(musicID) != AudioEngine::AudioState::PLAYING) {
 					musicID = cocos2d::AudioEngine::play2d("Music/Gura-BGM2.mp3", true);
+					UserDefault::getInstance()->setIntegerForKey("Back_ground_music_ID", musicID);
 				}
-				else {
-					AudioEngine::resume(musicID);
-				}
-				isMusicPlaying = true;
-				
+				UserDefault::getInstance()->setBoolForKey("is_music_playing", true);
+
 				break;
 			case ui::CheckBox::EventType::UNSELECTED:
-				if (musicID != AudioEngine::INVALID_AUDIO_ID) {
-					AudioEngine::pause(musicID);
-				}
-				isMusicPlaying = false;
+				AudioEngine::pause(musicID);
+				UserDefault::getInstance()->setBoolForKey("is_music_playing", false);
 				break;
 			default:
 				break;
 			}
-
-			UserDefault::getInstance()->setBoolForKey("is_music_playing", isMusicPlaying);
+			/*UserDefault::getInstance()->setBoolForKey("is_music_playing", isMusicPlaying);
+			UserDefault::getInstance()->flush();*/
 		}
 	);
 	musicBox->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 300));
