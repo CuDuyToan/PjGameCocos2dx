@@ -71,7 +71,14 @@ void GameScene::winLevel(Ref* sender, int level) {
 	}*/
 
 	//UserDefault::getInstance()->setIntegerForKey("select_level", level + 1);
+
+	int unlockedLevel = UserDefault::getInstance()->getIntegerForKey("unlocked_level", 1);
+	if (level >= unlockedLevel) {
+		UserDefault::getInstance()->setIntegerForKey("unlocked_level", level + 1);
+		UserDefault::getInstance()->flush();
+	}
 	auto completeLevel = UICompleteGame::create();
+	completeLevel->createButtons(level);
 	this->addChild(completeLevel, 1);
 }
 

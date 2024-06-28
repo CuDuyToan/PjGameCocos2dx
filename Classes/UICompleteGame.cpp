@@ -13,12 +13,12 @@ bool UICompleteGame::init() {
 
     //this->setVisible(false);
 
-    createButtons();
+    //createButtons();
 
     return true;
 }
 
-void UICompleteGame::createButtons()
+void UICompleteGame::createButtons(int currentLevel)
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -43,18 +43,11 @@ void UICompleteGame::createButtons()
     auto nextLevelButton = MenuItemImage::create(
         "UICompleteGame/DefaultNextLevel.png",
         "UICompleteGame/NextLevel.png",
-        [this](Ref* sender) {
-
-            int currentLevel = UserDefault::getInstance()->getIntegerForKey("unlocked_level", 1);
-            int nextLevel = currentLevel + 1;
-
-            //// Lưu cấp độ hiện tại là cấp độ tiếp theo
-            UserDefault::getInstance()->setIntegerForKey("unlocked_level", nextLevel);
-            UserDefault::getInstance()->flush();
-
+        [currentLevel](Ref* sender) {
             auto nextScene = LevelSelectScene::create();
-            nextScene->createButtonPageLevel(nextLevel);
+            nextScene->createButtonPageLevel(currentLevel + 1);
             Director::getInstance()->replaceScene(nextScene);
+        
         });
     nextLevelButton->setScale(0.2);
     nextLevelButton->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 20));
@@ -63,13 +56,6 @@ void UICompleteGame::createButtons()
         "UICompleteGame/DefaultListLevel.png",
         "UICompleteGame/ListLevel.png",
         [](Ref* sender) {
-
-            int currentLevel = UserDefault::getInstance()->getIntegerForKey("unlocked_level", 1);
-            int nextLevel = currentLevel + 1;
-
-            UserDefault::getInstance()->setIntegerForKey("unlocked_level", nextLevel);
-            UserDefault::getInstance()->flush();
-
             auto levelScene = LevelScene::createScene();
             Director::getInstance()->replaceScene(levelScene);
         });

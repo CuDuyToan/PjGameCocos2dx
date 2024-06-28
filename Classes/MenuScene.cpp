@@ -110,7 +110,12 @@ void MenuScene::playBackGroundMusic()
 			UserDefault::getInstance()->flush();*/
 		}
 	);
-	musicBox->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 300));
+	//musicBox->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 300));
+	musicBox->setScale(0.1 * (visibleSize.height / musicBox->getContentSize().height));
+	musicBox->setAnchorPoint(Vec2(1, 1));
+	musicBox->setPosition(Vec2(visibleSize.width - musicBox->getContentSize().width / 2 * 2,
+		visibleSize.height - musicBox->getContentSize().width / 8)); // Đặt vị trí cho nút Home
+
 	this->addChild(musicBox);
 
 }
@@ -165,33 +170,32 @@ void MenuScene::createButton()
 	mainBackGround();
 
 	auto exitItem = MenuItemImage::create(
-		"LargeButton/Exit Button.png",
-		"LargeButton/Exit  col_Button.png",
+		"ButtonLevel/DefaultExit.png",
+		"ButtonLevel/Exit.png",
 		CC_CALLBACK_1(MenuScene::menuExitCallback, this));
 	exitItem->setTag(0);
 	exitItem->setScale(0.2 * (visibleSize.height / exitItem->getContentSize().height));
 
 	// Tạo nút "Play" và thêm vào menu
 	auto playItem = MenuItemImage::create(
-		"LargeButton/Play Button.png",
-		"LargeButton/Play col_Button.png",
+		"ButtonLevel/DefaultPlay.png",
+		"ButtonLevel/Play.png",
 		CC_CALLBACK_1(MenuScene::menuPlayCallback, this));
 	playItem->setTag(2);
 	playItem->setScale(0.2 * (visibleSize.height / playItem->getContentSize().height));
-	// tao nut "option"
+
 	auto optionsItem = MenuItemImage::create(
-		"LargeButton/Options Button.png",
-		"LargeButton/Options  col_Button.png",
+		"ButtonLevel/Default.png",
+		"ButtonLevel/Hover.png",
 		CC_CALLBACK_1(MenuScene::menuOptionsCallback, this));
 	optionsItem->setTag(3);
-	optionsItem->setScale(0.2 * (visibleSize.height / playItem->getContentSize().height));
-
+	optionsItem->setScale(0.2 * (visibleSize.height / exitItem->getContentSize().height));
+	
 	//tao menu va them cac nut
-	auto menu = Menu::create(playItem, optionsItem, exitItem, nullptr);
+	auto menu = Menu::create(playItem, exitItem, optionsItem, nullptr);
 	menu->setPosition(Vec2(origin.x + visibleSize.width / 2,
 		origin.y + visibleSize.height / 2));
 	menu->alignItemsVertically();
-
 	addChild(menu);
 }
 
@@ -204,8 +208,6 @@ void MenuScene::menuOptionsCallback(cocos2d::Ref* pSender)
 {
 	UserDefault::getInstance()->setIntegerForKey("select_level", 1);
 	UserDefault::getInstance()->setIntegerForKey("unlocked_level", 1);
-	UserDefault::getInstance()->deleteValueForKey("Back_ground_music_ID");
-	UserDefault::getInstance()->deleteValueForKey("is_music_playing");
 	UserDefault::getInstance()->flush();
 	//CCLOG("Level %d has been saved after winning.", 0);
 	UserDefault::getInstance()->destroyInstance();

@@ -9,7 +9,7 @@ public:
 
     virtual bool init();
 
-    void createButtons();
+    void createButtons(int currentLevel);
 
     CREATE_FUNC(UICompleteGame);
 
