@@ -1,11 +1,9 @@
-﻿#include "UICompleteGame.h"
-#include "GameScene.h"
-#include "LevelScene.h"
-#include "LevelSelectScene.h"
+﻿#include "Settings.h"
+#include "ui/CocosGUI.h"
 
 USING_NS_CC;
 
-bool UICompleteGame::init() {
+bool Settings::init() {
     if (!Layer::init())
     {
         return false;
@@ -13,18 +11,34 @@ bool UICompleteGame::init() {
 
     //this->setVisible(false);
 
-    //createButtons();
+    //createSettingsButton();
+
 
     return true;
 }
 
-void UICompleteGame::createButtons(int currentLevel)
+void Settings::createSettingsButton()
+{
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    auto settingsButton = ui::Button::create(
+        "ButtonLevel/DefaultSettings.png", 
+        "ButtonLevel/Settings.png");
+    //settingsButton->setScale(0.2 * (visibleSize.height / settingsButton->getContentSize().height));
+    settingsButton->setPosition(Vec2(origin.x + visibleSize.width - settingsButton->getContentSize().width / 2,
+        origin.y + visibleSize.height - settingsButton->getContentSize().height / 2));
+ 
+    settingsButton->addClickEventListener([=](Ref* sender) {
+        createButtons();
+        });
+    this->addChild(settingsButton);
+}
+
+void Settings::createButtons()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    // Clear any existing buttons
-    this->removeAllChildren();
 
     createPanel();
     
@@ -34,7 +48,6 @@ void UICompleteGame::createButtons(int currentLevel)
         "UICompleteGame/Repeat.png",
         [](Ref* sender) {
             
-            Director::getInstance()->replaceScene(GameScene::create());
         });
     replayButton->setScale(0.2);
     replayButton->setPosition(Vec2(visibleSize.width / 2 - 150, visibleSize.height / 2 - 20));
@@ -43,11 +56,8 @@ void UICompleteGame::createButtons(int currentLevel)
     auto nextLevelButton = MenuItemImage::create(
         "UICompleteGame/DefaultNextLevel.png",
         "UICompleteGame/NextLevel.png",
-        [currentLevel](Ref* sender) {
-            auto nextScene = LevelSelectScene::create();
-            nextScene->createButtonPageLevel(currentLevel + 1);
-            Director::getInstance()->replaceScene(nextScene);
-        
+        [](Ref* sender) {
+            
         });
     nextLevelButton->setScale(0.2);
     nextLevelButton->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 20));
@@ -56,8 +66,7 @@ void UICompleteGame::createButtons(int currentLevel)
         "UICompleteGame/DefaultListLevel.png",
         "UICompleteGame/ListLevel.png",
         [](Ref* sender) {
-            auto levelScene = LevelScene::createScene();
-            Director::getInstance()->replaceScene(levelScene);
+            
         });
     backLevelButton->setScale(0.2);
     backLevelButton->setPosition(Vec2(visibleSize.width / 2 + 150, visibleSize.height / 2 - 20));
@@ -69,14 +78,10 @@ void UICompleteGame::createButtons(int currentLevel)
     this->addChild(menu);
 }
 
-void UICompleteGame::createPanel()
+void Settings::createPanel()
 {   
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    auto backgroundOverlay = LayerColor::create(Color4B(0, 0, 0, 150), visibleSize.width, visibleSize.height);
-    backgroundOverlay->setPosition(Vec2(origin.x, origin.y));
-    this->addChild(backgroundOverlay);
 
     auto panel = Sprite::create("UICompleteGame/PanelMedium.png");
     panel->setScale(0.2f);

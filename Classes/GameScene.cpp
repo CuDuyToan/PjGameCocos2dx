@@ -27,12 +27,13 @@ bool GameScene::init() {
 	createUiMenu();
 	//createButtonHand(); //error
 
-	//Thêm event listener cho sự kiện chạm
+		//Thêm event listener cho sự kiện chạm
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->setSwallowTouches(true);
 	touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
 
 	auto listener = EventListenerPhysicsContact::create();
 	listener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
@@ -41,7 +42,6 @@ bool GameScene::init() {
 
 	//this->schedule(CC_SCHEDULE_SELECTOR(GameScene::update), 0.0f);
 	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::playerShowItem), 0.0f);
-
 
 	return true;
 }
@@ -72,6 +72,8 @@ void GameScene::winLevel(Ref* sender, int level) {
 
 	//UserDefault::getInstance()->setIntegerForKey("select_level", level + 1);
 
+	isWinLevel = true;
+
 	int unlockedLevel = UserDefault::getInstance()->getIntegerForKey("unlocked_level", 1);
 	if (level >= unlockedLevel) {
 		UserDefault::getInstance()->setIntegerForKey("unlocked_level", level + 1);
@@ -79,7 +81,7 @@ void GameScene::winLevel(Ref* sender, int level) {
 	}
 	auto completeLevel = UICompleteGame::create();
 	completeLevel->createButtons(level);
-	this->addChild(completeLevel, 1);
+	this->addChild(completeLevel, 3);
 }
 
 
@@ -1237,7 +1239,12 @@ void GameScene::appearHandButton()
 }
 
 bool GameScene::onTouchBegan(Touch* touch, Event* event)
-{
+{	
+	if (isWinLevel) {
+		// Ngăn chặn sự kiện touch nếu level đã hoàn thành
+		return false;
+	}
+
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
 
@@ -1249,7 +1256,12 @@ bool GameScene::onTouchBegan(Touch* touch, Event* event)
 }
 
 bool GameScene::onTouchEnded(Touch* touch, Event* event)
-{
+{	
+	if (isWinLevel) {
+		// Ngăn chặn sự kiện touch nếu level đã hoàn thành
+		return false;
+	}
+
 	//CCLOG("move");
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
@@ -1350,7 +1362,7 @@ void GameScene::spawnPlayer(float spawnX, float spawnY)
 	player->setPosition(Vec2(spawnX, spawnY));
 	player->setScale(scaleS * scaleSizeInMap);
 	//CCLOG("%f", scaleSizeInMap);
-	this->addChild(player, 9999);
+	this->addChild(player, 2);
 }
 
 void GameScene::getScaleSizeInTileMap()
@@ -1671,8 +1683,8 @@ void GameScene::createUiMenu()
 
 	//tao nut "exit"
 	auto Home = MenuItemImage::create(
-		"SquareButton/Home Square Button.png",
-		"SquareButton/Home col_Square Button.png",
+		"ButtonLevel/DefaultBackLevel.png",
+		"SquareButton/BackLevel.png",
 		CC_CALLBACK_1(GameScene::goToHome, this));
 	Home->setAnchorPoint(Vec2(1, 1));
 	Home->setScale(0.1 * (visibleSize.height / Home->getContentSize().height));
@@ -1699,10 +1711,10 @@ void GameScene::createUiMenu()
 void GameScene::goToHome(cocos2d::Ref* pSender)
 {
 	// Tạo một MainMenu Scene mới hoặc lấy ra Scene đã tồn tại
-	auto mainMenuScene = MenuScene::createScene();
+	auto levelScene = LevelScene::createScene();
 
 	// Thay thế Scene hiện tại bằng MainMenu Scene
-	Director::getInstance()->replaceScene(mainMenuScene);
+	Director::getInstance()->replaceScene(levelScene);
 }
 
 void GameScene::goToSelectLevelMenu()

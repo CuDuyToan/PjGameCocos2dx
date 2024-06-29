@@ -109,6 +109,8 @@ private:
     {
         world = _world;
     }
+
+    bool isWinLevel = false;
 };
 
 #endif // __GAME_SCENE_H__

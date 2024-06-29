@@ -86,8 +86,8 @@ void LevelScene::buttonBackHome()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    auto homeNormal = Sprite::create("SquareButton/Home Square Button.png");
-    auto homeSelected = Sprite::create("SquareButton/Home col_Square Button.png");
+    auto homeNormal = Sprite::create("ButtonLevel/DefaultHome.png");
+    auto homeSelected = Sprite::create("ButtonLevel/Home.png");
     auto homeButton = MenuItemSprite::create(homeNormal, homeSelected, 
         [](Ref* sender) {
             auto mainMenuScene = MenuScene::createScene();
@@ -95,9 +95,8 @@ void LevelScene::buttonBackHome()
         });
     /*homeButton->setContentSize(homeButton->getContentSize() * 0.1);*/
     homeButton->setScale(0.1 * (visibleSize.height / homeButton->getContentSize().height));
-    homeButton->setAnchorPoint(Vec2(1, 1));
-    homeButton->setPosition(Vec2(visibleSize.width - homeButton->getContentSize().width / 2 * 9,
-        visibleSize.height - homeButton->getContentSize().width / 8)); // Đặt vị trí cho nút Home
+    homeButton->setAnchorPoint(Vec2(0, 1));
+    homeButton->setPosition(Vec2(visibleSize.width * 0, visibleSize.height)); // Đặt vị trí cho nút Home
 
     // Tạo menu và thêm nút Home vào menu
     auto menu = Menu::create(homeButton, nullptr);

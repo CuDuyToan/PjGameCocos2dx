@@ -5,6 +5,7 @@
 #include "Player.h"
 #include  "LevelScene.h"
 #include "ui/CocosGUI.h"
+#include "Settings.h"
 
 USING_NS_CC;
 
@@ -31,7 +32,8 @@ bool MenuScene::init() {
 	createGuraFallingSprite();
 	createAhhSharkSprite();
 
-
+	/*auto settings = Settings::create();
+	addChild(settings);*/
 	//GameScene::createTileMap();
 
 

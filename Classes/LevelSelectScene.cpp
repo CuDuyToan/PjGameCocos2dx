@@ -328,8 +328,8 @@ void LevelSelectScene::menuButton()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    auto homeNormal = Sprite::create("SquareButton/Home Square Button.png");
-    auto homeSelected = Sprite::create("SquareButton/Home col_Square Button.png");
+    auto homeNormal = Sprite::create("ButtonLevel/DefaultBackLevel.png");
+    auto homeSelected = Sprite::create("ButtonLevel/BackLevel.png");
     auto homeButton = MenuItemSprite::create(homeNormal, homeSelected, CC_CALLBACK_1(LevelSelectScene::homeButton, this));
     /*homeButton->setContentSize(homeButton->getContentSize() * 0.1);*/
     homeButton->setScale(0.1 * (visibleSize.height / homeButton->getContentSize().height));
@@ -346,8 +346,8 @@ void LevelSelectScene::menuButton()
 void LevelSelectScene::homeButton(cocos2d::Ref* pSender)
 {
     // Tạo một MainMenu Scene mới hoặc lấy ra Scene đã tồn tại
-    auto mainMenuScene = MenuScene::createScene();
+    auto backLevelScene = LevelScene::createScene();
 
     // Thay thế Scene hiện tại bằng MainMenu Scene
-    Director::getInstance()->replaceScene(mainMenuScene);
+    Director::getInstance()->replaceScene(backLevelScene);
 }
