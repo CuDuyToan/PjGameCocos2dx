@@ -64,6 +64,9 @@ list(APPEND GAME_SOURCE
      Classes/MenuScene.cpp
      Classes/Player.cpp
      Classes/CreateButton.cpp
+     Classes/LevelScene.cpp
+     Classes/Settings.cpp
+     Classes/UICompleteGame.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -74,6 +77,9 @@ list(APPEND GAME_HEADER
      Classes/MenuScene.h
      Classes/Player.h
      Classes/CreateButton.h
+     Classes/LevelScene.h
+     Classes/UICompleteGame.h
+     Classes/Settings.h
      )
 
 if(ANDROID)
