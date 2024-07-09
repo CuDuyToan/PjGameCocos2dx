@@ -67,6 +67,7 @@ list(APPEND GAME_SOURCE
      Classes/LevelScene.cpp
      Classes/Settings.cpp
      Classes/UICompleteGame.cpp
+     Classes/puzzle.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.h
@@ -80,6 +81,7 @@ list(APPEND GAME_HEADER
      Classes/LevelScene.h
      Classes/UICompleteGame.h
      Classes/Settings.h
+     Classes/puzzle.h
      )
 
 if(ANDROID)

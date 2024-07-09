@@ -6,6 +6,8 @@
 #include  "LevelScene.h"
 #include "ui/CocosGUI.h"
 #include "Settings.h"
+#include "puzzle.h"
+
 
 USING_NS_CC;
 
@@ -36,11 +38,26 @@ bool MenuScene::init() {
 	addChild(settings);*/
 	//GameScene::createTileMap();
 
+	auto puzzleButton = MenuItemImage::create(
+		"ButtonLevel/DefaultButton.png",
+		"ButtonLevel/Button.png",
+		CC_CALLBACK_1(MenuScene::openMiniPuzzleGame, this)
+	);
+
+	auto menu = Menu::create(puzzleButton, nullptr);
+	menu->setPosition(Vec2(400, 300)); // Đặt vị trí nút
+	this->addChild(menu);
 
 
 	CCLOG("main menu 321");
 
 	return true;
+}
+
+void MenuScene::openMiniPuzzleGame(Ref* sender) {
+	auto miniPuzzleScene = puzzle::create();
+	addChild(miniPuzzleScene);
+	//Director::getInstance()->pushScene(miniPuzzleScene);
 }
 
 

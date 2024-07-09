@@ -1583,7 +1583,7 @@ bool GameScene::onContactSeparate(PhysicsContact& contact)
 			if (nodeA->getTag() == 000 || nodeB->getTag() == 000)
 			{
 
-
+				
 
 			}
 

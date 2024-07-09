@@ -33,6 +33,9 @@ public:
 
     int musicID;
 
+
+    void openMiniPuzzleGame(Ref* sender);
+
     CREATE_FUNC(MenuScene);
 
 private:
