@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="9">
+ <tileset firstgid="1" source="Dungeon 1.tsx"/>
+ <tileset firstgid="271" source="Dungeon 2.tsx"/>
+ <group id="18" name="spawnPoint">
+  <objectgroup id="14" name="spawnPoint">
+   <object id="2" name="spawnPoint" x="16" y="80" width="16" height="16"/>
+  </objectgroup>
+ </group>
+ <group id="16" name="ground">
+  <objectgroup id="13" name="ground">
+   <object id="1" name="ground" x="0" y="112" width="320" height="32"/>
+  </objectgroup>
+  <layer id="2" name="ground" width="20" height="9">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo4B4IERlrEhlDAAatwP9
+  </data>
+  </layer>
+ </group>
+ <group id="17" name="accessory">
+  <layer id="1" name="brick" width="20" height="9">
+   <data encoding="base64" compression="zlib">
+   eJxTZGBgUKQiNqAyTgLiVCBOg9IyQCwFxNJQNqnyhUBcAsSlUFobiDWBWAvKJlVeEIiFgFgYapcVEFsAsSWUDbM7kUh5BWg4KkHt8gRidyD2gLJhdhcQKY9sHsieCCgdDmXD1KUSKT/YAQDtKiXE
+  </data>
+  </layer>
+  <layer id="11" name="skelleton2" width="20" height="9">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFowABTgDxqYF2BAUAAC03AZM=
+  </data>
+  </layer>
+  <layer id="10" name="skelleton1" width="20" height="9">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo4CB4QQQn0TCQxUAAGNuAyQ=
+  </data>
+  </layer>
+  <layer id="12" name="spiderWeb" width="20" height="9">
+   <data encoding="base64" compression="zlib">
+   eJxjYBjc4D4QP8AhdxeI7xFQg652pIEHDAwOA+0GegIATNkIFQ==
+  </data>
+  </layer>
+  <layer id="7" name="cage" width="20" height="9">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFQwXsAeK9QLyPSuadBuIzQHyWSuYNBgAAchwEnA==
+  </data>
+  </layer>
+ </group>
+ <group id="20" name="hideItem">
+  <objectgroup id="23" name="hideItem">
+   <properties>
+    <property name="layer" value="2"/>
+   </properties>
+   <object id="6" name="potion" x="128" y="96" width="16" height="16">
+    <properties>
+     <property name="layer" value="2"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="21" name="door">
+  <layer id="6" name="door" width="20" height="9">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFpIKTVDRLFIiFgFiMSmapALEiEKtC+A0UmudgDDXPBMI/QKETaQ4AvFEDzQ==
+  </data>
+  </layer>
+  <objectgroup id="22" name="door">
+   <properties>
+    <property name="needSprite" value="sprite"/>
+    <property name="reward" value="next level"/>
+   </properties>
+   <object id="5" name="door" x="272" y="80" width="16" height="32">
+    <properties>
+     <property name="needSprite" value=""/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="19" name="quest">
+  <objectgroup id="15" name="questList">
+   <properties>
+    <property name="needSprite" value="monster"/>
+    <property name="request" value="potion"/>
+    <property name="reward" value="remove"/>
+   </properties>
+   <object id="8" name="quest1" x="208" y="81" width="20.6667" height="31">
+    <properties>
+     <property name="CollisionBitmask" type="bool" value="true"/>
+     <property name="finish sound" value=""/>
+     <property name="needSprite" value="monster"/>
+     <property name="request" value="potion"/>
+     <property name="reward" value="next level"/>
+     <property name="unfinish sound" value=""/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="24" name="scale">
+  <objectgroup id="25" name="scale">
+   <object id="7" name="scale" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="scaleSize" value="1.35"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+</map>

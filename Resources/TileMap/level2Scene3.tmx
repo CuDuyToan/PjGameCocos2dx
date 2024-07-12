@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="25" nextobjectid="34">
+ <tileset firstgid="1" source="Dungeon 2.tsx"/>
+ <tileset firstgid="885" source="Dungeon 1.tsx"/>
+ <group id="10" name="tile" locked="1">
+  <layer id="12" name="backgroun1" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUgIAwIyYeTGDUfZSBUfeNglEwCkbBKKAWAACQ2gH1
+  </data>
+  </layer>
+  <layer id="11" name="background2" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjILhD1iZGRjYgJideaBdgh2IAd0lDsQSg9R9o2AUjIJRMAoQAABxTABq
+  </data>
+  </layer>
+  <layer id="1" name="ground1" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztzkENACAUgFC+EZz9MxrBEnjjbdyBJEmSmM7AxevH3xKz7XGzPd94E7A=
+  </data>
+  </layer>
+  <layer id="14" name="Tile Layer 13" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBYMZfABiJkbq4A80cB/IXCEqYmoDaroNhAFZjgT/
+  </data>
+  </layer>
+  <layer id="2" name="ground2" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztztEJACAMxNC6gpz77+gEtjMcYoU8yH80IpStrCPxZ+HPw5+HPw9/Hv48P/zNxn+l/vbrCVxxAKH3BMQ=
+  </data>
+  </layer>
+  <layer id="3" name="brick1" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAooA6uYGRhWA/F1IL7BjOCvQmNPYx5Y98HonUC8C0ojswfKfchuANEngPgkEg1z90C5D5t7kMMU5u6Bct9VoL3XkNIferwOdPiNguEHAH5wJ8c=
+  </data>
+  </layer>
+  <layer id="13" name="brick2" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztktEJACAIRJ2kRnD/SVwnAiWRok9P8IHo5+NOoqb5Mx+DgLkMHVQ/oeO3N2dKKT4rcTdTvt/NC+n/vN/LMYvYq/mhUMkPoc+Izw01P3Q/5H6bGizOHRZT
+  </data>
+  </layer>
+  <layer id="15" name="Tile Layer 14" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztjssJgDAQBTd71hQgaDqwBVuwF4u1BPHTgQo+CQGRgBDQ9bADc3jvNESKko67GPue/LIvRYm+PvKNhmiCM1zgYGT7guGr0bPCDe7G787I9N09OxqYMVEOLfv9p74WluiqoGO/7ft5yRQsXaAoiiLLAf9dFtA=
+  </data>
+  </layer>
+  <layer id="4" name="ground3" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYIAAIUbSML3BqPtG3TfqvlH3jVT3qQLtVCYBj4JRMApGwSigLQAAmHIJtw==
+  </data>
+  </layer>
+  <layer id="8" name="ground4" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYCAPCDGShukNhpL7VIFYGQtWQZIbSPeJ4rDfFChuNgBuAwHksBsoN+ADhMJuoMFgDjsQGMxuAwGWQew2EBjMYTcKRsEoGAXDAQAAUm8Fzw==
+  </data>
+  </layer>
+  <layer id="16" name="Tile Layer 15" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYKAPEGIkD9MLDHb3qSDZqQrEyjiwygC5zxRqN8htZnjsNUVzJz2BKQG3oatVobP7SAWCg9x9poPcfQ8G2gEEwGAPv1EwCkbBKBjJAAD2VAcs
+  </data>
+  </layer>
+  <layer id="5" name="ground5" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMBLAeyD+QAQeMMAIRETggQKCQLuFiMADBga5+0bDjzLwkWFwu2+kAQCh9Q3h
+  </data>
+  </layer>
+  <layer id="17" name="Tile Layer 16" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAoQ4AOReKAAIyNxeKCAECNxeNR9o+4bie4bLgAArncNKw==
+  </data>
+  </layer>
+  <layer id="19" name="accessory" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztzrENgDAMRFF7/4kgwAAhwACEXfILS1BQ0YTinvSluIh0ZiIiIvJXA42UOm5Ibjb5fc+8l7gzrVR6DAuFLdtj3877iPukShf5y1+RLxqsiw1V
+  </data>
+  </layer>
+  <layer id="20" name="Tile Layer 18" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYfsCWZaBdMAqGKwAApJgAQg==
+  </data>
+  </layer>
+  <layer id="18" name="accessory" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQE3ACMRCQMwE5Qsh0UxobCao+lEwCkbBKBgFQwcAAOjfAFM=
+  </data>
+  </layer>
+  <layer id="7" name="gate" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwWAAAkwMDIJMA+0K3EAR6DalQew+I6DbjAex+0bB8AEAaB4A1g==
+  </data>
+  </layer>
+  <layer id="9" name="switch" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSggH0QwD7QLRsEooC8AABgIAFw=
+  </data>
+  </layer>
+ </group>
+ <group id="21" name="ground">
+  <objectgroup id="22" name="ground">
+   <object id="5" name="ground" x="32" y="240" width="304" height="16"/>
+   <object id="8" name="ground" x="320" y="144" width="320" height="16"/>
+  </objectgroup>
+ </group>
+ <group id="23" name="barrier">
+  <objectgroup id="24" name="barrier">
+   <object id="10" name="barrier" x="320" y="160" width="16" height="80"/>
+   <object id="11" name="barrier" x="32" y="160" width="16" height="80"/>
+   <object id="16" name="barrier" x="32" y="144" width="192" height="16"/>
+   <object id="19" name="barrier" x="208" y="128" width="32" height="16"/>
+   <object id="20" name="barrier" x="224" y="112" width="16" height="16"/>
+   <object id="21" x="224" y="96" width="32" height="16"/>
+   <object id="22" name="barrier" x="240" y="80" width="32" height="16"/>
+   <object id="23" name="barrier" x="256" y="64" width="16" height="16"/>
+   <object id="24" name="barrier" x="256" y="48" width="32" height="16"/>
+   <object id="26" name="barrier" x="432" y="48" width="32" height="16"/>
+   <object id="28" name="barrier" x="272" y="31.3333" width="324" height="16.6667"/>
+   <object id="29" name="barrier" x="592" y="48" width="32" height="16"/>
+   <object id="31" name="barrier" x="624" y="48" width="16" height="48"/>
+   <object id="33" x="624" y="96" width="16" height="48"/>
+  </objectgroup>
+ </group>
+</map>

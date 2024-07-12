@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="64" tileheight="64" infinite="0" nextlayerid="25" nextobjectid="2">
+ <tileset firstgid="1" source="CartoonArt.tsx"/>
+ <tileset firstgid="121" source="CartoonArt1.tsx"/>
+ <tileset firstgid="241" source="CartoonArt2.tsx"/>
+ <group id="2" name="tile">
+  <group id="5" name="tree &amp; push">
+   <layer id="20" name="push" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJztjlEOgDAIQ8uv7gLq/U85l4w/pxbn9t2XkEBLCYAQQgghxJ3TqxA9N14me0z7uhFletpqQLL33mKX1/YgfvTrM9e7M6r9JcpuPu9eh/F5RBNzVBABHy8=
+  </data>
+   </layer>
+   <layer id="19" name="tree" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJztkMENgDAIRelVXcA4gZN0A/ffQ03EA5cffls1sSb2JRyg8PtBpNFoNP7JqrFp7LWNELog0msMId2He+RyNleKzY3qa9aYgv9uurhHLhcyV+rZ5k6iczvUxT1yueHVUdvza3PMn6eLfbmc1VGb3T4m/N3xU6qDNXZ761mILtav5ql6yW5M7w3wb3b7r1DzVk84AMsUJjI=
+  </data>
+   </layer>
+   <layer id="18" name="fruit" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMFhBFONAu2AUDAQYjXf6gujR8B4FJAIAH+kBEw==
+  </data>
+   </layer>
+   <layer id="17" name="push" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwShABb+B+A8Q/8XBp4VeXOqwiXMxMjBwAzEPIyafkP349JJiJyFxYgE5+im1cxRQBgDV+Bu1
+  </data>
+   </layer>
+   <layer id="16" name="tree" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJztkMENgDAMA7s7sACwQMUELMQsuN8oDoQGqY+c5E9ku2lKSZIkSUZngmZoCfR7O63MCm3Q3uGXXtZpwTIVOqGjwy+9rLPB/m1lLmXm8WterbNh3ZZlIuZyxrLeO0XN3+735b0IPN1/7hHB6Ps9cQM2cTXv
+  </data>
+   </layer>
+   <layer id="15" name="push" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJztzkEKACAIRNHuXl2gOnAuxZISavcfzCKcxJQAAABWWVIk9XJ+6ttOtG81SZcM56+d67e3V3ei/Zeie3/dgb0JH+MaKQ==
+  </data>
+   </layer>
+   <layer id="14" name="tree" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMBgBLxBzAzEPlE0LgM98QnbLALEUEEtD2dS2n4GA+chy2MzRBmJNILaEsslxCyH/4TMfWQ6fOeFEuA2XW4jxHz7zYXL4zCHWfbjMIKSfGPfhU5dGwHxCdhHSj08eWY7YcCLXrsFs9kgEABlMDCs=
+  </data>
+   </layer>
+   <layer id="13" name="fruit" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAoGL8giUe4RDnXYxPHpIVaMWIDPH/jAIzz2kmsmzNyRDrIH2gGjYMgCAGGPCY4=
+  </data>
+   </layer>
+   <layer id="12" name="push" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwShABbxIbG4g5kETYyAgj0sPIbOIBTJIZkgBsTRUDJsd6PK4xPCJo5tJiI/NDFoCdHcT4o8CygAA/JEDxQ==
+  </data>
+   </layer>
+   <layer id="11" name="push" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYWoAHiHnRxLhxiBOjhhi9+NSii0kDsQyaPimoOD4AU0OOXnxqSdE/CggDAPhNAio=
+  </data>
+   </layer>
+   <layer id="10" name="fruit" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSigDGQTKYZPnFYgGwkT447B4m5SwWB333ACAM2PBC8=
+  </data>
+   </layer>
+   <layer id="9" name="flower" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYeqAMi1gpDrWlaHJlSOK0Mm8UDF8AAP4NBYE=
+  </data>
+   </layer>
+   <layer id="8" name="grass" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYWqAEC7sEhzps8vjEqGnmKBieAADoIQdB
+  </data>
+   </layer>
+  </group>
+  <layer id="23" name="ground" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBbQGn/DgwQAYGXHjwQAGk/sAtxcGuw==
+  </data>
+  </layer>
+  <layer id="24" name="accessory" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBfQCGowMDFJALM040C7BDtwGqbtgYDC4DwApFgDv
+  </data>
+  </layer>
+  <layer id="1" name="ground" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBdQETDgwM5o6RjxqaYkFcWAhNPcJ4FE7EHiwuA8AiH0FNQ==
+  </data>
+  </layer>
+ </group>
+ <group id="21" name="Group Layer 3">
+  <objectgroup id="22" name="Object Layer 1"/>
+ </group>
+</map>

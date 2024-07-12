@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="1">
+ <tileset firstgid="1" source="Dungeon 2.tsx"/>
+ <group id="4" name="tower">
+  <layer id="3" name="brick" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo4B2YAoTA8NUPHigwaj7Rt1HT5AJxF+A+CuReCAAKyMDAxuRGATSBrn7yAXFg9x9LYPcfVMHufvIBWKD3H2jgH4AAOSYJk4=
+  </data>
+  </layer>
+  <layer id="5" name="Tile Layer 4" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo4B2YAoBPAqGJvAFYh8i6IEEsUAcR4CmNyCUH0bzxygYBaNgFAwNAAAvIhHX
+  </data>
+  </layer>
+ </group>
+ <layer id="6" name="tree1" width="40" height="18">
+  <data encoding="base64" compression="zlib">
+   eJztjrsNgwAMBS2xTQgThDBBQibg04SST0NGgBGSEcKU3ACWLOQSn3TVk3UWCYIgCILjvLFz3F8SkRSvmCXHd4sZP47/bjRzvGOh9K3dYsHV8d+D5hNLfCl9a7f44s/xX0WzxgZbpW/tFn/cHP/1NAcccVL61h6cmx2mzhHg
+  </data>
+ </layer>
+ <layer id="7" name="tree2" width="40" height="18">
+  <data encoding="base64" compression="zlib">
+   eJztzssNglAQRuFJKAfoQOxA6UBZqFsxKDbggwZEbAAfVXLc3USjM/s5ybeae5NfxPM8z/PsxZFIgjT6vC2wxOrLv183y5t/jdiVYRzsq7DFDjX2ortZ3mibsGuKPNh3wBEnnNGI7mZ5o23GrjmKYN8FLa7ocBPdzfJG25pdJTbBvh53PPDES3Q3yxvPezcAeFopsw==
+  </data>
+ </layer>
+ <layer id="1" name="Tile Layer 1" width="40" height="18">
+  <data encoding="base64" compression="zlib">
+   eJztwzENAAAIA7DpxwJmEQEHR5s0AQDgUj3frg6SAEYB
+  </data>
+ </layer>
+ <layer id="2" name="mountain" width="40" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgcQJCRgUEICx4sYNR9lIFR95EPHgDxR4bB6z5cYTdY3GcKdIfKIHbfA4bBG78PGHC7bTC4D1/aG3XfqPuoDR4A8QcgfjhI3QfKq0xAez9B3Ykv7w6G+B3qAACdkhQH
+  </data>
+ </layer>
+</map>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="64" tileheight="64" infinite="0" nextlayerid="47" nextobjectid="48">
+ <tileset firstgid="1" source="CartoonArt.tsx"/>
+ <tileset firstgid="121" source="CartoonArt2.tsx"/>
+ <tileset firstgid="241" source="CartoonArt1.tsx"/>
+ <group id="2" name="tile" locked="1">
+  <group id="3" name="context">
+   <layer id="7" name="push1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJztzLERACAIQ1F2VxdQB5bSgnBY2P13l0IhmAEAANQ0T/cM8a501CzaU131Pz3Ls8U76t472Sy6pbrRblXW/XUXbw6qGCCz
+  </data>
+   </layer>
+   <layer id="6" name="tree1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJztj8ENgDAMA7s7sACwQMUETMIGzEI+fKzYbZDggXKSH27qxi0lSZIkQQbTaJpezijUW7NpMa2BHiqj8syrt6ppN22B7iyD+zHPPNt/czzo7mVwP+aZZ/tb/dTMO/f+g/c8/1W/3j7oT7G/NOZs1nse9cn/uAD64jsO
+  </data>
+   </layer>
+   <layer id="25" name="fruit1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMFLAo0FkFz3dMtLBaFjTFzweaAeMApoDANXrBGw=
+  </data>
+   </layer>
+   <layer id="8" name="push2" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJztzsEJACAMQ9Huri6gDqwHL4aiFPT2HxQMpEUzAACAXZ5T1jtJ9mgnmk+83Tanr1wle7e1E8m3v3u7J9p/7fd9mA3IEB76
+  </data>
+   </layer>
+   <layer id="9" name="tree2" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQC74DcR/gPjvANuBSw0XIwMDNxDzMJJuJrHq0e3AphaXOySBfE0glkYTJ9XduNRjswObWlzuAIEwIswk15/Y7MClFps7SBUn1Z+45LCppYb7yBHHJjfY3EcMoFT/KKAvAABjdh9s
+  </data>
+   </layer>
+   <layer id="26" name="fruit2" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGFohiHGgXEAZDwY2jYBSMVAAA2WgAtw==
+  </data>
+   </layer>
+   <layer id="16" name="push3" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSggHfwG4j9A/JdMPqnmEdKDrp6LkYGBG4h5GMnjowN86nG5FVkNIfNpCQbS7uEIABENG9k=
+  </data>
+   </layer>
+   <layer id="17" name="tree3" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMJwBNxDzADEvGpuW9uASw6ZGCoilgVgGjU2pG9DtwmY2uhg2NZpAbAnE2mhsUtyCzT50u7CZjS6Gy/5wHGx8gBy/YjMbXYyQGmLdR45f07CYgy5GSA02eVwAm1/INYsWYKDtH84AAEX9Dqc=
+  </data>
+   </layer>
+   <layer id="27" name="fruit3" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApoD6IYcctl0c8ZBAExbgGpwecfbHL41NMTgNyByy2DKR6oAaJx+BOXOKUgmzbGjoJBCABbAwTu
+  </data>
+   </layer>
+   <layer id="18" name="push4" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJzti0EKACAIBLuXH6j+/848iijSIbrMwII7sq0BAAAAvKFrhkYKd7sR57I72to+NUuzzd+6aO//kdvOZXe0rTr85wDPNwTJ
+  </data>
+   </layer>
+   <layer id="19" name="push5" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYHoAbiHmAmJcKeogxi1T7pIBYGohlSHAfLj0wcWrbNwoIAwAJHQG5
+  </data>
+   </layer>
+   <layer id="43" name="fruit4" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYXCCbSLGBANlIGF18FIwMAACEkwKD
+  </data>
+   </layer>
+   <layer id="21" name="flower" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJztzDEOADAIQlEvXc5vZyLubf5LXECtAgAAeNO5I8tk/ZYr9NO959PvtI+/NCHPBfg=
+  </data>
+   </layer>
+   <layer id="20" name="grass" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYmqAEC7sEjzpcakgxB5s8Pj2jYPgBANbDBlk=
+  </data>
+   </layer>
+  </group>
+  <layer id="30" name="ground1" width="40" height="18" locked="1">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBUMNVOHBgwF04sGDAVDiPgCWWArV
+  </data>
+  </layer>
+  <layer id="41" name="accessory1" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBUMRLALiDVB68QC7BRc4N9AOIADIcR8AnkAENA==
+  </data>
+  </layer>
+  <layer id="46" name="Tile Layer 18" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYBdQETHTCzGj2MhKpT5BOWAjNfQJ0tJuW7gMAqj0FNQ==
+  </data>
+  </layer>
+  <objectgroup id="22" name="ground">
+   <object id="1" name="ground" x="0" y="960" width="1728" height="192"/>
+   <object id="2" name="ground" x="1920" y="960" width="640" height="192"/>
+  </objectgroup>
+  <group id="32" name="hidden passage">
+   <objectgroup id="33" name="hidden passage">
+    <object id="11" type="passage 1" x="1728" y="960" width="64" height="64">
+     <properties>
+      <property name="ID" value="1"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="12" type="passage 1" x="1792" y="960" width="64" height="64">
+     <properties>
+      <property name="ID" value="1"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="13" type="passage 1" x="1856" y="960" width="64" height="64">
+     <properties>
+      <property name="ID" value="1"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="14" type="passage 1" x="1728" y="1024" width="64" height="64">
+     <properties>
+      <property name="ID" value="16"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="15" type="passage 1" x="1792" y="1024" width="64" height="64">
+     <properties>
+      <property name="ID" value="16"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="16" type="passage 1" x="1856" y="1024" width="64" height="64">
+     <properties>
+      <property name="ID" value="16"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="17" type="passage 1" x="1728" y="1088" width="64" height="64">
+     <properties>
+      <property name="ID" value="16"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="18" type="passage 1" x="1792" y="1088" width="64" height="64">
+     <properties>
+      <property name="ID" value="16"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="19" type="passage 1" x="1856" y="1088" width="64" height="64">
+     <properties>
+      <property name="ID" value="16"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="24" name="passage 1" type="passage 1" x="1792" y="960" width="64" height="192">
+     <properties>
+      <property name="group" value="passage 1"/>
+      <property name="role" value="switch"/>
+     </properties>
+    </object>
+    <object id="33" type="passage 1" x="1664" y="960" width="64" height="64">
+     <properties>
+      <property name="ID" value="1"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="34" type="passage 1" x="1920" y="960" width="64" height="64">
+     <properties>
+      <property name="ID" value="1"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="35" type="passage 1" x="1664" y="1024" width="64" height="64">
+     <properties>
+      <property name="ID" value="16"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="36" type="passage 1" x="1920" y="1024" width="64" height="64">
+     <properties>
+      <property name="ID" value="16"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="37" type="passage 1" x="1664" y="1088" width="64" height="64">
+     <properties>
+      <property name="ID" value="16"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+    <object id="38" type="passage 1" x="1920" y="1088" width="64" height="64">
+     <properties>
+      <property name="ID" value="16"/>
+      <property name="group" value="passage 1"/>
+      <property name="tileset" value="CartoonArt"/>
+     </properties>
+    </object>
+   </objectgroup>
+  </group>
+ </group>
+ <group id="39" name="next">
+  <objectgroup id="40" name="next">
+   <object id="28" name="next level" x="1728" y="1088" width="192" height="64">
+    <properties>
+     <property name="operation method" value="contact"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="36" name="barrier" locked="1">
+  <objectgroup id="37" name="barrier">
+   <object id="22" name="barrier" x="0" y="0" width="64" height="1152"/>
+   <object id="23" name="barrier" x="2496" y="0" width="64" height="1152"/>
+  </objectgroup>
+ </group>
+ <group id="4" name="quest &amp; door" locked="1"/>
+ <group id="5" name="item &amp; switch" locked="1">
+  <objectgroup id="44" name="item">
+   <object id="41" name="berry" x="1216" y="864" width="64" height="64">
+    <properties>
+     <property name="ID" value="106"/>
+     <property name="layer" value="100"/>
+     <property name="tileset" value="CartoonArt"/>
+     <property name="tutorial" value="2"/>
+    </properties>
+   </object>
+   <object id="42" name="apple" x="2176" y="768" width="64" height="64">
+    <properties>
+     <property name="ID" value="105"/>
+     <property name="layer" value="6"/>
+     <property name="tileset" value="CartoonArt"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="28" name="tutorial" locked="1">
+  <objectgroup id="29" name="list tutorial">
+   <object id="10" name="tutorial" x="1216" y="928" width="64" height="64">
+    <properties>
+     <property name="TF" value="true"/>
+     <property name="number" value="1"/>
+    </properties>
+   </object>
+   <object id="44" name="tutorial" x="168" y="878" width="64" height="64"/>
+   <object id="46" name="tutorial" x="2112" y="896" width="64" height="64">
+    <properties>
+     <property name="number" value="3"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="34" name="spawn point" locked="1">
+  <objectgroup id="42" name="spawn point">
+   <object id="39" name="spawn point" x="64" y="832" width="64" height="64"/>
+   <object id="40" name="move to" x="256" y="896" width="64" height="64"/>
+  </objectgroup>
+ </group>
+</map>

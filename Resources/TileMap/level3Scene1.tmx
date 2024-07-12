@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="26" nextobjectid="1">
+ <tileset firstgid="1" source="Dungeon 2.tsx"/>
+ <tileset firstgid="885" source="Dungeon 1.tsx"/>
+ <group id="19" name="tile" locked="1">
+  <layer id="15" name="background" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAroA9Yi4cEIRt1HGRjs7hsFo4BaAAA4sQgd
+  </data>
+  </layer>
+  <layer id="14" name="background" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwVAAnswMDF5A7M080C7BDqKA7ooG4phB6r5RMAqoBQBuwAIC
+  </data>
+  </layer>
+  <group id="10" name="in the tower">
+   <layer id="11" name="Tile Layer 9" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRgA/wMA4MJtV9kUB2OB1wBBC7kRF+FkC2HhMDgz4QGwCxLhDr0AC7UuA+e6B+ByB2BGINoJgtE2UYmxmUuC8AqD8QiIOA2BIo5sdEGcZmBiXuSwTqTwLiZCD2AorFM1GGsZlBrvvUgGwVOmBVEt03CoYmAACBTC5J
+  </data>
+   </layer>
+   <layer id="18" name="accessory" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAoGBtQxMTDUMw20K3CDfqDbJuBx30C7vwpodzUQ1wBxLRPCPejiyMCNju7tBtrVA8S9QNzHhAhPdHEQWA+kNwBx+CBOD6NgFMAAAGwhD64=
+  </data>
+   </layer>
+   <layer id="16" name="door" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGAS2BEBMDgzDTQLsCN1AGuk1lELvPBOg200HsvlEw8gAAr74A4g==
+  </data>
+   </layer>
+  </group>
+  <group id="4" name="tower">
+   <layer id="9" name="wall" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFowACpjAxMEylMx5136j7RsEoGAWjYBSMgqEGAJ6SRGk=
+  </data>
+   </layer>
+   <layer id="17" name="door" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2DkAiEmBgZhpoF2BW6gDHSbyiB2nwnQbaaD2H2jYBSMglEwCkYBLQAAkuYA4g==
+  </data>
+   </layer>
+   <layer id="13" name="brick" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjAL6g0wgjgDirwOICYENQLyRUo/SEIy6jzIw6j7KwKj7KAOqQGw6gHgUUAYA3VAupA==
+  </data>
+   </layer>
+   <layer id="8" name="Tile Layer 7" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJztxbENAAAEAEHzMAJjGpgJFBqKv+TzIgA2tLPjT7yL40/yQQAAbBSu9yA6
+  </data>
+   </layer>
+  </group>
+  <layer id="1" name="ground" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztwzENAAAIA7DpxwJmEQEHR5s0AQDgUj3frg6SAEYB
+  </data>
+  </layer>
+  <group id="12" name="purdah1" visible="0">
+   <layer id="5" name="purdah1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRgA+wMRKHR9036r5R9426bxSMDAAA/B8B6w==
+  </data>
+   </layer>
+   <layer id="6" name="purdah2" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQA3AxkgcHnXfqPtG3TfqvlEwtAEAr48B6w==
+  </data>
+   </layer>
+   <layer id="7" name="purdah3" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQE/AxkgcHnXfqPtG3TfqvlEwOAEAYv8B6w==
+  </data>
+   </layer>
+   <group id="23" name="tree">
+    <layer id="24" name="tree" width="40" height="18">
+     <data encoding="base64" compression="zlib">
+   eJztjMkJgFAMBQPpxqUClwpcKvBrBS79X5wGAjkEPJiBuTyYJ5IkSZIk31GpSI0Ntmpv3jaajt8eBxzV3rxtNBO/My64qr1522g2fgvueKi9edtoTn4vvPFRe/O2yT94ARuCEt8=
+  </data>
+    </layer>
+    <layer id="25" name="tree" width="40" height="18">
+     <data encoding="base64" compression="zlib">
+   eJztzskJwlAQh/EH6calApcKolagBjU5uuCSBtSkgbg0oNEq/Y4Dvssb8CLzh99p4GOcs9lsNpvt92tEzjXRQjv6vs8wxwIpMkVHNkLXodVFD33Pf1vssMcBuaIjG6GLaQ0wxMjz3xEnnFGgVHRkI3RjWhNMkXj+q3DBFTfcFR3ZCN2S1gprbDz/PfBEjRfeio5s2P57H1XXIXY=
+  </data>
+    </layer>
+   </group>
+  </group>
+  <layer id="2" name="tree1" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztzrkNg1AQANEv/W44KuCogKMCAwEQcgTGHRg6ADoAV8kEbsARK2tHevkYo2mapmm/V6NBC8ca48KDb28e+/bEhBcCnkJEiIX8vTFjQcJTigy5kL8VG3Y8eCpQohLyd+DEBx1PPQaMQv60/+4C0/8ONA==
+  </data>
+  </layer>
+  <layer id="3" name="tree2" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztzr0NggAUReGXsA24gcAEKBMoFGqJGkAW4McFQF1AxSk5pbQ2LzHvJF9zqytiWZZlWb/lOiIeFs5832GPg8apr5b88hEgRM5WoMQFle49ifi0whoxarYGLTpcde/Jhk9bJEjRsw244Y6H7j3J+HTECWc82V54Y8RH9571x02W4RJs
+  </data>
+  </layer>
+  <group id="20" name="purdah2" visible="0">
+   <layer id="21" name="purdah" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJwTZmRgECYCDxQgxm2j7ht136j7Rt036r5R9426b9R9o+4bBfQCADZfDIE=
+  </data>
+   </layer>
+   <layer id="22" name="purdah" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYCAMhBkHDhMDRt036r5R9w1d942CUTAKRsEoGAVDDQAAp08Q9Q==
+  </data>
+   </layer>
+  </group>
+ </group>
+</map>

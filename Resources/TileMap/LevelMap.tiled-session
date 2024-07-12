@@ -1,0 +1,589 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "level2Scene2.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "exportAsImage.visibleLayersOnly": true,
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "CartoonArt.tsx": {
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "CartoonArt1.tsx": {
+            "scaleInDock": 0.5
+        },
+        "CartoonArt2.tsx": {
+            "scaleInDock": 0.33
+        },
+        "D:/tool extract/Game/Gaer/Gaer/Resources/fullmap.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 257,
+                "y": 15638
+            }
+        },
+        "D:/tool extract/Game/Gaer/Gaer/Resources/fullmap.tmx#fullmap": {
+            "scaleInDock": 1
+        },
+        "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/Dungeon_Tileset_at.tsx": {
+            "scaleInDock": 1
+        },
+        "D:/tool extract/Game/maze/theMaze/theMaze/Resources/res/theMaze1.tmx": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 638.5,
+                "y": 383
+            }
+        },
+        "D:/tool extract/Game/mygame/Resources/TileMap/CartoonArt.tsx": {
+            "scaleInDock": 1
+        },
+        "D:/tool extract/Game/mygame/Resources/TileMap/GuraAdventureMap1.tmx": {
+            "scale": 0.243994140625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2051.2787672603563,
+                "y": 323.7782669601761
+            }
+        },
+        "D:/tool extract/Game/mygame/Resources/TileMap/Map1.tmx": {
+            "scale": 0.8770182291666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 512.5321060054932,
+                "y": 384.2565511097914
+            }
+        },
+        "Dungeon 1.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "Dungeon 2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Dungeon6.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "GuraAdventureMap1.tmx": {
+            "expandedGroupLayers": [
+                14,
+                6
+            ],
+            "expandedObjectLayers": [
+                27,
+                3
+            ],
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 3080.6666666666665,
+                "y": 409.3333333333333
+            }
+        },
+        "Map1.tmx": {
+            "expandedGroupLayers": [
+                4,
+                10
+            ],
+            "expandedObjectLayers": [
+                12
+            ],
+            "scale": 0.75,
+            "selectedLayer": 10,
+            "viewCenter": {
+                "x": 506,
+                "y": 416
+            }
+        },
+        "Map1Demo.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1018,
+                "y": 636
+            }
+        },
+        "Map1Demo.tmx#swamp": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Map1Tester.tmx": {
+            "expandedGroupLayers": [
+                2,
+                3,
+                6,
+                4,
+                31
+            ],
+            "expandedObjectLayers": [
+                11,
+                32,
+                2,
+                3,
+                19,
+                6,
+                4,
+                21,
+                31,
+                20
+            ],
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 638,
+                "y": 287.33333333333326
+            }
+        },
+        "Map2Tester.tmx": {
+            "expandedGroupLayers": [
+                23,
+                29,
+                39,
+                5,
+                26,
+                24,
+                36,
+                12
+            ],
+            "expandedObjectLayers": [
+                32,
+                23,
+                9,
+                29,
+                4,
+                39,
+                38,
+                10,
+                37,
+                8,
+                5,
+                26,
+                24,
+                40,
+                7,
+                35,
+                34,
+                27,
+                36,
+                12
+            ],
+            "scale": 1.5,
+            "selectedLayer": 15,
+            "viewCenter": {
+                "x": 319.66666666666663,
+                "y": 144.33333333333334
+            }
+        },
+        "Map2Tester2.tmx": {
+            "expandedGroupLayers": [
+                5,
+                29,
+                8,
+                26,
+                24,
+                10,
+                23,
+                36,
+                12
+            ],
+            "expandedObjectLayers": [
+                7,
+                32,
+                5,
+                37,
+                29,
+                8,
+                4,
+                26,
+                38,
+                24,
+                10,
+                23,
+                36,
+                9,
+                35
+            ],
+            "scale": 2,
+            "selectedLayer": 33,
+            "viewCenter": {
+                "x": 224.25,
+                "y": 126.25
+            }
+        },
+        "Map3Tester!.tmx": {
+            "scale": 1.5615625,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 318.59115469281573,
+                "y": 144.40664398639186
+            }
+        },
+        "Map3Tester.tmx": {
+            "expandedGroupLayers": [
+                21,
+                5,
+                19,
+                24,
+                20,
+                18,
+                16
+            ],
+            "expandedObjectLayers": [
+                21,
+                13,
+                25,
+                19,
+                24,
+                22,
+                20,
+                15,
+                23
+            ],
+            "scale": 3,
+            "selectedLayer": 16,
+            "viewCenter": {
+                "x": 138.5,
+                "y": 71.16666666666669
+            }
+        },
+        "MapReview.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1598,
+                "y": 510
+            }
+        },
+        "cartoon.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.03125
+        },
+        "dungeon3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level1Scene1.tmx": {
+            "expandedGroupLayers": [
+                32,
+                4,
+                39,
+                3,
+                10,
+                2,
+                13,
+                34
+            ],
+            "expandedObjectLayers": [
+                32,
+                28,
+                29,
+                39,
+                37,
+                42,
+                33,
+                5,
+                40,
+                2,
+                34,
+                22,
+                36,
+                44
+            ],
+            "scale": 0.33,
+            "selectedLayer": 22,
+            "viewCenter": {
+                "x": 1145.4545454545455,
+                "y": 968.181818181818
+            }
+        },
+        "level1Scene2.tmx": {
+            "expandedGroupLayers": [
+                17,
+                29,
+                23,
+                26,
+                2,
+                21,
+                7
+            ],
+            "expandedObjectLayers": [
+                27,
+                22,
+                14,
+                30,
+                29,
+                26,
+                2,
+                13,
+                21
+            ],
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 319,
+                "y": 143.66666666666663
+            }
+        },
+        "level2.tmx": {
+            "expandedGroupLayers": [
+                3,
+                6,
+                28,
+                9,
+                30
+            ],
+            "expandedObjectLayers": [
+                33,
+                29,
+                30,
+                31
+            ],
+            "scale": 1.5,
+            "selectedLayer": 27,
+            "viewCenter": {
+                "x": 319,
+                "y": 143.66666666666663
+            }
+        },
+        "level2Scene1.tmx": {
+            "expandedGroupLayers": [
+                43,
+                10,
+                38,
+                17,
+                33,
+                26,
+                21,
+                40,
+                7,
+                19,
+                30,
+                34,
+                36,
+                31
+            ],
+            "expandedObjectLayers": [
+                41,
+                29,
+                43,
+                38,
+                37,
+                42,
+                33,
+                45,
+                40,
+                35,
+                30,
+                34,
+                36,
+                44
+            ],
+            "scale": 1,
+            "selectedLayer": 40,
+            "viewCenter": {
+                "x": 266,
+                "y": 82.5
+            }
+        },
+        "level2Scene2.tmx": {
+            "expandedGroupLayers": [
+                29,
+                11,
+                3
+            ],
+            "expandedObjectLayers": [
+                28,
+                29,
+                11,
+                25,
+                24,
+                14,
+                30,
+                13,
+                27,
+                12,
+                31
+            ],
+            "scale": 1.5,
+            "selectedLayer": 26,
+            "viewCenter": {
+                "x": 308,
+                "y": 208.33333333333337
+            }
+        },
+        "level2Scene2.tmx#Dungeon 2": {
+            "scaleInDock": 1
+        },
+        "level2Scene3.tmx": {
+            "expandedGroupLayers": [
+                23,
+                10,
+                21
+            ],
+            "expandedObjectLayers": [
+                23,
+                21,
+                24,
+                22
+            ],
+            "scale": 1.5,
+            "selectedLayer": 21,
+            "viewCenter": {
+                "x": 259.3333333333333,
+                "y": 61.66666666666663
+            }
+        },
+        "level3.tmx": {
+            "expandedGroupLayers": [
+                10,
+                19,
+                4,
+                12,
+                23
+            ],
+            "scale": 1.5,
+            "selectedLayer": 19,
+            "viewCenter": {
+                "x": 355.6666666666667,
+                "y": 114.99999999999997
+            }
+        },
+        "level3Scene1.tmx": {
+            "expandedGroupLayers": [
+                4,
+                19
+            ],
+            "scale": 1,
+            "selectedLayer": 24,
+            "viewCenter": {
+                "x": 319.5,
+                "y": 144.5
+            }
+        },
+        "level3Scene2.tmx": {
+            "expandedGroupLayers": [
+                5,
+                21,
+                2
+            ],
+            "expandedObjectLayers": [
+                21,
+                22
+            ],
+            "scale": 0.33,
+            "selectedLayer": 15,
+            "viewCenter": {
+                "x": 1277.2727272727273,
+                "y": 577.2727272727273
+            }
+        },
+        "levelmapDemo.tmx": {
+            "expandedGroupLayers": [
+                18,
+                22,
+                13,
+                15
+            ],
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 255,
+                "y": 829
+            }
+        },
+        "mapHell1.tmx": {
+            "scale": 0.3123125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1602.5615369221532,
+                "y": 670.8024814888932
+            }
+        },
+        "mapHell1.tmx#Assets": {
+            "scaleInDock": 1
+        },
+        "mapHell1.tmx#Dungeon Tile Set": {
+            "scaleInDock": 1
+        },
+        "mapHell1.tmx#Tilesetv3": {
+            "scaleInDock": 1
+        },
+        "mapHell1.tmx#bw_tiles": {
+            "scaleInDock": 1
+        },
+        "maptest.tmx": {
+            "expandedGroupLayers": [
+                3,
+                12
+            ],
+            "expandedObjectLayers": [
+                14,
+                12
+            ],
+            "scale": 1,
+            "selectedLayer": 9,
+            "viewCenter": {
+                "x": 511.5,
+                "y": 381.5
+            }
+        },
+        "maptest.tmx#background": {
+            "scaleInDock": 1
+        },
+        "swamp.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "D:/tool extract/Game/GuraAdventure/Resources/TileMap",
+    "map.height": 18,
+    "map.lastUsedFormat": "tmx",
+    "map.layerDataFormat": null,
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 40,
+    "openFiles": [
+        "CartoonArt.tsx",
+        "Dungeon 1.tsx",
+        "Dungeon 2.tsx",
+        "level1Scene1.tmx",
+        "level2Scene1.tmx",
+        "level2Scene2.tmx",
+        "level2Scene3.tmx",
+        "level3Scene1.tmx",
+        "Map2Tester.tmx",
+        "level3Scene2.tmx"
+    ],
+    "project": "LevelMap.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "CartoonArt.tsx",
+        "Dungeon 1.tsx",
+        "Dungeon 2.tsx",
+        "level1Scene1.tmx",
+        "level2Scene1.tmx",
+        "level3Scene2.tmx",
+        "Map2Tester.tmx",
+        "level3Scene1.tmx",
+        "level2Scene3.tmx",
+        "level2Scene2.tmx",
+        "level3.tmx",
+        "Map3Tester.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

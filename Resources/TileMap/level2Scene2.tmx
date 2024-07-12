@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="32" nextobjectid="38">
+ <tileset firstgid="1" source="Dungeon 1.tsx"/>
+ <tileset firstgid="271" source="Dungeon 2.tsx"/>
+ <group id="2" name="tile" locked="1">
+  <group id="3" name="backGround" locked="1">
+   <layer id="1" name="background1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxTZGBgUBzEuICBukBx1LxR80bNGzVvCJk32DG1/Ttq3qh5o+aNmgczbzBjAE6hE6Y=
+  </data>
+   </layer>
+   <layer id="4" name="room 1-1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJztktEJwDAIRB0jmSCZIJ0g2X+k5kPhKoZ+FKEf90COKOIpESFfKTvqQctLHTWLtqOrnmb3IId9PdEf3sjPNL2CnN8jixbMHurJdMnzhtEeWQznB/9eVW9WR/9Wt74spsT3QC/T+cSepW9CCCHkL9wulxAR
+  </data>
+   </layer>
+   <layer id="21" name="room 1-2" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFgxEIMTMwCAPxIybcbDFm/OpoCT4zEcbqzPjlaQlYgHYzEcCsBORpCUQJxC22+EVW94jG4SeK5A5kO5GxGDOmPLI6WgI1oD0qBLA6AflRMApGwSgYBaOAXAAANkAqIw==
+  </data>
+   </layer>
+   <layer id="22" name="room 2-1" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAqGJ1BhYmBQpRCrMdHOfUxAs5kpxCw0dJ8w0GwRCrHoCHbfYE9/o4B8AADf2wjv
+  </data>
+   </layer>
+   <layer id="23" name="room 2-2" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGAbHgExMDw2cK8Bcm2rrvAtD8ixTgSzR230Og+Y+IxELMCFqYGUI/HmD3IbsJ3W0gPq3dN9jT30gBACceRZE=
+  </data>
+   </layer>
+  </group>
+  <group id="6" name="ground" locked="1">
+   <layer id="8" name="wall" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U1/hAFUBAACvAQtAAAE=
+  </data>
+   </layer>
+   <layer id="7" name="ground1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJzt1LEJwEAMQ1HNkAlESPpAsv9suYPTBP7FFRYIdw+7sbR3vtEH6gub0zvBW70mZRq04gk0DVrxBJoGrXgCTYNWPIGmQSueQHN69+gB9VouZcbbOf2fa17vV/N6v5rX/6+WHwg8Gnk=
+  </data>
+   </layer>
+  </group>
+  <group id="9" name="gate" locked="1">
+   <layer id="10" name="gate1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJztlLkNwDAMAwVojzwT5Jkgz/47RZ0BF6QspORVhg6kO5oJIRCTm81e90u41fkt29m7Ld476GL+CHc6v2U7e3fF+wZdzD/hXue3bCf7TwjRqOwby7MM8qP7V9kylkF+dP8qW8YyyGv//uMDp+8OcQ==
+  </data>
+   </layer>
+   <layer id="15" name="gate2" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDGWQwczAkMk80K7ADSqBbqsaxO4bBaNgFAxd4AYsW9wpKF+w6fcA8j3xmJkFlMvGIY9uXjiQHUGB+7DpjwTyo/CYWQ2Uq8EhT6l7RgECAACgFwjR
+  </data>
+   </layer>
+  </group>
+  <group id="16" name="accessory" locked="1">
+   <layer id="17" name="room 1-1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJztzt0JACAIhVFx/8X6maCyWbpvggNkwT3wPYhCiVA2Qzv7E/S9oiIVNdTV57iPd7cMvDXRQqY+x328IyIies0BAGcVrA==
+  </data>
+   </layer>
+   <layer id="18" name="room 1-2" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFgxGkMFMmfpe6zhkFowAnSAKmvWQc6ZLWIBRobxgzJhsZFAPFSoA4DYjTB8ido2AUjIJRMAqGFwAASGAGAA==
+  </data>
+   </layer>
+   <layer id="19" name="room 2-1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAqGJ7gPxA+wiG+H0jvQxHcC8S4g3o0kdpf6ziIIjg2AnaOAduAEEJ8E4lNUUjcKBh4AAFKbC7Y=
+  </data>
+   </layer>
+   <layer id="20" name="room 2-2" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGAbHgAZROYcYuT6r4KBicIAkYX8lA3AHEncwIPgz0ANm9SPwQOsdvMdC+EiCeCcSzgDgQiIOQ3DAXyJ4HxHuBeB8Qp46mP6oCACHWDDI=
+  </data>
+   </layer>
+  </group>
+ </group>
+ <group id="24" name="ground" locked="1">
+  <objectgroup id="25" name="ground">
+   <object id="29" name="ground" x="0" y="256" width="640" height="32"/>
+   <object id="30" name="ground" x="0" y="128" width="640" height="48"/>
+   <object id="31" name="ground" x="0" y="0" width="640" height="32"/>
+  </objectgroup>
+ </group>
+ <group id="27" name="barrier" locked="1">
+  <objectgroup id="28" name="barrier">
+   <object id="33" name="barrier" x="304" y="0" width="48" height="288"/>
+   <object id="34" name="barrier" x="624" y="0" width="16" height="288"/>
+   <object id="35" name="barrier" x="0" y="0" width="16" height="288"/>
+  </objectgroup>
+ </group>
+ <group id="11" name="gate">
+  <objectgroup id="12" name="gate">
+   <object id="3" name="1" x="480" y="80" width="32" height="48">
+    <properties>
+     <property name="gate" value="b"/>
+    </properties>
+   </object>
+   <object id="6" name="2" x="352" y="80" width="32" height="48">
+    <properties>
+     <property name="gate" value="a"/>
+    </properties>
+   </object>
+   <object id="7" name="3" x="352" y="208" width="32" height="48">
+    <properties>
+     <property name="gate" value="a"/>
+    </properties>
+   </object>
+   <object id="8" name="2" x="480" y="208" width="32" height="48">
+    <properties>
+     <property name="gate" value="b"/>
+    </properties>
+   </object>
+   <object id="9" name="3" x="272" y="80" width="32" height="48">
+    <properties>
+     <property name="gate" value="b"/>
+    </properties>
+   </object>
+   <object id="21" name="5" x="592" y="208" width="32" height="48">
+    <properties>
+     <property name="gate" value="a"/>
+    </properties>
+   </object>
+   <object id="22" name="4" x="592" y="80" width="32" height="48">
+    <properties>
+     <property name="gate" value="b"/>
+    </properties>
+   </object>
+   <object id="23" name="1" x="272" y="208" width="32" height="48">
+    <properties>
+     <property name="gate" value="a"/>
+    </properties>
+   </object>
+   <object id="24" name="4" x="16" y="208" width="32" height="48">
+    <properties>
+     <property name="gate" value="b"/>
+    </properties>
+   </object>
+   <object id="27" name="5" x="144" y="80" width="32" height="48">
+    <properties>
+     <property name="gate" value="b"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="13" name="spawn point">
+  <objectgroup id="14" name="spawn point">
+   <object id="26" name="spawn point" x="160" y="224" width="16" height="16"/>
+  </objectgroup>
+ </group>
+ <group id="29" name="chang scene">
+  <objectgroup id="30" name="next scene">
+   <object id="36" name="next scene" x="16" y="80" width="32" height="48"/>
+  </objectgroup>
+  <objectgroup id="31" name="return scene">
+   <object id="37" name="return" x="144" y="208" width="32" height="48"/>
+  </objectgroup>
+ </group>
+</map>

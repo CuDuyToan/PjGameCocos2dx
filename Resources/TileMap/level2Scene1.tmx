@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="46" nextobjectid="30">
+ <tileset firstgid="1" source="Dungeon 2.tsx"/>
+ <tileset firstgid="885" source="Dungeon 1.tsx"/>
+ <group id="2" name="tile" locked="1">
+  <group id="6" name="background" locked="1">
+   <layer id="1" name="background1" width="40" height="18" locked="1">
+    <data encoding="base64" compression="zlib">
+   eJztVjESgDAIU0///7k+yHNwkGshIbA5MFgNIdCmjn3bxh+fOI8c7kriKmqLuBHcLAe6pvQNzW/XI77Ze3ZGVZqU3FHNjCaUk9HN9rRq/9g8z7N6BqMaus+45Vc1KXsjw8vM0Pu2Y5bIbD3vUbwDxVs/9jCenpX3de5f1luYeiq8PIuZ4bPcCl6NTk5U2ztH9V5d/Zco/c3UdgMc5xeB
+  </data>
+   </layer>
+   <layer id="5" name="background2" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJybw4AJVgPx2kGC54y6j+ruYxgE7hp136j7BgMequ4bLGDUfZSBUfdRBkbdRxmYM4opwgAkWwtb
+  </data>
+   </layer>
+  </group>
+  <group id="9" name="brick" locked="1">
+   <layer id="7" name="brick1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAoGL7BkZGCwZSIODwTQYcKPXzAi8EAADQLhx8OIwAMBQPHrx4QbD7T7vID2xjPhxgPtvlEwMAAAD34Ojw==
+  </data>
+   </layer>
+   <layer id="26" name="gate1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGAa2AHhMDgz7TQLsCN7AHus1hELsvAOi2wEHsvkSg25IGsftGAW0AAFUiAlE=
+  </data>
+   </layer>
+   <layer id="8" name="brick2" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAqGB7BlguDBCnSYIHiwgsEefn5MEDxYQTwTBI+C4Q8ALKgCuw==
+  </data>
+   </layer>
+   <layer id="27" name="gate2" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGAa2BAdNAuwA/cBzk7gsa5O5LHuTuGwXUBQA6hQEv
+  </data>
+   </layer>
+  </group>
+  <group id="10" name="accessory" locked="1">
+   <group id="21" name="woodbox" locked="1">
+    <layer id="22" name="woodbox1" width="40" height="18">
+     <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAqGLxBlQcWDDQw19w02N2Jz32Bz4ygYfgAAGCIB3A==
+  </data>
+    </layer>
+   </group>
+   <group id="19" name="ladder" locked="1">
+    <layer id="18" name="ladder1" width="40" height="18">
+     <data encoding="base64" compression="zlib">
+   eJxjYIAARhaGQQ1G3UcZGOzuExjk7hvsYDR+KQOj7qMMDPb0N+o+ysBgd5/8IHffKBieAADItQCh
+  </data>
+    </layer>
+    <layer id="20" name="stick1" width="40" height="18" locked="1">
+     <data encoding="base64" compression="zlib">
+   eJxjYBgagIeFgUGaZaBdMQpGweAEo/ljFAwkGE1/o2AUjIKRBgBEaACO
+  </data>
+    </layer>
+   </group>
+   <group id="23" name="furniture" locked="1">
+    <layer id="24" name="table" width="40" height="18">
+     <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U1/hAFUBAACvAQtAAAE=
+  </data>
+    </layer>
+    <layer id="25" name="chair" width="40" height="18">
+     <data encoding="base64" compression="zlib">
+   eJztzsENABAUBNHNb46SKIEiaNUW4OCGZF4y95EAAADOlJBq3L7YG/5qrrvpksuPvuJvC+knA+E=
+  </data>
+    </layer>
+   </group>
+   <group id="16" name="relics" locked="1">
+    <layer id="15" name="relic1" width="40" height="18">
+     <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSigLtgOxDvwyO8E4l1AvJs+zsEAJ4D4JJQNcyuym04B8WkgPjMgrhsFgx0AAH9KCy0=
+  </data>
+    </layer>
+    <layer id="17" name="relic2" width="40" height="18">
+     <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwVAB/EAsgIU9WIACECtiYZMKdjMyMOxhRBXbC+TvY8SunlhgCMRGWNggcAKITxJpzhmgO86iueUckH+eQveNgqEBAGuXCUg=
+  </data>
+    </layer>
+   </group>
+   <group id="12" name="dirt" locked="1">
+    <layer id="11" name="dirt1" width="40" height="18">
+     <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYWaAGSt8D4vtobJBcBRBXQsVJZY+C4Q8ATd0JKA==
+  </data>
+    </layer>
+    <layer id="13" name="dirt2" width="40" height="18">
+     <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYeeAeEN8nwMalB5safPpGwfACALkHCm8=
+  </data>
+    </layer>
+    <layer id="14" name="dirt3" width="40" height="18">
+     <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYeaAGiCuAuBLKvgfE96FsXHIMeMRr6OXwUTDgAADZBQtv
+  </data>
+    </layer>
+   </group>
+  </group>
+  <group id="3" name="ground &amp; wall" locked="1">
+   <layer id="4" name="ground1" width="40" height="18">
+    <data encoding="base64" compression="zlib">
+   eJxjYGBgmMeAClYzDC4w6j7KwKj7KAOj7qMMjLqPMoDuvj1AvHcQ4H043DdYACweR91HHhh1H2UA5r4eIO4ahLibRv4eSQAAkc1BfQ==
+  </data>
+   </layer>
+  </group>
+ </group>
+ <group id="30" name="ground" locked="1">
+  <objectgroup id="29" name="ground">
+   <object id="2" name="ground" x="0" y="240" width="640" height="48"/>
+   <object id="4" name="ground" x="80" y="0" width="560" height="160"/>
+  </objectgroup>
+ </group>
+ <group id="31" name="spawn point" locked="1">
+  <objectgroup id="33" name="spawn point">
+   <object id="5" name="spawn point" x="56" y="0" width="16" height="16"/>
+  </objectgroup>
+ </group>
+ <group id="34" name="notification" locked="1">
+  <objectgroup id="35" name="notification">
+   <object id="12" name="note1" x="32" y="224" width="16" height="16">
+    <properties>
+     <property name="msg" value="it cannot be used anymore"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="36" name="suggest" locked="1">
+  <objectgroup id="37" name="suggest">
+   <object id="13" name="suggest1" x="144" y="224" width="32" height="16"/>
+  </objectgroup>
+ </group>
+ <group id="38" name="gate">
+  <objectgroup id="42" name="next scene">
+   <object id="28" name="next scene" x="560" y="256" width="16" height="32">
+    <properties>
+     <property name="operation method" value="button"/>
+    </properties>
+   </object>
+  </objectgroup>
+  <objectgroup id="45" name="gate barrier">
+   <object id="29" name="gate barrier" x="544" y="176" width="48" height="64"/>
+  </objectgroup>
+ </group>
+ <group id="40" name="barrier" locked="1">
+  <objectgroup id="41" name="barrier" visible="0">
+   <object id="18" name="barrier" x="624" y="160" width="16" height="80"/>
+   <object id="19" name="barrier" x="16" y="0" width="16" height="240"/>
+  </objectgroup>
+ </group>
+ <group id="43" name="puzzle" locked="1">
+  <objectgroup id="44" name="puzzle">
+   <object id="20" name="puzzle" x="432" y="208" width="16" height="16">
+    <properties>
+     <property name="password" value="1234"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+</map>

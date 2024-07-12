@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="41" nextobjectid="73">
+ <tileset firstgid="1" source="Dungeon 2.tsx"/>
+ <group id="24" name="quest">
+  <objectgroup id="32" name="questList">
+   <properties>
+    <property name="switch" value=""/>
+   </properties>
+   <object id="68" name="quest1" x="528" y="208" width="32" height="32">
+    <properties>
+     <property name="finish sound" value=""/>
+     <property name="needSprite" value="soldier"/>
+     <property name="request" value="water"/>
+     <property name="reward" value="next level"/>
+     <property name="unfinish sound" value=""/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="6" name="accessory">
+  <layer id="1" name="brick" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJzt0M0JgDAMQOEOZcEFhLqAf9PoHk6hq+gIOoR68B16kNJ7Y0ngI5DTI84YMwvmIlI3/amvRYcNO3p/k+JBiQMnCly4hZhQY8GKCqO/S9g20meFGT59jYCeUPjX1D1KqTzo5D0vV4PbuQ==
+  </data>
+  </layer>
+ </group>
+ <group id="36" name="barrier">
+  <objectgroup id="37" name="barrier">
+   <object id="30" name="barrier" x="280" y="192" width="32" height="96"/>
+   <object id="69" name="barrier" x="80" y="80" width="32" height="96"/>
+   <object id="70" name="barrier" x="352" y="80" width="32" height="96"/>
+   <object id="71" x="152" y="192" width="16" height="96"/>
+  </objectgroup>
+ </group>
+ <group id="29" name="trap">
+  <layer id="30" name="trap" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztzgEJAAAMA6CVev9qjzEYmsAEAGDbtQNMeYXQADY=
+  </data>
+  </layer>
+  <objectgroup id="38" name="trap">
+   <object id="45" name="trap1" x="208" y="224" width="16" height="16">
+    <properties>
+     <property name="sprite" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object id="47" name="trap1" x="224" y="224" width="16" height="16">
+    <properties>
+     <property name="sprite" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object id="48" name="trap1" x="240" y="224" width="16" height="16">
+    <properties>
+     <property name="sprite" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object id="61" name="trap1" x="208" y="208" width="48" height="32">
+    <properties>
+     <property name="sprite" type="bool" value="false"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="5" name="ground">
+  <layer id="3" name="ground" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGFlAGYhUysPpAOHYUDElATFoyhWJs6RFZHpcaSrApAWyBxDYhII9LDSXYnQD2RFLrSkAelxpKMACD5xsi
+  </data>
+  </layer>
+  <objectgroup id="4" name="ground">
+   <object id="1" name="ground" x="0" y="240" width="144" height="48"/>
+   <object id="8" name="ground" x="176" y="240" width="96" height="48"/>
+   <object id="9" name="ground" x="320" y="240" width="320" height="48"/>
+   <object id="14" name="ground" x="112" y="176" width="240" height="4"/>
+  </objectgroup>
+ </group>
+ <group id="23" name="ladder">
+  <layer id="22" name="ladder" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGHrjLhJ1NjHp6gHdM2NnEqKcHGOzu+8+EnU2M+lEwCggBABCkC0E=
+  </data>
+  </layer>
+  <objectgroup id="35" name="ladder">
+   <object id="35" name="ladder2" x="176" y="224" width="16" height="16">
+    <properties>
+     <property name="location" value="bottom"/>
+    </properties>
+   </object>
+   <object id="36" name="ladder2" x="176" y="208" width="16" height="16">
+    <properties>
+     <property name="location" value="middle"/>
+    </properties>
+   </object>
+   <object id="37" name="ladder2" x="176" y="192" width="16" height="16">
+    <properties>
+     <property name="location" value="middle"/>
+    </properties>
+   </object>
+   <object id="38" name="ladder2" x="176" y="176" width="16" height="16">
+    <properties>
+     <property name="location" value="top"/>
+    </properties>
+   </object>
+   <object id="39" name="ladder3" x="320" y="224" width="16" height="16">
+    <properties>
+     <property name="location" value="bottom"/>
+    </properties>
+   </object>
+   <object id="40" name="ladder3" x="320" y="208" width="16" height="16">
+    <properties>
+     <property name="location" value="middle"/>
+    </properties>
+   </object>
+   <object id="41" name="ladder3" x="320" y="192" width="16" height="16">
+    <properties>
+     <property name="location" value="middle"/>
+    </properties>
+   </object>
+   <object id="42" name="ladder3" x="320" y="176" width="16" height="16">
+    <properties>
+     <property name="location" value="top"/>
+    </properties>
+   </object>
+   <object id="50" name="ladder1" x="128" y="224" width="16" height="16">
+    <properties>
+     <property name="location" value="bottom"/>
+    </properties>
+   </object>
+   <object id="51" name="ladder1" x="128" y="208" width="16" height="16">
+    <properties>
+     <property name="location" value="middle"/>
+    </properties>
+   </object>
+   <object id="52" name="ladder1" x="128" y="192" width="16" height="16">
+    <properties>
+     <property name="location" value="middle"/>
+    </properties>
+   </object>
+   <object id="53" name="ladder1" x="128" y="176" width="16" height="16">
+    <properties>
+     <property name="location" value="top"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="12" name="door">
+  <layer id="14" name="wall" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKhDZqZGBhayMD0AlOAdk0lA4+6b/C7j9y0R6/0R27Y0Sv8Rt03CoYqAAB/s0J4
+  </data>
+  </layer>
+  <layer id="17" name="brick" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKhDaaQiUfBKKAUkJv2RtPfKBgFQxsAADOLEMU=
+  </data>
+  </layer>
+  <layer id="11" name="door" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwUgEAkwMDIJMA+0K3EAR6DalQew+I6DbjAex+0YB7QAACu4A1g==
+  </data>
+  </layer>
+  <layer id="19" name="window2" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQG8gxMTAIMyEyR4sQBnoHhUmTPYoGJqAmPSGroaegJj0hq5mFIyCgQQAXSMCfg==
+  </data>
+  </layer>
+  <layer id="18" name="window1" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQA8gwMTAIMgEYTsAsSMDJhtZDb2BItBeJajdgUAcxIDJRlZDb2AEtNcYancSECczYLKR1YwCBHBgwJ7e8KmhJ8CV3vCpoSfAld7wqRkFwxsAAE4EDCs=
+  </data>
+  </layer>
+  <layer id="13" name="step" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAoYGCyYGBgsmfCriQLKRxNQQyvgCbTXi4Dd2UD5nAFy3yigPiAmTQ4kICZNjoLhCQDfdgOt
+  </data>
+  </layer>
+  <layer id="16" name="fence" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDDTwAWJfMmh6gVggjiODHgWDH5Cb9nzo5D5y014sndw3CkbBKBiZAABMCRNC
+  </data>
+  </layer>
+  <objectgroup id="40" name="door">
+   <object id="67" name="door" x="528" y="192" width="32" height="48"/>
+  </objectgroup>
+ </group>
+ <group id="39" name="switch">
+  <objectgroup id="34" name="switch">
+   <properties>
+    <property name="status" value="true"/>
+   </properties>
+   <object id="21" name="switch1" x="384" y="224" width="16" height="16">
+    <properties>
+     <property name="control objects" value="trap1"/>
+     <property name="turn on" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+ <group id="26" name="hideItem">
+  <objectgroup id="27" name="hideItem">
+   <object id="17" name="water" x="256" y="224" width="16" height="16">
+    <properties>
+     <property name="layer" value="2"/>
+    </properties>
+   </object>
+  </objectgroup>
+  <layer id="28" name="water" width="40" height="18">
+   <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U1/hAFUBAACvAQtAAAE=
+  </data>
+  </layer>
+ </group>
+ <group id="8" name="spawnPoint">
+  <objectgroup id="7" name="spawnPoint">
+   <object id="3" name="spawnPoint" x="48" y="80" width="15" height="16"/>
+  </objectgroup>
+ </group>
+ <group id="10" name="scale">
+  <objectgroup id="9" name="scale">
+   <object id="4" name="2" x="23" y="6.5" width="15" height="11">
+    <properties>
+     <property name="kich thuoc tile" value="16:16"/>
+     <property name="scaleSize" value="2"/>
+     <property name="ti le" value="40:18"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </group>
+</map>
